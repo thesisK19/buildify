@@ -3,9 +3,10 @@ import { KEY_CHILDREN } from "../config/constant";
 import BaseService from "./BaseService";
 import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
+import { all } from "bluebird";
 export default class GenCodeService extends BaseService {
   // TODO: Classify according to page
-  getAllElement(input: object): Map<string, Element> {
+  getAllElement(input: object): { components: Set<string>; map: Map<string, Element> } {
     let nodes: Array<Node> = [];
     Object.entries(input).forEach(([key, value]) => {
       nodes.push({
@@ -19,11 +20,16 @@ export default class GenCodeService extends BaseService {
     // console.log(nodes);
 
     let elements = new Map<string, Element>();
+    let components = new Set<string>();
     for (let node of nodes) {
       let element = this.getElement(node);
       elements.set(node.id, element);
+      components.add(element.component);
     }
-    return elements;
+    return {
+      components,
+      map: elements,
+    };
   }
   getElement(node: Node): Element {
     // TODO: page
@@ -31,10 +37,9 @@ export default class GenCodeService extends BaseService {
     let props = JSON.stringify(node.props);
     let element = `<${component} {...${props}}>${KEY_CHILDREN}</${component}>`;
 
-    return { components: [component], elementString: element, children: node.children };
+    return { component: component, elementString: element, children: node.children };
   }
   mergeElement(id: string, map: Map<string, Element>): string {
-    // TODO: Component
     let element = map.get(id);
     if (element == undefined) return "";
     if (element.children.length == 0) {
@@ -49,10 +54,10 @@ export default class GenCodeService extends BaseService {
     return element.elementString;
   }
   getPage(input: object) {
-    let map = this.getAllElement(input);
-    let code = this.mergeElement("ROOT", map);
+    let allElement = this.getAllElement(input);
+    let code = this.mergeElement("ROOT", allElement.map);
     // console.log(code)
-    writeFileSync(join(__dirname, "export-test.txt"), code, {
+    writeFileSync(join(__dirname, "export-test.txt"), JSON.stringify([...allElement.components]) + "\n\n" + code, {
       flag: "w",
     });
   }

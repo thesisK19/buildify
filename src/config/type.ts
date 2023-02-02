@@ -15,7 +15,7 @@ export type Node = {
 };
 
 export type Element = {
-  components: Array<string>;
+  component: string;
   elementString: string;
   children: Array<string>;
 };

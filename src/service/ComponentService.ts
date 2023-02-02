@@ -52,12 +52,12 @@ export default class ComponentService extends BaseService{
         try {
             var rootDir = `${EXPORT_DIR}/${rootName}`;
             var routerDir = `${rootDir}/${ROUTE_DIR}`
-            var componentDir = `${rootDir}/${COMPONENT_DIR}`
+            // var componentDir = `${rootDir}/${COMPONENT_DIR}`
             var zipExportDir = `${rootDir}_export`
 
             await UtilsService.copyFolder(REACT_JS_BASE_DIR, rootDir)
             UtilsService.createFolder(routerDir)
-            UtilsService.createFolder(componentDir)
+            // UtilsService.createFolder(componentDir)
             UtilsService.createFolder(zipExportDir)
         } catch (e) {
             console.log(e);
