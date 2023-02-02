@@ -6,15 +6,17 @@ export type RGBA = {
 };
 export type Node = {
   id: string;
-  hidden: boolean,
-  linkedNodes: Array<string>, //?
-  name: string, // ??
-  nodes: Array<string>,
-  parent: null | string,
-  props: object,
-  events: any,
+  type: string;
+  props: object;
+  children: Array<string>;
+  page: string;
+  // parent: null | string,
+  // events: any,
 };
 
-export type Component = {
-  name: string;
+export type Element = {
+  components: Array<string>;
+  elementString: string;
+  children: Array<string>;
 };
+

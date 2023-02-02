@@ -19,3 +19,4 @@ export const COMPONENT_DIR = `src/Components`;
 export const OVERDUE_TIME = 600000 // 10 Minutes
 export const WIDTH_STANDARD = 1440
 // export enum SPECIAL_COMPONENT {_Button = "_Button", _Input = "_Input", _Password = "_Password",
+export const KEY_CHILDREN = "*"
