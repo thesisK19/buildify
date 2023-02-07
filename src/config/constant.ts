@@ -13,9 +13,11 @@ export const REACT_JS_BASE_DIR = 'src/base/reactJS'
 export const EXPORT_DIR = `export`
 export const SVG_DIR = `src/SVG`
 export const IMAGE_DIR = `src/public`
-export const ROUTE_DIR = `src/Router`
-export const SERVICES_DIR = `src/Services`
-export const COMPONENT_DIR = `src/Components`;
+export const ROUTES_DIR = `src/eoutes`
+export const PAGES_DIR = `src/pages`
+export const SERVICES_DIR = `src/services`
+export const INDEX = `index`
+export const COMPONENT_DIR = `src/components`;
 export const OVERDUE_TIME = 600000 // 10 Minutes
 export const WIDTH_STANDARD = 1440
 // export enum SPECIAL_COMPONENT {_Button = "_Button", _Input = "_Input", _Password = "_Password",

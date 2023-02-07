@@ -11,11 +11,12 @@ class GenCodeController {
 
   async getReactSourceCode(req: Request, res: Response) {
     try {
-      // const rootFolderName = new Date().getTime().toString()
+      const rootFolderName = new Date().getTime().toString()
 
       const input = readFileSync(join(__dirname, "example.json"), "utf-8");
       let service = new GenCodeService();
-      service.getPage(JSON.parse(input));
+      await service.getPage(rootFolderName,JSON.parse(input));
+
     } catch (e: any) {
       console.log(e);
       res.status(HttpStatusCode.OK).json({
