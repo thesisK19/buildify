@@ -2,6 +2,8 @@ import React from "react";
 
 import {Button} from "../Button";
 import {Container} from "../Container";
+import { Custom1 } from "../Custom1";
+import {Text} from "../Text";
 
 export const Custom3BtnDrop = ({ children }) => {
   return <div className="w-full h-full">{children}</div>;
@@ -92,8 +94,8 @@ export const Custom3 = (props) => {
                 fontSize: "14",
                 textAlign: "left",
                 fontWeight: "400",
-                color: { r: 92, g: 90, b: 90, a: 1 },
-                margin: [0, 0, 0, 0],
+                color: { r: "92", g: "90", b: "90", a: "1" },
+                margin: ["0", "0", "0", "0"],
                 shadow: 0,
                 text: "Govern what goes in and out of your components",
                 styledClassNames: {},

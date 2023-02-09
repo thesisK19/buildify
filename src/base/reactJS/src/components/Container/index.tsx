@@ -1,23 +1,11 @@
 import React from "react";
-
 import cx from "classnames";
 
-const defaultProps = {
-  flexDirection: "column",
-  alignItems: "flex-start",
-  justifyContent: "flex-start",
-  fillSpace: "no",
-  padding: ["0", "0", "0", "0"],
-  margin: ["0", "0", "0", "0"],
-  background: { r: 255, g: 255, b: 255, a: 1 },
-  color: { r: 0, g: 0, b: 0, a: 1 },
-  shadow: 0,
-  radius: 0,
-  width: "100%",
-  height: "auto",
-};
+import { ContainerProps } from "./props";
+import { defaultProps } from "./props";
 
-export const Container = (props) => {
+
+export const Container = (props: Partial<ContainerProps>) => {
   props = {
     ...defaultProps,
     ...props,
@@ -35,16 +23,22 @@ export const Container = (props) => {
     radius,
     children,
     styledClassNames,
+    width,
+    height,
+    className,
   } = props;
-  // const styledClassNamesValues = (
-  //   Object.values(styledClassNames)
-  // ).flat();
+  const styledClassNamesValues = (
+    Object.values(styledClassNames) as string[]
+  ).flat();
   return (
     <div
-      // className={cx(styledClassNamesValues)}
+      className={cx([className, "flex container", styledClassNamesValues])}
       style={{
         justifyContent,
+        // @ts-ignore
         flexDirection,
+        width,
+        height,
         alignItems,
         background: `rgba(${Object.values(background)})`,
         color: `rgba(${Object.values(color)})`,
@@ -62,3 +56,5 @@ export const Container = (props) => {
     </div>
   );
 };
+
+Container.defaultProps = defaultProps;

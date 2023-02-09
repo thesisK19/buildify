@@ -1,9 +1,11 @@
-import React from "react";
 import cx from "classnames";
-import {Text} from "../Text";
-import {StyledButton} from "./styled";
+import React from "react";
+import { Text } from "../Text";
+import { ButtonProps, defaultProps } from "./props";
 
-export const Button = (props) => {
+import { StyledButton } from "./styled";
+
+export const Button = React.forwardRef((props: ButtonProps, ref: any) => {
   const {
     text,
     textComponent,
@@ -12,20 +14,22 @@ export const Button = (props) => {
     fontSize,
     fontWeight,
     textAlign,
+    className,
     ...otherProps
   } = props;
-
-  // const styledClassNamesValues = (
-  //   Object.values(styledClassNames)
-  // ).flat();
+  const styledClassNamesValues = (
+    Object.values(styledClassNames) as string[]
+  ).flat();
   return (
     <StyledButton
+      ref={ref}
       className={cx([
-        "rounded w-full px-4 py-2 mt-4",
+        className,
+        "button rounded w-full px-4 py-2 mt-4",
         {
           "shadow-lg": props.buttonStyle === "full",
         },
-        // styledClassNamesValues,
+        styledClassNamesValues,
       ])}
       {...otherProps}
     >
@@ -39,5 +43,6 @@ export const Button = (props) => {
       />
     </StyledButton>
   );
-};
+});
 
+Button.defaultProps = defaultProps;
