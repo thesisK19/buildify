@@ -14,4 +14,9 @@ export const ROUTES: Route[] = [
         path: "/",
         Page: HomePage,
     },
+    {
+        exact: true,
+        path: "/about",
+        Page: AboutPage,
+    },
 ]

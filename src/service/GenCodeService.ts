@@ -7,38 +7,43 @@ import { all } from "bluebird";
 import { KEY_CHILDREN, PAGES_DIR, EXPORT_DIR, REACT_JS_BASE_DIR, ROUTES_DIR, INDEX } from "../config/constant";
 export default class GenCodeService extends BaseService {
   // TODO: Classify according to page
-  getAllElement(input: object): { components: Set<string>; map: Map<string, Element> } {
+  getAllElement(input: object): { components: Array<string>; map: Map<string, Element>; propsByIds: Array<string> } {
     let nodes: Array<Node> = [];
     Object.entries(input).forEach(([key, value]) => {
       nodes.push({
-        id: key,
-        type: value?.type?.resolvedName,
+        id: key.replace("Craft", ""),
+        type: value?.type?.resolvedName.replace("Craft", ""),
         props: value?.props,
         children: value?.nodes,
         page: value?.page,
+        pageName: "Home",
       });
     });
     // console.log(nodes);
 
     let elements = new Map<string, Element>();
     let components = new Set<string>();
+    let propsByIds = new Array<string>();
     for (let node of nodes) {
       let element = this.getElement(node);
       elements.set(node.id, element);
       components.add(element.component);
+      propsByIds.push(`"${element.id}": ${element.props}`);
     }
     return {
-      components,
+      components: Array.from(components),
       map: elements,
+      propsByIds,
     };
   }
   getElement(node: Node): Element {
     // TODO: page
     let component = node.type;
+    let id = node.id;
     let props = JSON.stringify(node.props);
-    let element = `<${component} {...${props}}>${KEY_CHILDREN}</${component}>`;
+    let element = `<${component} {...PROPS_BY_ID["${id}"]}>${KEY_CHILDREN}</${component}>`;
 
-    return { component: component, elementString: element, children: node.children };
+    return { id, props, component: component, elementString: element, children: node.children };
   }
   mergeElement(id: string, map: Map<string, Element>): string {
     let element = map.get(id);
@@ -54,30 +59,43 @@ export default class GenCodeService extends BaseService {
     element.elementString = element.elementString.replace(KEY_CHILDREN, children);
     return element.elementString;
   }
+
+  // index
   async getPage(rootName: string, input: object) {
-    let { components, map } = this.getAllElement(input);
+    let { components, map, propsByIds } = this.getAllElement(input);
     let code = this.mergeElement("ROOT", map);
 
-    var rootDir = `${EXPORT_DIR}/${rootName}`;
     await this.setUpDirectory(rootName);
 
-    let importReactText = `import React from 'react'`;
-    let importComponentsText = Array<string>();
+    // create folder
+    // create props
+    console.log("ddddddddddddd");
+    let propsText = `export const PROPS_BY_ID = {${propsByIds.join(",")}}`;
+    console.log(propsText);
+    UtilsService.createAndWriteFile(
+      UtilsService.getFileName(`${rootName}/${PAGES_DIR}/home/props`, "tsx"),
+      propsText,
+      (err: any) => {
+        if (err) throw err;
+        console.log("File index js is created successfully.");
+      }
+    );
 
-    for (let component of components) {
-      importComponentsText.push(`import ${component} from '../components/${component}'`);
-    }
+    // create page
+    let importReactText = `import React, { FC, ReactElement } from "react"`;
+    let importComponentsText = `import { ${components.join(",")} } from "src/components";`;
+    let importPropsById = `import { PROPS_BY_ID } from "./props";`;
+    let exportDefaultPageText = `export default HomePage;`;
 
-    let content = `export default function HomePage () {
-                  return (
+    let content = `const HomePage: FC = (): ReactElement => (
                     ${code}
-                  )}`;
+                  )`;
 
-    let text = `${importReactText}\n${importComponentsText.join("\n")}\n\n${content}`;
-    console.log(text)
+    let text = `${importReactText}\n${importComponentsText}\n${importPropsById}\n\n${content}\n\n${exportDefaultPageText}`;
+    console.log(text);
 
     UtilsService.createAndWriteFile(
-      UtilsService.getFileName(`${rootDir}/${PAGES_DIR}/${INDEX}`, "js"),
+      UtilsService.getFileName(`${rootName}/${PAGES_DIR}/home/${INDEX}`, "tsx"),
       text,
       (err: any) => {
         if (err) throw err;
@@ -88,16 +106,10 @@ export default class GenCodeService extends BaseService {
   setUpDirectory = async (rootName: string) => {
     try {
       var rootDir = `${EXPORT_DIR}/${rootName}`;
-      // var routerDir = `${rootDir}/${ROUTE_DIR}`;
-      // var pagesDir = `${rootDir}/${PAGES_DIR}`;
-      // var componentDir = `${rootDir}/${COMPONENT_DIR}`
-      var zipExportDir = `${rootDir}_export`;
-      
+      // var zipExportDir = `${rootDir}_export`;
       await UtilsService.copyFolder(REACT_JS_BASE_DIR, rootDir);
+      // TODO: create all page folder
 
-      // UtilsService.createFolder(routerDir);
-      // UtilsService.createFolder(pagesDir);
-      // UtilsService.createFolder(componentDir)
       // UtilsService.createFolder(zipExportDir);
     } catch (e) {
       console.log(e);

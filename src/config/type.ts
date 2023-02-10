@@ -10,13 +10,15 @@ export type Node = {
   props: object;
   children: Array<string>;
   page: string;
+  pageName: string;
   // parent: null | string,
   // events: any,
 };
 
 export type Element = {
+  id: string;
+  props: string;
   component: string;
   elementString: string;
   children: Array<string>;
 };
-
