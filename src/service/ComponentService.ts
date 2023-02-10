@@ -1,10 +1,10 @@
 import {Promise as BPromise} from "bluebird";
 import {
     COMPONENT_DIR,
-    CONCURRENCY_PAYLOAD,
+    PAGES_DIR,
     EXPORT_DIR,
     REACT_JS_BASE_DIR,
-    ROUTE_DIR,
+    ROUTES_DIR,
 } from "../config/constant";
 
 import UtilsService from "./UtilsService";
@@ -48,21 +48,7 @@ export default class ComponentService extends BaseService{
         return name
     }
 
-    private setUpDirectory = async (rootName: string) => {
-        try {
-            var rootDir = `${EXPORT_DIR}/${rootName}`;
-            var routerDir = `${rootDir}/${ROUTE_DIR}`
-            var componentDir = `${rootDir}/${COMPONENT_DIR}`
-            var zipExportDir = `${rootDir}_export`
 
-            await UtilsService.copyFolder(REACT_JS_BASE_DIR, rootDir)
-            UtilsService.createFolder(routerDir)
-            UtilsService.createFolder(componentDir)
-            UtilsService.createFolder(zipExportDir)
-        } catch (e) {
-            console.log(e);
-        }
-    };
 
     private getFontUrl = (fontList: string[]) => {
         let fontText = ""
