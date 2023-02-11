@@ -22,7 +22,7 @@ export const Custom1 = (props) => {
         <Button />
         <Button
           buttonStyle="outline"
-          color={{ r: 255, g: 255, b: 255, a: 1 }}
+          color={{ r: "255", g: "255", b: "255", a: "1" }}
         />
       </OnlyButtons>
     </Container>
