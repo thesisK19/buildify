@@ -10,7 +10,6 @@ export type Node = {
   props: object;
   children: Array<string>;
   page: string;
-  pageName: string;
   // parent: null | string,
   // events: any,
 };
@@ -21,4 +20,21 @@ export type Element = {
   component: string;
   elementString: string;
   children: Array<string>;
+};
+
+export type SerializedData = {
+  nodes: object;
+  pages: PageData[];
+};
+
+export type PageData = {
+  path: string;
+  name: string;
+};
+
+export type PageFullInfo = {
+  rootId: string;
+  path: string;
+  name: string;
+  nodes: Array<Node>;
 };
