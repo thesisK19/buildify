@@ -1,22 +1,21 @@
 import React from "react";
-import HomePage from "../pages/home";
-import AboutPage from "../pages/home";
+import { HomePage, AboutPage } from "../pages";
 
 export type Route = {
-    exact: boolean;
-    path: string;
-    Page: React.ElementType;
-}
+  exact: boolean;
+  path: string;
+  Page: React.ElementType;
+};
 
 export const ROUTES: Route[] = [
-    {
-        exact: true,
-        path: "/",
-        Page: HomePage,
-    },
-    {
-        exact: true,
-        path: "/about",
-        Page: AboutPage,
-    },
-]
+  {
+    exact: true,
+    path: "/",
+    Page: HomePage,
+  },
+  {
+    exact: true,
+    path: "/about",
+    Page: AboutPage,
+  },
+];
