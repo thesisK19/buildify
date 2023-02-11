@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.css';
 import './App.css';
 import './styles/index.scss';
 import RouterDOM from './routes';
