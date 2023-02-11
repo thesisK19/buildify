@@ -16,7 +16,7 @@ export const Custom3 = (props) => {
         <h2 className="text-center text-xs text-white">I must have at least 1 button</h2>
       </div>
       <Custom3BtnDrop>
-        <Button background={{ r: 184, g: 247, b: 247, a: 1 }} />
+        <Button background={{ r: "184", g: "247", b: "247", a: "1" }} />
       </Custom3BtnDrop>
     </Container>
   );
