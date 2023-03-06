@@ -1,0 +1,5 @@
+
+# bazel
+/bazel-*
+
+node_modules
