@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package be.app.user.api;
+option go_package = "thesis/be/app/user/api";
+import "google/api/annotations.proto";
+// import "google/protobuf/timestamp.proto";
+
+service UserService {
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/user"
+            body: "*"
+        };
+    }
+    rpc GetUser (GetUserRequest) returns (GetUserResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/user"
+        };
+    }
+}
+
+message CreateUserRequest {
+    string name = 1;
+    string username = 2;
+    string password = 3;
+}
+
+message CreateUserResponse {
+    string code = 1;
+    string message = 2;
+}
+
+message GetUserRequest {}
+
+message GetUserResponse {
+    string code = 1;
+    string message = 2;
+}

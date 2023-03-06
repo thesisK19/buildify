@@ -1,0 +1,11 @@
+POST localhost:9000/api/v1/user HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "username": "Wed, 21 Oct 2015 18:27:50 GMT",
+    "password": "hoooo"
+}
+
+###
+GET localhost:9000/api/v1/user HTTP/1.1

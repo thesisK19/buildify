@@ -1,4 +1,4 @@
-module github.com/ydam-k19/KTPM-BE-Website-Builder
+module thesis/be
 
 go 1.18
 
