@@ -1,4 +1,4 @@
-POST localhost:9000/api/v1/user HTTP/1.1
+POST http://localhost:8081/api/user HTTP/1.1
 content-type: application/json
 
 {
@@ -8,4 +8,4 @@ content-type: application/json
 }
 
 ###
-GET localhost:9000/api/v1/user HTTP/1.1
+GET http://localhost:8081/api/user HTTP/1.1
