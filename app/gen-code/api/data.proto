@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package app.gen_code.api;
+option go_package = "thesis/be/app/gen-code/api";
+
+message Node {
+    string id = 1;
+    string type = 2;
+    string props = 3;
+    string display_name = 4;
+    bool hidden = 5;
+    repeated string children = 6 [json_name = "nodes"];
+    string page_path = 7 [json_name = "page"];
+}
+
+message Page {
+    string path = 1;
+    string name = 2;
+}

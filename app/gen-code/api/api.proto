@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package app.gen_code.api;
+option go_package = "thesis/be/app/gen-code/api";
+
+import "google/api/annotations.proto";
+import "app/gen-code/api/data.proto";
+
+service GenCodeService {
+    rpc GenReactSourceCode (GenReactSourceCodeRequest) returns (GenReactSourceCodeResponse) {
+        option (google.api.http) = {
+            post: "/api/gen-react-code"
+            body: "*"
+        };
+    }
+}
+
+message GenReactSourceCodeRequest {
+    repeated Node nodes = 1;
+    repeated Page pages = 2;
+}
+
+message GenReactSourceCodeResponse {
+    string code = 1;
+    string message = 2;
+}
