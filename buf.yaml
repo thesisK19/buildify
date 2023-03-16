@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/be/api
+name: buf.build/thesis/be
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/grpc-ecosystem/grpc-gateway

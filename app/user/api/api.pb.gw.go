@@ -95,7 +95,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/be.app.user.api.UserService/CreateUser", runtime.WithHTTPPathPattern("/api/user"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/app.user.api.UserService/CreateUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -118,7 +118,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/be.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/api/user"))
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -180,7 +180,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/be.app.user.api.UserService/CreateUser", runtime.WithHTTPPathPattern("/api/user"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/app.user.api.UserService/CreateUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -200,7 +200,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/be.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/api/user"))
+		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
