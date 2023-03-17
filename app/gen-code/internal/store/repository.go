@@ -2,8 +2,8 @@ package store
 
 import (
 	"context"
-	"thesis/be/app/user/config"
-	"thesis/be/app/user/internal/model"
+	"thesis/be/app/gen-code/config"
+	"thesis/be/app/gen-code/internal/model"
 
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson/primitive"

@@ -3,7 +3,6 @@ package server
 import (
 	"os"
 
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 )
@@ -36,31 +35,10 @@ func WithGatewayAddrListen(l Listen) Option {
 	}
 }
 
-// WithGatewayMuxOptions returns an Option that sets runtime.ServeMuxOption(s) to a gateway server.
-func WithGatewayMuxOptions(opts ...runtime.ServeMuxOption) Option {
-	return func(c *Config) {
-		c.Gateway.MuxOptions = append(c.Gateway.MuxOptions, opts...)
-	}
-}
-
 // WithGatewayServerMiddlewares returns an Option that sets middleware(s) for http.Server to a gateway server.
 func WithGatewayServerMiddlewares(middlewares ...HTTPServerMiddleware) Option {
 	return func(c *Config) {
 		c.Gateway.ServerMiddlewares = append(c.Gateway.ServerMiddlewares, middlewares...)
-	}
-}
-
-// WithGatewayServerHandler returns an Option that sets hanlers(s) for http.Server to a gateway server.
-func WithGatewayServerHandler(handlers ...HTTPServerHandler) Option {
-	return func(c *Config) {
-		c.Gateway.ServerHandlers = append(c.Gateway.ServerHandlers, handlers...)
-	}
-}
-
-// WithGatewayServerConfig returns an Option that specifies http.Server configuration to a gateway server.
-func WithGatewayServerConfig(cfg *HTTPServerConfig) Option {
-	return func(c *Config) {
-		c.Gateway.ServerConfig = cfg
 	}
 }
 

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"thesis/be/app/user/config"
+	"thesis/be/app/gen-code/config"
 	"thesis/be/library/server"
 
 	"github.com/sirupsen/logrus"

@@ -9,8 +9,8 @@ message Node {
     string props = 3;
     string display_name = 4;
     bool hidden = 5;
-    repeated string children = 6 [json_name = "nodes"];
-    string page_path = 7 [json_name = "page"];
+    repeated string children = 6;
+    string page_path = 7;
 }
 
 message Page {
