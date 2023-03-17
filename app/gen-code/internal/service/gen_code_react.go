@@ -3,6 +3,9 @@ package service
 import (
 	"context"
 	"fmt"
+	"os"
+	"os/exec"
+	"sort"
 	"strconv"
 	"strings"
 	"thesis/be/app/gen-code/api"
@@ -16,7 +19,7 @@ import (
 )
 
 func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
-	fmt.Print("aaaaaaaaaaaaa")
+	fmt.Println("gen nek")
 	if len(request.Nodes) == 0 || len(request.Pages) == 0 {
 		return nil, nil
 	}
@@ -34,6 +37,9 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 
 	for _, pageInfo := range mapPagePathToPageInfo {
 		err = genPage(rootDirName, pageInfo)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	// index pages
@@ -42,7 +48,21 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	// routing
 	genRoutes(rootDirName, request.Pages)
 
-	return nil, err
+	// format code
+	formatCode(rootDirName)
+
+	return &api.GenReactSourceCodeResponse{
+		Code:    "OK",
+		Message: "OK",
+	}, nil
+}
+
+func formatCode(rootDirName string) {
+	// npx prettier --write .
+	command := exec.Command("npx", "prettier", "--write", fmt.Sprintf("%s/%s", consts.EXPORT_DIR, rootDirName))
+	command.Stderr = os.Stderr
+	// Run the command
+	command.Run()
 }
 
 func genPage(rootDirName string, pageInfo *dto.PageInfo) error {
@@ -88,11 +108,11 @@ func genIndexPages(rootDirName string, pages []*api.Page) error {
 	)
 
 	for _, page := range pages {
-		importPages = append(importPages, fmt.Sprintf(`import %s from "./%s`, page.Name, page.Name))
+		importPages = append(importPages, fmt.Sprintf(`import %s from "./%s"`, page.Name, page.Name))
 		exportPages = append(exportPages, page.Name)
 	}
 
-	content := fmt.Sprintf(`%s \n\n export {%s}`, strings.Join(importPages, "\n"), strings.Join(exportPages, ","))
+	content := fmt.Sprintf("%s \n\n export {%s}", strings.Join(importPages, "\n"), strings.Join(exportPages, ","))
 
 	path := fmt.Sprintf(`%s/%s/%s`, rootDirName, consts.PAGES_DIR, consts.INDEX)
 
@@ -143,8 +163,13 @@ func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.
 		reactElement := genReactElementFromNode(node)
 		mapIDToReactElements[node.ID] = reactElement
 		components.Add(reactElement.Component)
-		propsByIds = append(propsByIds, fmt.Sprintf(`"%s": %s`), reactElement.ID, reactElement.Props)
+		propsByIds = append(propsByIds, fmt.Sprintf(`"%s": %s`, reactElement.ID, reactElement.Props))
 	}
+
+	// sort prop by id
+	sort.Slice(propsByIds, func(i, j int) bool {
+		return propsByIds[i] < propsByIds[j]
+	})
 
 	return components.List(), mapIDToReactElements, propsByIds
 }
@@ -173,7 +198,7 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 
 	childrenString := ""
 	for _, childID := range reactElement.Children {
-		childrenString = mergeReactElements(childID, mapIDToReactElements)
+		childrenString += mergeReactElements(childID, mapIDToReactElements)
 	}
 
 	reactElement.ElementString = strings.Replace(reactElement.ElementString, consts.KEY_CHILDREN, childrenString, 1)
@@ -211,12 +236,12 @@ func getMapPagePathToPageInfo(request *api.GenReactSourceCodeRequest) map[string
 	for _, node := range request.Nodes {
 		pagePath := node.PagePath
 		if pagePath == consts.INVALID_PAGE_PATH {
-			continue
+			continue // TODO: should return err
 		}
 
 		_, ok := mapPagePathToPageInfo[pagePath]
 		if !ok {
-			pageName, _ := mapPagePathToPageName[pagePath]
+			pageName := mapPagePathToPageName[pagePath]
 
 			mapPagePathToPageInfo[pagePath] = &dto.PageInfo{
 				RootID: "",

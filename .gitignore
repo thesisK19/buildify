@@ -3,3 +3,5 @@
 /bazel-*
 
 *node_modules*
+
+*/export/*

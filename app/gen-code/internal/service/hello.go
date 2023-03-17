@@ -7,7 +7,7 @@ import (
 )
 
 func (s *Service) HelloWorld(ctx context.Context, request *api.HelloWorldRequest) (*api.HelloWorldResponse, error) {
-	fmt.Print("dddd")
+	fmt.Println("helu")
 
 	return &api.HelloWorldResponse{
 		Code:    "OK",
