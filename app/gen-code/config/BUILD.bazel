@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "config",
     srcs = ["config.go"],
-    importpath = "github.com/ydam-k19/Thesis-BE/app/gen-code/config",
+    importpath = "github.com/thesisK19/buildify/app/gen-code/config",
     visibility = ["//visibility:public"],
 )
 

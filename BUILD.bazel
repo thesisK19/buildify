@@ -1,6 +1,6 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 
-# gazelle:prefix github.com/ydam-k19/Thesis-BE
+# gazelle:prefix github.com/thesisK19/buildify
 gazelle(name = "gazelle")
 
 gazelle(

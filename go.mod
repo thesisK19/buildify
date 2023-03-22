@@ -1,4 +1,4 @@
-module thesis/be
+module buildify
 
 go 1.18
 

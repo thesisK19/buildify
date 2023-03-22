@@ -1,9 +1,9 @@
 package service
 
 import (
+	"buildify/app/user/config"
+	"buildify/app/user/internal/store"
 	"context"
-	"thesis/be/app/user/config"
-	"thesis/be/app/user/internal/store"
 
 	"github.com/sirupsen/logrus"
 )

@@ -1,8 +1,8 @@
 package service
 
 import (
+	"buildify/app/user/api"
 	"context"
-	"thesis/be/app/user/api"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"

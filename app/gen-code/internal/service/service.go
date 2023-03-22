@@ -1,9 +1,9 @@
 package service
 
 import (
+	"buildify/app/gen-code/config"
+	"buildify/app/gen-code/internal/store"
 	"context"
-	"thesis/be/app/gen-code/config"
-	"thesis/be/app/gen-code/internal/store"
 
 	"github.com/sirupsen/logrus"
 )

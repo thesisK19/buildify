@@ -1,6 +1,6 @@
 package config
 
-import "thesis/be/library/conf"
+import "buildify/library/conf"
 
 type Config struct {
 	conf.Base `mapstructure:",squash"`
@@ -13,6 +13,6 @@ func loadDefaultConfig() *Config {
 	return &Config{
 		MongoDB:   "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net/user_service",
 		ServiceDB: "user_service",
-		Base: *conf.DefaultBaseConfig(),
+		Base:      *conf.DefaultBaseConfig(),
 	}
 }
