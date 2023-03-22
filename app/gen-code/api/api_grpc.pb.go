@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GenCodeServiceClient interface {
 	GenReactSourceCode(ctx context.Context, in *GenReactSourceCodeRequest, opts ...grpc.CallOption) (*GenReactSourceCodeResponse, error)
+	HelloWorld(ctx context.Context, in *HelloWorldRequest, opts ...grpc.CallOption) (*HelloWorldResponse, error)
 }
 
 type genCodeServiceClient struct {
@@ -42,11 +43,21 @@ func (c *genCodeServiceClient) GenReactSourceCode(ctx context.Context, in *GenRe
 	return out, nil
 }
 
+func (c *genCodeServiceClient) HelloWorld(ctx context.Context, in *HelloWorldRequest, opts ...grpc.CallOption) (*HelloWorldResponse, error) {
+	out := new(HelloWorldResponse)
+	err := c.cc.Invoke(ctx, "/app.gen_code.api.GenCodeService/HelloWorld", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GenCodeServiceServer is the server API for GenCodeService service.
 // All implementations should embed UnimplementedGenCodeServiceServer
 // for forward compatibility
 type GenCodeServiceServer interface {
 	GenReactSourceCode(context.Context, *GenReactSourceCodeRequest) (*GenReactSourceCodeResponse, error)
+	HelloWorld(context.Context, *HelloWorldRequest) (*HelloWorldResponse, error)
 }
 
 // UnimplementedGenCodeServiceServer should be embedded to have forward compatible implementations.
@@ -55,6 +66,9 @@ type UnimplementedGenCodeServiceServer struct {
 
 func (UnimplementedGenCodeServiceServer) GenReactSourceCode(context.Context, *GenReactSourceCodeRequest) (*GenReactSourceCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenReactSourceCode not implemented")
+}
+func (UnimplementedGenCodeServiceServer) HelloWorld(context.Context, *HelloWorldRequest) (*HelloWorldResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HelloWorld not implemented")
 }
 
 // UnsafeGenCodeServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -86,6 +100,24 @@ func _GenCodeService_GenReactSourceCode_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GenCodeService_HelloWorld_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HelloWorldRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GenCodeServiceServer).HelloWorld(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/app.gen_code.api.GenCodeService/HelloWorld",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GenCodeServiceServer).HelloWorld(ctx, req.(*HelloWorldRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GenCodeService_ServiceDesc is the grpc.ServiceDesc for GenCodeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +128,10 @@ var GenCodeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenReactSourceCode",
 			Handler:    _GenCodeService_GenReactSourceCode_Handler,
+		},
+		{
+			MethodName: "HelloWorld",
+			Handler:    _GenCodeService_HelloWorld_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -2,56 +2,48 @@ package server
 
 import (
 	"context"
-	"crypto/tls"
 	"fmt"
 	"log"
-	"net"
 	"net/http"
-	"time"
+	"strings"
 
 	runtime "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	otelhttp "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"github.com/rs/cors"
 
 	"google.golang.org/grpc"
 )
 
 // gatewayServer wraps gRPC gateway server setup process.
 type gatewayServer struct {
-	// Mux *runtime.ServeMux
-	// listener *net.Listener
-	// mux    *http.Handler
-	server *http.Server
+	mux    *http.ServeMux
 	config *gatewayConfig
-}
-
-type HTTPServerConfig struct {
-	TLSConfig         *tls.Config
-	ReadTimeout       time.Duration
-	ReadHeaderTimeout time.Duration
-	WriteTimeout      time.Duration
-	IdleTimeout       time.Duration
-	MaxHeaderBytes    int
-	TLSNextProto      map[string]func(*http.Server, *tls.Conn, http.Handler)
-	ConnState         func(net.Conn, http.ConnState)
-}
-
-func (c *HTTPServerConfig) applyTo(s *http.Server) {
-	s.TLSConfig = c.TLSConfig
-	s.ReadTimeout = c.ReadTimeout
-	s.ReadHeaderTimeout = c.ReadHeaderTimeout
-	s.WriteTimeout = c.WriteTimeout
-	s.IdleTimeout = c.IdleTimeout
-	s.MaxHeaderBytes = c.MaxHeaderBytes
-	s.TLSNextProto = c.TLSNextProto
-	s.ConnState = c.ConnState
 }
 
 type gatewayConfig struct {
 	Addr              Listen
-	MuxOptions        []runtime.ServeMuxOption
-	ServerConfig      *HTTPServerConfig
 	ServerMiddlewares []HTTPServerMiddleware
-	ServerHandlers    []HTTPServerHandler
+}
+
+func preflightHandler(w http.ResponseWriter, r *http.Request) {
+	headers := []string{"Content-Type", "Accept"}
+	w.Header().Set("Access-Control-Allow-Headers", strings.Join(headers, ","))
+	methods := []string{"GET", "HEAD", "POST", "PUT", "DELETE"}
+	w.Header().Set("Access-Control-Allow-Methods", strings.Join(methods, ","))
+}
+
+// allowCORS allows Cross Origin Resoruce Sharing from any origin.
+// Don't do this without consideration in production systems.
+func allowCORS(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if origin := r.Header.Get("Origin"); origin != "" {
+			w.Header().Set("Access-Control-Allow-Origin", origin)
+			if r.Method == "OPTIONS" && r.Header.Get("Access-Control-Request-Method") != "" {
+				preflightHandler(w, r)
+				return
+			}
+		}
+		h.ServeHTTP(w, r)
+	})
 }
 
 func createDefaultGatewayConfig() *gatewayConfig {
@@ -61,13 +53,6 @@ func createDefaultGatewayConfig() *gatewayConfig {
 			Host: "0.0.0.0",
 			Port: 10080,
 		},
-		MuxOptions: []runtime.ServeMuxOption{
-			runtime.WithErrorHandler(runtime.DefaultHTTPErrorHandler),
-		},
-		ServerHandlers: []HTTPServerHandler{
-			PrometheusHandler,
-			PprofHandler,
-		},
 	}
 
 	return config
@@ -75,43 +60,20 @@ func createDefaultGatewayConfig() *gatewayConfig {
 
 func newGatewayServer(c *gatewayConfig, conn *grpc.ClientConn, servers []ServiceServer) (*gatewayServer, error) {
 	// init mux
-	mux := runtime.NewServeMux(c.MuxOptions...)
-
-	var handler http.Handler = mux
-
-	handler = otelhttp.NewHandler(handler, "")
-
-	for i := len(c.ServerMiddlewares) - 1; i >= 0; i-- {
-		handler = c.ServerMiddlewares[i](handler)
-	}
-
-	httpMux := http.NewServeMux()
-
-	for _, h := range c.ServerHandlers {
-		h(httpMux)
-	}
-
-	httpMux.Handle("/", handler)
-
-	//nolint:gosec
-	svr := &http.Server{
-		Addr:    c.Addr.String(),
-		Handler: httpMux,
-	}
-	if cfg := c.ServerConfig; cfg != nil {
-		cfg.applyTo(svr)
-	}
+	gw := runtime.NewServeMux()
 
 	for _, svr := range servers {
-		err := svr.RegisterWithHandler(context.Background(), mux, conn)
+		err := svr.RegisterWithHandler(context.Background(), gw, conn)
 		if err != nil {
 			return nil, fmt.Errorf("failed to register handler. %w", err)
 		}
 	}
 
+	mux := http.NewServeMux()
+	mux.Handle("/", gw)
+
 	return &gatewayServer{
-		server: svr,
-		// mux:    &httpMux,
+		mux:    mux,
 		config: c,
 	}, nil
 }
@@ -119,7 +81,9 @@ func newGatewayServer(c *gatewayConfig, conn *grpc.ClientConn, servers []Service
 // Serve
 func (s *gatewayServer) Serve() error {
 	log.Println("http server starting at", s.config.Addr.String())
-	if err := s.server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+	handler := cors.Default().Handler(s.mux)
+
+	if err := http.ListenAndServe(s.config.Addr.String(), handler); err != nil && err != http.ErrServerClosed {
 		log.Println("Error starting http server, ", err)
 		return err
 	}
@@ -130,9 +94,9 @@ func (s *gatewayServer) Serve() error {
 func (s *gatewayServer) Shutdown(ctx context.Context) {
 	// ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	// defer cancel()
-	err := s.server.Shutdown(ctx)
+	// err := s.mux.Shutdown(ctx)
 	log.Println("All http(s) requests finished")
-	if err != nil {
-		log.Println("failed to shutdown grpc-gateway server: ", err)
-	}
+	// if err != nil {
+	// 	log.Println("failed to shutdown grpc-gateway server: ", err)
+	// }
 }

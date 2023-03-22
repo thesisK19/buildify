@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"thesis/be/app/user/config"
-	"thesis/be/app/user/internal/store"
+	"thesis/be/app/gen-code/config"
+	"thesis/be/app/gen-code/internal/store"
 
 	"github.com/sirupsen/logrus"
 )

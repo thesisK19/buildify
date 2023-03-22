@@ -6,3 +6,5 @@
 Install libraries and dependencies.
 ### 3. `npm start`
 Start the project.
+
+<!-- npx prettier --write . -->

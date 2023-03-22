@@ -2,9 +2,11 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"os"
 	"strings"
+	"thesis/be/app/gen-code/internal/consts"
 
 	cp "github.com/otiai10/copy"
 )
@@ -127,4 +129,8 @@ func CopyDirRecursively(src string, dest string) error {
 	}
 
 	return nil
+}
+
+func GetFileNameExport(name string, extention string) string {
+	return fmt.Sprintf(`%s/%s.%s`, consts.EXPORT_DIR, name, extention)
 }

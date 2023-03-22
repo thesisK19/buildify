@@ -12,6 +12,7 @@ import (
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
 )
 
@@ -29,11 +30,8 @@ func New(opts ...Option) (*Server, error) {
 	log.Println("Create grpc server")
 	grpcServer := newGrpcServer(c.Grpc, c.ServiceServers)
 	reflection.Register(grpcServer.server)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("Faild to create grpc server. %w", err)
-	// }
 
-	conn, err := grpc.Dial(c.Grpc.Addr.String(), grpc.WithInsecure(),
+	conn, err := grpc.Dial(c.Grpc.Addr.String(), grpc.WithTransportCredentials(insecure.NewCredentials()),
 		//nolint:gomnd
 		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(1024*1024*50)),
 		grpc.WithChainUnaryInterceptor(

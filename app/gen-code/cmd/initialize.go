@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"thesis/be/app/user/config"
-	"thesis/be/app/user/internal/service"
-	"thesis/be/app/user/internal/store"
+	"thesis/be/app/gen-code/config"
+	"thesis/be/app/gen-code/internal/service"
+	"thesis/be/app/gen-code/internal/store"
 	"time"
 
 	"github.com/sirupsen/logrus"

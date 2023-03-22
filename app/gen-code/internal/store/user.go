@@ -2,7 +2,7 @@ package store
 
 import (
 	"context"
-	"thesis/be/app/user/internal/model"
+	"thesis/be/app/gen-code/internal/model"
 
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson/primitive"

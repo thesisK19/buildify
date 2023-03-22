@@ -3,6 +3,9 @@ package service
 import (
 	"context"
 	"fmt"
+	"os"
+	"os/exec"
+	"sort"
 	"strconv"
 	"strings"
 	"thesis/be/app/gen-code/api"
@@ -11,10 +14,15 @@ import (
 	"thesis/be/app/gen-code/internal/utils"
 	"time"
 
+	"github.com/iancoleman/strcase"
 	"github.com/scylladb/go-set/strset"
 )
 
 func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
+	fmt.Println("gen nek")
+	if len(request.Nodes) == 0 || len(request.Pages) == 0 {
+		return nil, nil
+	}
 	return s.doGenReactSourceCode(ctx, request)
 }
 
@@ -23,26 +31,129 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 
 	rootDirName := strconv.FormatInt(time.Now().Unix(), consts.BASE_DECIMAL)
 	err := setUpDir(rootDirName, request.Pages)
+	if err != nil {
+		return nil, err
+	}
 
-	// for pagePath, pageInfo := range mapPagePathToPageInfo {
-	// 	genPage(rootDirName, pageInfo)
-	// }
+	for _, pageInfo := range mapPagePathToPageInfo {
+		err = genPage(rootDirName, pageInfo)
+		if err != nil {
+			return nil, err
+		}
+	}
 
-	// genIndexPages(rootDirName, request.Pages)
+	// index pages
+	genIndexPages(rootDirName, request.Pages)
 
-	// genRoutes(rootDirName, request.Pages)
+	// routing
+	genRoutes(rootDirName, request.Pages)
 
-	return nil, err
+	// format code
+	formatCode(rootDirName)
+
+	return &api.GenReactSourceCodeResponse{
+		Code:    "OK",
+		Message: "OK",
+	}, nil
 }
 
-func genPage(rootDirName string, pageInfo dto.PageInfo) {
+func formatCode(rootDirName string) {
+	// npx prettier --write .
+	command := exec.Command("npx", "prettier", "--write", fmt.Sprintf("%s/%s", consts.EXPORT_DIR, rootDirName))
+	command.Stderr = os.Stderr
+	// Run the command
+	command.Run()
+}
+
+func genPage(rootDirName string, pageInfo *dto.PageInfo) error {
 	components, mapIDToReactElements, propsByIds := getReactElementInfoFromNodes(pageInfo.Nodes)
 
-	mergeReactElements(pageInfo.RootID, mapIDToReactElements)
+	reactElementString := mergeReactElements(pageInfo.RootID, mapIDToReactElements)
 
 	// create props
+	propsString := fmt.Sprintf("export const %s = {%s}", consts.PROPS_BY_ID, strings.Join(propsByIds, ","))
+
+	path := fmt.Sprintf("%s/%s/%s/props", rootDirName, consts.PAGES_DIR, pageInfo.Name)
+	err := utils.WriteFile(utils.GetFileNameExport(path, "tsx"), []byte(propsString))
+	if err != nil {
+		return nil
+	}
+
+	// create page
+	content := fmt.Sprintf(`
+		import React, { FC, ReactElement } from "react"
+   		import { %s } from "src/components"
+    	import { %s } from "./props"
+	
+    	const %s: FC = (): ReactElement => (
+		%s
+		)
+		
+		export default %s`,
+		strings.Join(components, ","), consts.PROPS_BY_ID, pageInfo.Name, reactElementString, pageInfo.Name)
+
+	path = fmt.Sprintf("%s/%s/%s/%s", rootDirName, consts.PAGES_DIR, pageInfo.Name, consts.INDEX)
+	err = utils.WriteFile(utils.GetFileNameExport(path, "tsx"), []byte(content))
+	if err != nil {
+		return nil
+	}
+
+	return nil
 }
 
+func genIndexPages(rootDirName string, pages []*api.Page) error {
+	var (
+		exportPages []string
+		importPages []string
+	)
+
+	for _, page := range pages {
+		importPages = append(importPages, fmt.Sprintf(`import %s from "./%s"`, page.Name, page.Name))
+		exportPages = append(exportPages, page.Name)
+	}
+
+	content := fmt.Sprintf("%s \n\n export {%s}", strings.Join(importPages, "\n"), strings.Join(exportPages, ","))
+
+	path := fmt.Sprintf(`%s/%s/%s`, rootDirName, consts.PAGES_DIR, consts.INDEX)
+
+	err := utils.WriteFile(utils.GetFileNameExport(path, "ts"), []byte(content))
+	return err
+}
+
+func genRoutes(rootDirName string, pages []*api.Page) error {
+	var (
+		importPages []string
+		routes      []string
+	)
+	for _, page := range pages {
+		importPages = append(importPages, page.Name)
+		routes = append(routes, fmt.Sprintf(`
+		{
+			exact: true,
+			path: "%s",
+			Page: %s,
+		}`, page.Path, page.Name))
+	}
+
+	content := fmt.Sprintf(`
+		import React from "react"
+		import {%s} from "../pages"
+
+		export type Route = {
+			exact: boolean
+			path: string
+			Page: React.ElementType
+		}
+
+		export const ROUTES: Route[] = [
+			%s
+		]
+	`, strings.Join(importPages, ", "), strings.Join(routes, ","))
+
+	path := fmt.Sprintf(`%s/%s/config`, rootDirName, consts.ROUTES_DIR)
+	err := utils.WriteFile(utils.GetFileNameExport(path, "tsx"), []byte(content))
+	return err
+}
 func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.ReactElement, []string) {
 	components := strset.New()
 	mapIDToReactElements := map[string]*dto.ReactElement{}
@@ -52,8 +163,13 @@ func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.
 		reactElement := genReactElementFromNode(node)
 		mapIDToReactElements[node.ID] = reactElement
 		components.Add(reactElement.Component)
-		propsByIds = append(propsByIds, fmt.Sprintf(`"%s": %s`), reactElement.ID, reactElement.Props)
+		propsByIds = append(propsByIds, fmt.Sprintf(`"%s": %s`, reactElement.ID, reactElement.Props))
 	}
+
+	// sort prop by id
+	sort.Slice(propsByIds, func(i, j int) bool {
+		return propsByIds[i] < propsByIds[j]
+	})
 
 	return components.List(), mapIDToReactElements, propsByIds
 }
@@ -82,7 +198,7 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 
 	childrenString := ""
 	for _, childID := range reactElement.Children {
-		childrenString = mergeReactElements(childID, mapIDToReactElements)
+		childrenString += mergeReactElements(childID, mapIDToReactElements)
 	}
 
 	reactElement.ElementString = strings.Replace(reactElement.ElementString, consts.KEY_CHILDREN, childrenString, 1)
@@ -113,18 +229,19 @@ func getMapPagePathToPageInfo(request *api.GenReactSourceCodeRequest) map[string
 	mapPagePathToPageName := make(map[string]string)
 
 	for _, page := range request.Pages {
+		page.Name = strcase.ToCamel(page.Name)
 		mapPagePathToPageName[page.Path] = page.Name
 	}
 
 	for _, node := range request.Nodes {
 		pagePath := node.PagePath
 		if pagePath == consts.INVALID_PAGE_PATH {
-			continue
+			continue // TODO: should return err
 		}
 
 		_, ok := mapPagePathToPageInfo[pagePath]
 		if !ok {
-			pageName, _ := mapPagePathToPageName[pagePath]
+			pageName := mapPagePathToPageName[pagePath]
 
 			mapPagePathToPageInfo[pagePath] = &dto.PageInfo{
 				RootID: "",

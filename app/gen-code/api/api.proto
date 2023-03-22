@@ -13,6 +13,11 @@ service GenCodeService {
             body: "*"
         };
     }
+    rpc HelloWorld (HelloWorldRequest) returns (HelloWorldResponse) {
+        option (google.api.http) = {
+            get: "/api/hello-world"
+        };
+    }
 }
 
 message GenReactSourceCodeRequest {
@@ -21,6 +26,12 @@ message GenReactSourceCodeRequest {
 }
 
 message GenReactSourceCodeResponse {
+    string code = 1;
+    string message = 2;
+}
+
+message HelloWorldRequest {}
+message HelloWorldResponse {
     string code = 1;
     string message = 2;
 }
