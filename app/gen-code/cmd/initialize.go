@@ -1,12 +1,12 @@
 package main
 
 import (
+	"buildify/app/gen-code/config"
+	"buildify/app/gen-code/internal/service"
+	"buildify/app/gen-code/internal/store"
 	"context"
 	"fmt"
 	"log"
-	"thesis/be/app/gen-code/config"
-	"thesis/be/app/gen-code/internal/service"
-	"thesis/be/app/gen-code/internal/store"
 	"time"
 
 	"github.com/sirupsen/logrus"

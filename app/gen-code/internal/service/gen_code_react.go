@@ -1,6 +1,10 @@
 package service
 
 import (
+	"buildify/app/gen-code/api"
+	"buildify/app/gen-code/internal/consts"
+	"buildify/app/gen-code/internal/dto"
+	"buildify/app/gen-code/internal/utils"
 	"context"
 	"fmt"
 	"os"
@@ -8,10 +12,6 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"thesis/be/app/gen-code/api"
-	"thesis/be/app/gen-code/internal/consts"
-	"thesis/be/app/gen-code/internal/dto"
-	"thesis/be/app/gen-code/internal/utils"
 	"time"
 
 	"github.com/iancoleman/strcase"

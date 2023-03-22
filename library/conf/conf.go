@@ -3,8 +3,8 @@ package conf
 import (
 	"time"
 
-	"thesis/be/library/log"
-	server "thesis/be/library/server"
+	"buildify/library/log"
+	server "buildify/library/server"
 )
 
 // deploy env.
@@ -43,7 +43,7 @@ type Base struct {
 	Env string     `json:"env" mapstructure:"env"`
 	Log log.Config `json:"log" mapstructure:"log"`
 	// LogLevel int `json:"log_level" mapstructure: "log_level"`
-	Server  ServerConfig       `json:"server" mapstructure:"server"`
+	Server ServerConfig `json:"server" mapstructure:"server"`
 }
 
 func (b Base) IsDevelopment() bool {
@@ -54,7 +54,7 @@ func DefaultBaseConfig() *Base {
 	return &Base{
 		Env: DeployEnvDev,
 		// LogLevel: 2,
-		Log:     log.DefaultConfig(),
-		Server:  DefaultServerConfig(),
+		Log:    log.DefaultConfig(),
+		Server: DefaultServerConfig(),
 	}
 }

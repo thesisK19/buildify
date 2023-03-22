@@ -1,8 +1,8 @@
 package store
 
 import (
+	"buildify/app/gen-code/internal/model"
 	"context"
-	"thesis/be/app/gen-code/internal/model"
 
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson/primitive"

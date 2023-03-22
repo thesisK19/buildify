@@ -1,12 +1,12 @@
 package main
 
 import (
+	"buildify/app/gen-code/config"
+	"buildify/library/server"
 	"encoding/json"
 	"fmt"
 	"log"
 	"os"
-	"thesis/be/app/gen-code/config"
-	"thesis/be/library/server"
 
 	"github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
