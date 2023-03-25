@@ -1,0 +1,22 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "service",
+    srcs = [
+        "register_gen.go",
+        "service.go",
+        "user.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/user/internal/service",
+    visibility = ["//app/user:__subpackages__"],
+    deps = [
+        "//app/user/api",
+        "//app/user/config",
+        "//app/user/internal/model",
+        "//app/user/internal/store",
+        "@com_github_grpc_ecosystem_go_grpc_middleware//logging/logrus/ctxlogrus",
+        "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime",
+        "@com_github_sirupsen_logrus//:logrus",
+        "@org_golang_google_grpc//:go_default_library",
+    ],
+)

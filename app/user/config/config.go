@@ -1,6 +1,6 @@
 package config
 
-import "buildify/library/conf"
+import "github.com/thesisK19/buildify/library/conf"
 
 type Config struct {
 	conf.Base `mapstructure:",squash"`

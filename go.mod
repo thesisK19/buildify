@@ -1,4 +1,4 @@
-module buildify
+module github.com/thesisK19/buildify
 
 go 1.18
 

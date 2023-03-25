@@ -1,12 +1,13 @@
 package utils
 
 import (
-	"buildify/app/gen-code/internal/consts"
 	"errors"
 	"fmt"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/thesisK19/buildify/app/gen-code/internal/consts"
 
 	cp "github.com/otiai10/copy"
 )

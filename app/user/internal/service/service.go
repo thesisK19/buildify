@@ -1,9 +1,10 @@
 package service
 
 import (
-	"buildify/app/user/config"
-	"buildify/app/user/internal/store"
 	"context"
+
+	"github.com/thesisK19/buildify/app/user/config"
+	"github.com/thesisK19/buildify/app/user/internal/store"
 
 	"github.com/sirupsen/logrus"
 )

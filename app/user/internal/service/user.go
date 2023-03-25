@@ -1,11 +1,12 @@
 package service
 
 import (
-	"buildify/app/user/api"
-	"buildify/app/user/internal/model"
 	"context"
 	"encoding/json"
 	"fmt"
+
+	"github.com/thesisK19/buildify/app/user/api"
+	"github.com/thesisK19/buildify/app/user/internal/model"
 )
 
 func (s *Service) CreateUser(ctx context.Context, in *api.CreateUserRequest) (*api.CreateUserResponse, error) {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"buildify/app/gen-code/config"
-	"buildify/library/server"
+	"github.com/thesisK19/buildify/app/gen-code/config"
+	"github.com/thesisK19/buildify/library/server"
 	"encoding/json"
 	"fmt"
 	"log"

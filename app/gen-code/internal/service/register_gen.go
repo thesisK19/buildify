@@ -1,8 +1,9 @@
 package service
 
 import (
-	"buildify/app/gen-code/api"
 	"context"
+
+	"github.com/thesisK19/buildify/app/gen-code/api"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"

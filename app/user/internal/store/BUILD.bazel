@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "store",
+    srcs = [
+        "repository.go",
+        "user.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/user/internal/store",
+    visibility = ["//app/user:__subpackages__"],
+    deps = [
+        "//app/user/config",
+        "//app/user/internal/model",
+        "@com_github_pkg_errors//:errors",
+        "@com_github_sirupsen_logrus//:logrus",
+        "@in_gopkg_mgo_v2//bson",
+        "@org_mongodb_go_mongo_driver//bson/primitive",
+        "@org_mongodb_go_mongo_driver//mongo",
+    ],
+)

@@ -1,10 +1,6 @@
 package service
 
 import (
-	"buildify/app/gen-code/api"
-	"buildify/app/gen-code/internal/consts"
-	"buildify/app/gen-code/internal/dto"
-	"buildify/app/gen-code/internal/utils"
 	"context"
 	"fmt"
 	"os"
@@ -13,6 +9,11 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/thesisK19/buildify/app/gen-code/api"
+	"github.com/thesisK19/buildify/app/gen-code/internal/consts"
+	"github.com/thesisK19/buildify/app/gen-code/internal/dto"
+	"github.com/thesisK19/buildify/app/gen-code/internal/utils"
 
 	"github.com/iancoleman/strcase"
 	"github.com/scylladb/go-set/strset"

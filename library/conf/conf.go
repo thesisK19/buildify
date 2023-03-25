@@ -3,8 +3,8 @@ package conf
 import (
 	"time"
 
-	"buildify/library/log"
-	server "buildify/library/server"
+	"github.com/thesisK19/buildify/library/log"
+	server "github.com/thesisK19/buildify/library/server"
 )
 
 // deploy env.
