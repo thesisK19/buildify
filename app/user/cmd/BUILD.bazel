@@ -1,5 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
-# load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 
 go_library(
     name = "cmd_lib",
@@ -15,7 +15,6 @@ go_library(
         "//app/user/internal/store",
         "//library/server",
         "@com_github_sirupsen_logrus//:logrus",
-        "@com_github_urfave_cli_v2//:cli",
         "@org_mongodb_go_mongo_driver//mongo",
         "@org_mongodb_go_mongo_driver//mongo/options",
         "@org_uber_go_zap//:zap",
@@ -27,4 +26,3 @@ go_binary(
     embed = [":cmd_lib"],
     visibility = ["//visibility:public"],
 )
-

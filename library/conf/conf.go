@@ -33,7 +33,7 @@ func DefaultServerConfig() ServerConfig {
 		},
 		HTTP: server.Listen{
 			Host: "0.0.0.0",
-			Port: 10080,
+			Port: 8080,
 		},
 	}
 }

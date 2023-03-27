@@ -1,21 +1,17 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"log"
-	"os"
 
 	"github.com/thesisK19/buildify/app/user/config"
 	"github.com/thesisK19/buildify/library/server"
 
 	"github.com/sirupsen/logrus"
-	"github.com/urfave/cli/v2"
 	"go.uber.org/zap"
 )
 
 func main() {
-	if err := run(os.Args); err != nil {
+	if err := run(); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -25,7 +21,7 @@ var (
 	logger *logrus.Logger
 )
 
-func run(_ []string) error {
+func run() error {
 	var err error
 
 	// load config
@@ -40,38 +36,16 @@ func run(_ []string) error {
 		return err
 	}
 
-	// app
-	app := cli.NewApp()
-	app.Name = "service"
-	// app.Usage = "tekit tool"
-	// app.Version = Version
-	app.Commands = []*cli.Command{
-		{
-			Name:   "server",
-			Usage:  "start grpc/http server",
-			Action: serverAction,
-		},
-		{
-			Name:   "config-dump",
-			Usage:  "dump config out",
-			Action: configDumpAction,
-		},
+	// run server
+	err = runServer()
+	if err != nil {
+		return err
 	}
 
-	if app.Run(os.Args) != nil {
-		panic(err)
-	}
 	return nil
 }
 
-func configDumpAction(cliCtx *cli.Context) error {
-	b, err := json.MarshalIndent(cfg, "", "\t")
-
-	fmt.Println(string(b))
-	return err
-}
-
-func serverAction(cliCtx *cli.Context) error {
+func runServer() error {
 	service, err := newService(cfg, logger)
 	if err != nil {
 		logger.Error("Error init servers", zap.Error(err))

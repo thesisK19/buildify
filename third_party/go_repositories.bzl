@@ -61,8 +61,8 @@ def go_repositories():
         name = "com_github_burntsushi_toml",
         build_file_proto_mode = "disable",
         importpath = "github.com/BurntSushi/toml",
-        sum = "h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak=",
-        version = "v1.2.1",
+        sum = "h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=",
+        version = "v0.3.1",
     )
 
     go_repository(
@@ -152,14 +152,6 @@ def go_repositories():
         importpath = "github.com/coreos/go-systemd/v22",
         sum = "h1:D9/bQk5vlXQFZ6Kwuu6zaiXJ9oTPe68++AzAJc1DzSI=",
         version = "v22.3.2",
-    )
-
-    go_repository(
-        name = "com_github_cpuguy83_go_md2man_v2",
-        build_file_proto_mode = "disable",
-        importpath = "github.com/cpuguy83/go-md2man/v2",
-        sum = "h1:p1EgwI/C7NhT0JmVkwCD2ZBK8j4aeHQX2pMHHBfMQ6w=",
-        version = "v2.0.2",
     )
 
     go_repository(
@@ -821,13 +813,6 @@ def go_repositories():
     )
 
     go_repository(
-        name = "com_github_russross_blackfriday_v2",
-        build_file_proto_mode = "disable",
-        importpath = "github.com/russross/blackfriday/v2",
-        sum = "h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf35Ld67mk=",
-        version = "v2.1.0",
-    )
-    go_repository(
         name = "com_github_sagikazarmark_crypt",
         build_file_proto_mode = "disable",
         importpath = "github.com/sagikazarmark/crypt",
@@ -924,14 +909,6 @@ def go_repositories():
     )
 
     go_repository(
-        name = "com_github_urfave_cli_v2",
-        build_file_proto_mode = "disable",
-        importpath = "github.com/urfave/cli/v2",
-        sum = "h1:ykdZKuQey2zq0yin/l7JOm9Mh+pg72ngYMeB0ABn6q8=",
-        version = "v2.25.0",
-    )
-
-    go_repository(
         name = "com_github_xdg_go_pbkdf2",
         build_file_proto_mode = "disable",
         importpath = "github.com/xdg-go/pbkdf2",
@@ -952,13 +929,7 @@ def go_repositories():
         sum = "h1:XLI/Ng3O1Atzq0oBs3TWm+5ZVgkq2aqdlvP9JtoZ6c8=",
         version = "v1.0.4",
     )
-    go_repository(
-        name = "com_github_xrash_smetrics",
-        build_file_proto_mode = "disable",
-        importpath = "github.com/xrash/smetrics",
-        sum = "h1:bAn7/zixMGCfxrRTfdpNzjtPYqr8smhKouy9mxVdGPU=",
-        version = "v0.0.0-20201216005158-039620a65673",
-    )
+
     go_repository(
         name = "com_github_youmark_pkcs8",
         build_file_proto_mode = "disable",
