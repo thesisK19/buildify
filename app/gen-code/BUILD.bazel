@@ -6,6 +6,7 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 # load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
 load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+load("@io_bazel_rules_docker//docker/util:run.bzl", "container_run_and_commit")
 
 pkg_tar(
     name = "baseReact_files",
@@ -27,9 +28,18 @@ go_image(
     binary = "//app/gen-code/cmd:cmd",
 )
 
+container_run_and_commit(
+    name = "install_npx_image",
+    commands = [
+        "apt-get install -y npm",
+        "npm install -g npx",
+    ],
+    image = ":base_binary_image.tar",
+)
+
 container_image(
     name = "container_image",
-    base = ":base_binary_image",
+    base = ":install_npx_image_commit.tar",
     # data_path = ".",
     data_path = "app/gen-code",
     directory = "/app/app/gen-code/cmd/cmd.runfiles/buildify/",
@@ -37,11 +47,6 @@ container_image(
         ":config_files",
         ":baseReact_files",
     ],
-    run_as_root = True, # Required to install packages as root
-    run = [
-        "apt-get update && apt-get install -y npm",
-        "npm install -g npx"
-    ]
 )
 
 # container_push(
