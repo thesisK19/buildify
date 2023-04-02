@@ -2,11 +2,15 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
     name = "utils",
-    srcs = ["file.go"],
+    srcs = [
+        "file.go",
+        "upload_file.go",
+    ],
     importpath = "github.com/thesisK19/buildify/app/gen-code/internal/utils",
     visibility = ["//app/gen-code:__subpackages__"],
     deps = [
-        "//app/gen-code/internal/consts",
         "@com_github_otiai10_copy//:copy",
+        "@com_google_cloud_go_storage//:storage",
+        "@org_golang_google_api//option",
     ],
 )

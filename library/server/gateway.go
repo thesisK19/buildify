@@ -51,7 +51,7 @@ func createDefaultGatewayConfig() *gatewayConfig {
 	config := &gatewayConfig{
 		Addr: Listen{
 			Host: "0.0.0.0",
-			Port: 10080,
+			Port: 80,
 		},
 	}
 

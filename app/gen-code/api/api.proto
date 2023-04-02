@@ -28,6 +28,7 @@ message GenReactSourceCodeRequest {
 message GenReactSourceCodeResponse {
     string code = 1;
     string message = 2;
+    string url = 3;
 }
 
 message HelloWorldRequest {}

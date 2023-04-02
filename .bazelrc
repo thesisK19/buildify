@@ -1,3 +1,4 @@
 # Show us information about failures.
 build --verbose_failures
 test --test_output=errors --experimental_ui_max_stdouterr_bytes=-1
+build --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64

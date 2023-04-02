@@ -2,33 +2,47 @@ package(default_visibility = ["//visibility:public"])
 
 ## docker build - rebuild
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
-# load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
-# filegroup(
-#     name = "data_files",
-#     srcs = glob(["data/*"]),
-# )
+# load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
+
+pkg_tar(
+    name = "baseReact_files",
+    srcs = glob(["base/**"]),
+    strip_prefix = ".",
+)
+
+pkg_tar(
+    name = "config_files",
+    srcs = [
+        "config.yaml",
+        "storage-key.json",
+    ],
+    strip_prefix = ".",
+)
 
 go_image(
     name = "base_binary_image",
     binary = "//app/gen-code/cmd:cmd",
 )
 
-# container_image(
-#     name = "container_image",
-#     base = ":base_binary_image",
-#     cmd = ["server"],
-#     data_path = "app/orders/fulfillment_router_service",
-#     directory = "/app/app/orders/fulfillment_router_service/cmd/cmd.runfiles/tekone/",
-#     files = [
-#         ":data_files",
-#         "//app/orders/fulfillment_router_service/sql/migrations:migration_files",
-#     ],
-#     ports = [
-#         "8080",
-#         "10443",
-#     ],
-# )
+container_image(
+    name = "container_image",
+    base = ":base_binary_image",
+    # data_path = ".",
+    data_path = "app/gen-code",
+    directory = "/app/app/gen-code/cmd/cmd.runfiles/buildify/",
+    tars = [
+        ":config_files",
+        ":baseReact_files",
+    ],
+    run_as_root = True, # Required to install packages as root
+    run = [
+        "apt-get update && apt-get install -y npm",
+        "npm install -g npx"
+    ]
+)
 
 # container_push(
 #     name = "push",

@@ -9,9 +9,16 @@ import (
 
 func (s *Service) HelloWorld(ctx context.Context, request *api.HelloWorldRequest) (*api.HelloWorldResponse, error) {
 	fmt.Println("helu")
+	// url, err := utils.UploadFile()
+	// if err == nil {
+	// 	return &api.HelloWorldResponse{
+	// 		Code:    "OK",
+	// 		Message: *url,
+	// 	}, nil
+	// }
 
 	return &api.HelloWorldResponse{
 		Code:    "OK",
-		Message: "zuizui",
+		Message: "GENCODE: zuizui",
 	}, nil
 }

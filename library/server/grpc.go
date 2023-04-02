@@ -91,7 +91,7 @@ func createDefaultGrpcConfig() *grpcConfig {
 	config := &grpcConfig{
 		Addr: Listen{
 			Host: "0.0.0.0",
-			Port: 10443,
+			Port: 443,
 		},
 		// PreServerUnaryInterceptors: []grpc.UnaryServerInterceptor{
 		// 	otelgrpc.UnaryServerInterceptor(),

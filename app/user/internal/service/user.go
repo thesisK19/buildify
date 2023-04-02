@@ -30,9 +30,24 @@ func (s *Service) CreateUser(ctx context.Context, in *api.CreateUserRequest) (*a
 	}, nil
 }
 func (s *Service) GetUser(ctx context.Context, in *api.GetUserRequest) (*api.GetUserResponse, error) {
-	fmt.Print("helllllllllll")
+	fmt.Println("hô hố")
+	// test call grpc
+	hello, err := s.adapters.genCode.HelloWorld(ctx)
+	if err != nil {
+		return &api.GetUserResponse{
+			Code:    "oh no",
+			Message: "hixxx",
+		}, nil
+	}
+	if hello != nil {
+		return &api.GetUserResponse{
+			Code:    hello.Code,
+			Message: hello.Message,
+		}, nil
+	}
+
 	return &api.GetUserResponse{
 		Code:    "3",
-		Message: "à haha",
+		Message: "USER: à haha",
 	}, nil
 }

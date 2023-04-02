@@ -1,7 +1,13 @@
 SHELL := /bin/bash
 
-start-server:
-	go run app/user/cmd/main.go
+# buf mod init
+# Always run buf mod update after adding a dependency to your buf.yaml.
+buf-update:
+	buf mod update
+
+buf-gen:
+	buf generate --path=app/
+
 
 # bazel run //:gazelle -- update-repos 
 update:
@@ -23,7 +29,7 @@ run-gen-code:
 # bazel run //app/gen-code:base_binary_image
 
 # docker run --rm -it -p10080:10080 bazel/app/user:base_binary_image
-# docker run --rm -it -p10080:10080 bazel/app/user:base_binary_image
+# docker run --rm -it -p3003:3003 bazel/app/gen-code:container_image
 
 # docker push buildify.azurecr.io/user:base_binary_image
 # docker push buildify.azurecr.io/gen-code:base_binary_image
@@ -34,3 +40,13 @@ run-gen-code:
 # docker tag user:base_binary_image buildify.azurecr.io/user:base_binary_image
 
 # docker tag gen-code:base_binary_image buildify.azurecr.io/gen-code:base_binary_image
+
+
+
+# docker run -it bazel/app/gen-code:container_image
+
+
+
+
+# 9,398,200.00
+# 7,048,650.00 credit

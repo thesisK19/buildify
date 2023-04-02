@@ -29,11 +29,11 @@ func DefaultServerConfig() ServerConfig {
 	return ServerConfig{
 		GRPC: server.Listen{
 			Host: "0.0.0.0",
-			Port: 10443,
+			Port: 443,
 		},
 		HTTP: server.Listen{
 			Host: "0.0.0.0",
-			Port: 8080,
+			Port: 80,
 		},
 	}
 }

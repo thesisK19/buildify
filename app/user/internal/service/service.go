@@ -2,8 +2,10 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/thesisK19/buildify/app/user/config"
+	"github.com/thesisK19/buildify/app/user/internal/adapter"
 	"github.com/thesisK19/buildify/app/user/internal/store"
 
 	"github.com/sirupsen/logrus"
@@ -17,14 +19,22 @@ type Service struct {
 }
 
 type serviceAdapters struct {
+	genCode adapter.GenCodeClient
 }
 
 func NewService(cfg *config.Config, logger *logrus.Logger, repository store.Repository) *Service {
+	genCode, err := adapter.NewGenCodeClient(cfg.GenCodeHost)
+	if err != nil {
+		fmt.Println("Init deliveryCentral fail...")
+	}
+
 	return &Service{
 		config:     cfg,
 		log:        logger,
 		repository: repository,
-		adapters:   serviceAdapters{},
+		adapters: serviceAdapters{
+			genCode: genCode,
+		},
 	}
 }
 
