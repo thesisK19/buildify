@@ -119,7 +119,7 @@ func CopyDirRecursively(src string, dest string) error {
 
 	opt := cp.Options{
 		Skip: func(info os.FileInfo, src, dest string) (bool, error) {
-			return (strings.HasSuffix(src, "components/.gitignore") || strings.HasSuffix(src, "components/package.json") || strings.HasSuffix(src, "components/yarn.lock")), nil
+			return (strings.HasSuffix(src, ".gitkeep") || strings.HasSuffix(src, "components/.gitignore") || strings.HasSuffix(src, "components/package.json") || strings.HasSuffix(src, "components/yarn.lock")), nil
 		},
 	}
 

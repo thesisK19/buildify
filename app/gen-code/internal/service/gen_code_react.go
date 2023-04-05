@@ -88,7 +88,7 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 
 func formatCode(rootDirPath string) {
 	// npx prettier --write .
-	command := exec.Command("npx", "prettier", "--write", rootDirPath)
+	command := exec.Command("prettier", "--write", rootDirPath)
 	command.Stderr = os.Stderr
 	// Run the command
 	command.Run()

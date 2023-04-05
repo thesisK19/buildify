@@ -26,10 +26,21 @@ run-gen-code:
 #  bazel build //app/user:base_binary_image
 #  bazel run //app/user:base_binary_image
 
+# bazel build //app/gen-code:base_binary_image
 # bazel run //app/gen-code:base_binary_image
+# docker run --rm -it -p3003:3003 bazel/app/gen-code:base_binary_image
+
+
+# bazel build //app/gen-code/cmd:base_binary_image
+# bazel run //app/gen-code/cmd:base_binary_image -- --norun
+# docker run --rm -it -p3003:3003 bazel/app/gen-code:base_binary_image
+
+
+# bazel build //app/gen-code:container_image
+# bazel run //app/gen-code:container_image
+# docker run --rm -it -p3003:3003 bazel/app/gen-code:container_image
 
 # docker run --rm -it -p10080:10080 bazel/app/user:base_binary_image
-# docker run --rm -it -p3003:3003 bazel/app/gen-code:container_image
 
 # docker push buildify.azurecr.io/user:base_binary_image
 # docker push buildify.azurecr.io/gen-code:base_binary_image
@@ -50,3 +61,7 @@ run-gen-code:
 
 # 9,398,200.00
 # 7,048,650.00 credit
+
+#  bazel query @go_base_image//...   
+
+#  docker exec -it ad019aef5836 /bin/sh
