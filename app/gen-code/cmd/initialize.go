@@ -1,13 +1,14 @@
 package main
 
 import (
-	"buildify/app/gen-code/config"
-	"buildify/app/gen-code/internal/service"
-	"buildify/app/gen-code/internal/store"
 	"context"
 	"fmt"
 	"log"
 	"time"
+
+	"github.com/thesisK19/buildify/app/gen-code/config"
+	"github.com/thesisK19/buildify/app/gen-code/internal/service"
+	"github.com/thesisK19/buildify/app/gen-code/internal/store"
 
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"

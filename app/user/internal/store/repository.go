@@ -1,9 +1,10 @@
 package store
 
 import (
-	"buildify/app/user/config"
-	"buildify/app/user/internal/model"
 	"context"
+
+	"github.com/thesisK19/buildify/app/user/config"
+	"github.com/thesisK19/buildify/app/user/internal/model"
 
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson/primitive"

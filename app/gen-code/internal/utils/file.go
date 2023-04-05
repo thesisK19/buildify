@@ -1,11 +1,12 @@
 package utils
 
 import (
-	"buildify/app/gen-code/internal/consts"
+	"archive/zip"
 	"errors"
-	"fmt"
+	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	cp "github.com/otiai10/copy"
@@ -16,7 +17,7 @@ import (
 
 // If the file already exists, it is truncated. If the file does not exist, it is created with mode 0666
 func CreateFile(filename string) error {
-	file, err := os.Create("filename")
+	file, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err) // TODO:
 		return err
@@ -118,7 +119,7 @@ func CopyDirRecursively(src string, dest string) error {
 
 	opt := cp.Options{
 		Skip: func(info os.FileInfo, src, dest string) (bool, error) {
-			return strings.HasSuffix(src, ".git"), nil
+			return (strings.HasSuffix(src, ".gitkeep") || strings.HasSuffix(src, "components/.gitignore") || strings.HasSuffix(src, "components/package.json") || strings.HasSuffix(src, "components/yarn.lock")), nil
 		},
 	}
 
@@ -131,6 +132,67 @@ func CopyDirRecursively(src string, dest string) error {
 	return nil
 }
 
-func GetFileNameExport(name string, extention string) string {
-	return fmt.Sprintf(`%s/%s.%s`, consts.EXPORT_DIR, name, extention)
+func ZipDir(inputDir, outputZip string) error {
+	// Create a new file to write the archive to
+	zipFile, err := os.Create(outputZip)
+	if err != nil {
+		return err
+	}
+	defer zipFile.Close()
+
+	// Create a new zip archive
+	zipWriter := zip.NewWriter(zipFile)
+	defer zipWriter.Close()
+
+	// Walk the directory tree recursively and add files to the archive
+	err = filepath.Walk(inputDir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		// Get the file header
+		header, err := zip.FileInfoHeader(info)
+		if err != nil {
+			return err
+		}
+
+		// Set the header name to the relative path of the file
+		header.Name, err = filepath.Rel(inputDir, path)
+		if err != nil {
+			return err
+		}
+
+		// Check if the file is a directory
+		if info.IsDir() {
+			header.Name += "/"
+			header.Method = zip.Store
+		} else {
+			// Set the compression method for the file
+			header.Method = zip.Deflate
+		}
+
+		// Create a new file entry in the archive
+		writer, err := zipWriter.CreateHeader(header)
+		if err != nil {
+			return err
+		}
+
+		// If the file is not a directory, write its contents to the archive
+		if !info.IsDir() {
+			file, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+			defer file.Close()
+
+			_, err = io.Copy(writer, file)
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+	})
+
+	return err
 }

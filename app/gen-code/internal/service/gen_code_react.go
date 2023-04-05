@@ -1,10 +1,6 @@
 package service
 
 import (
-	"buildify/app/gen-code/api"
-	"buildify/app/gen-code/internal/consts"
-	"buildify/app/gen-code/internal/dto"
-	"buildify/app/gen-code/internal/utils"
 	"context"
 	"fmt"
 	"os"
@@ -14,12 +10,17 @@ import (
 	"strings"
 	"time"
 
+	"github.com/thesisK19/buildify/app/gen-code/api"
+	"github.com/thesisK19/buildify/app/gen-code/internal/consts"
+	"github.com/thesisK19/buildify/app/gen-code/internal/dto"
+	"github.com/thesisK19/buildify/app/gen-code/internal/utils"
+
 	"github.com/iancoleman/strcase"
 	"github.com/scylladb/go-set/strset"
 )
 
 func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
-	fmt.Println("gen nek")
+	fmt.Println("gen start nek")
 	if len(request.Nodes) == 0 || len(request.Pages) == 0 {
 		return nil, nil
 	}
@@ -30,42 +31,70 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	mapPagePathToPageInfo := getMapPagePathToPageInfo(request)
 
 	rootDirName := strconv.FormatInt(time.Now().Unix(), consts.BASE_DECIMAL)
-	err := setUpDir(rootDirName, request.Pages)
+	rootDirPath := fmt.Sprintf("%s/%s", consts.EXPORT_DIR, rootDirName)
+	outputZipPath := fmt.Sprintf("%s/%s.zip", consts.EXPORT_DIR, rootDirName)
+
+	err := setUpDir(rootDirPath, request.Pages)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, pageInfo := range mapPagePathToPageInfo {
-		err = genPage(rootDirName, pageInfo)
+		err = genPage(rootDirPath, pageInfo)
 		if err != nil {
 			return nil, err
 		}
 	}
 
 	// index pages
-	genIndexPages(rootDirName, request.Pages)
+	genIndexPages(rootDirPath, request.Pages)
 
 	// routing
-	genRoutes(rootDirName, request.Pages)
+	genRoutes(rootDirPath, request.Pages)
 
 	// format code
-	formatCode(rootDirName)
+	formatCode(rootDirPath)
+
+	// create zip file
+	err = utils.ZipDir(rootDirPath, outputZipPath)
+	if err != nil {
+		return &api.GenReactSourceCodeResponse{
+			Code:    "Error",
+			Message: err.Error(),
+			Url:     "",
+		}, nil
+	}
+
+	// upload File
+	url, err := utils.UploadFile(outputZipPath, outputZipPath)
+	if err != nil {
+		return &api.GenReactSourceCodeResponse{
+			Code:    "Error",
+			Message: err.Error(),
+			Url:     "",
+		}, nil
+	}
+
+	// Remove the input directory after zipping.
+	os.RemoveAll(outputZipPath)
+	os.RemoveAll(rootDirPath)
 
 	return &api.GenReactSourceCodeResponse{
 		Code:    "OK",
 		Message: "OK",
+		Url:     *url,
 	}, nil
 }
 
-func formatCode(rootDirName string) {
+func formatCode(rootDirPath string) {
 	// npx prettier --write .
-	command := exec.Command("npx", "prettier", "--write", fmt.Sprintf("%s/%s", consts.EXPORT_DIR, rootDirName))
+	command := exec.Command("prettier", "--write", rootDirPath)
 	command.Stderr = os.Stderr
 	// Run the command
 	command.Run()
 }
 
-func genPage(rootDirName string, pageInfo *dto.PageInfo) error {
+func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
 	components, mapIDToReactElements, propsByIds := getReactElementInfoFromNodes(pageInfo.Nodes)
 
 	reactElementString := mergeReactElements(pageInfo.RootID, mapIDToReactElements)
@@ -73,8 +102,8 @@ func genPage(rootDirName string, pageInfo *dto.PageInfo) error {
 	// create props
 	propsString := fmt.Sprintf("export const %s = {%s}", consts.PROPS_BY_ID, strings.Join(propsByIds, ","))
 
-	path := fmt.Sprintf("%s/%s/%s/props", rootDirName, consts.PAGES_DIR, pageInfo.Name)
-	err := utils.WriteFile(utils.GetFileNameExport(path, "tsx"), []byte(propsString))
+	propsFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, consts.PAGES_DIR, pageInfo.Name, consts.PROPS_TSX)
+	err := utils.WriteFile(propsFilePath, []byte(propsString))
 	if err != nil {
 		return nil
 	}
@@ -92,8 +121,8 @@ func genPage(rootDirName string, pageInfo *dto.PageInfo) error {
 		export default %s`,
 		strings.Join(components, ","), consts.PROPS_BY_ID, pageInfo.Name, reactElementString, pageInfo.Name)
 
-	path = fmt.Sprintf("%s/%s/%s/%s", rootDirName, consts.PAGES_DIR, pageInfo.Name, consts.INDEX)
-	err = utils.WriteFile(utils.GetFileNameExport(path, "tsx"), []byte(content))
+	indexFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, consts.PAGES_DIR, pageInfo.Name, consts.INDEX_TSX)
+	err = utils.WriteFile(indexFilePath, []byte(content))
 	if err != nil {
 		return nil
 	}
@@ -101,7 +130,7 @@ func genPage(rootDirName string, pageInfo *dto.PageInfo) error {
 	return nil
 }
 
-func genIndexPages(rootDirName string, pages []*api.Page) error {
+func genIndexPages(rootDirPath string, pages []*api.Page) error {
 	var (
 		exportPages []string
 		importPages []string
@@ -114,13 +143,13 @@ func genIndexPages(rootDirName string, pages []*api.Page) error {
 
 	content := fmt.Sprintf("%s \n\n export {%s}", strings.Join(importPages, "\n"), strings.Join(exportPages, ","))
 
-	path := fmt.Sprintf(`%s/%s/%s`, rootDirName, consts.PAGES_DIR, consts.INDEX)
+	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, consts.PAGES_DIR, consts.INDEX_TS)
 
-	err := utils.WriteFile(utils.GetFileNameExport(path, "ts"), []byte(content))
+	err := utils.WriteFile(filePath, []byte(content))
 	return err
 }
 
-func genRoutes(rootDirName string, pages []*api.Page) error {
+func genRoutes(rootDirPath string, pages []*api.Page) error {
 	var (
 		importPages []string
 		routes      []string
@@ -150,8 +179,8 @@ func genRoutes(rootDirName string, pages []*api.Page) error {
 		]
 	`, strings.Join(importPages, ", "), strings.Join(routes, ","))
 
-	path := fmt.Sprintf(`%s/%s/config`, rootDirName, consts.ROUTES_DIR)
-	err := utils.WriteFile(utils.GetFileNameExport(path, "tsx"), []byte(content))
+	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, consts.ROUTES_DIR, consts.CONFIG_TSX)
+	err := utils.WriteFile(filePath, []byte(content))
 	return err
 }
 func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.ReactElement, []string) {
@@ -206,16 +235,14 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 	return reactElement.ElementString
 }
 
-func setUpDir(rootDirName string, pages []*api.Page) error {
-	rootDir := fmt.Sprintf("%s/%s", consts.EXPORT_DIR, rootDirName)
-
-	err := utils.CopyDirRecursively(consts.REACT_JS_BASE_DIR, rootDir)
+func setUpDir(rootDirPath string, pages []*api.Page) error {
+	err := utils.CopyDirRecursively(consts.REACT_JS_BASE_DIR, rootDirPath)
 	if err != nil {
 		return err
 	}
 
 	for _, page := range pages {
-		err = utils.CreateDir(fmt.Sprintf("%s/%s/%s", rootDir, consts.PAGES_DIR, page.Name))
+		err = utils.CreateDir(fmt.Sprintf("%s/%s/%s", rootDirPath, consts.PAGES_DIR, page.Name))
 		if err != nil {
 			return err
 		}

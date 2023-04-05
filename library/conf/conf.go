@@ -3,8 +3,8 @@ package conf
 import (
 	"time"
 
-	"buildify/library/log"
-	server "buildify/library/server"
+	"github.com/thesisK19/buildify/library/log"
+	server "github.com/thesisK19/buildify/library/server"
 )
 
 // deploy env.
@@ -29,11 +29,11 @@ func DefaultServerConfig() ServerConfig {
 	return ServerConfig{
 		GRPC: server.Listen{
 			Host: "0.0.0.0",
-			Port: 10443,
+			Port: 443,
 		},
 		HTTP: server.Listen{
 			Host: "0.0.0.0",
-			Port: 10080,
+			Port: 80,
 		},
 	}
 }

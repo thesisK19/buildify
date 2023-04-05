@@ -1,0 +1,50 @@
+package(default_visibility = ["//visibility:public"])
+
+## docker build - rebuild
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+
+pkg_tar(
+    name = "baseReact_files",
+    srcs = glob(["base/**"]),
+    strip_prefix = ".",
+)
+
+pkg_tar(
+    name = "config_files",
+    srcs = [
+        # "config.yaml",
+        "storage-key.json",
+    ],
+    strip_prefix = ".",
+)
+
+container_image(
+    name = "custom_go_with_npx_image",
+    base = "@go_with_npx_dockerfile//image:dockerfile_image.tar",
+    data_path = "app/gen-code",
+    directory = "/app/app/gen-code/cmd/cmd.runfiles/buildify/",
+    tars = [
+        ":config_files",
+        ":baseReact_files",
+    ],
+)
+
+# using base image defined in this repo
+go_image(
+    name = "base_binary_image",
+    base = ":custom_go_with_npx_image",
+    binary = "//app/gen-code/cmd:cmd",
+)
+
+# container_push(
+#     name = "push",
+#     format = "Docker",
+#     image = ":container_image",
+#     registry = "asia.gcr.io",
+#     repository = "teko-registry/tekone/orders/fulfillment-router-service",
+#     skip_unchanged_digest = False,
+#     tag = "{IMAGE_TAG}",
+# )

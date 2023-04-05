@@ -1,0 +1,38 @@
+package(default_visibility = ["//visibility:public"])
+
+## docker build - rebuild
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+
+# filegroup(
+#     name = "data_files",
+#     srcs = glob(["data/*"]),
+# )
+
+go_image(
+    name = "base_binary_image",
+    binary = "//app/user/cmd:cmd",
+)
+
+# container_image(
+#     name = "user_image",
+#     base = ":base_binary_image",
+#     # cmd = ["server"],
+#     data_path = "app/user",
+#     # directory = "/app/app/orders/fulfillment_router_service/cmd/cmd.runfiles/tekone/",
+#     files = ["//app/user:user"],
+#     ports = [
+#         "8080",
+#         "10443",
+#     ],
+# )
+
+# container_push(
+#     name = "push",
+#     format = "Docker",
+#     image = ":container_image",
+#     registry = "asia.gcr.io",
+#     repository = "teko-registry/tekone/orders/fulfillment-router-service",
+#     skip_unchanged_digest = False,
+#     tag = "{IMAGE_TAG}",
+# )
