@@ -3,7 +3,6 @@ package(default_visibility = ["//visibility:public"])
 ## docker build - rebuild
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-
 load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
 
 pkg_tar(
@@ -39,12 +38,12 @@ go_image(
     binary = "//app/gen-code/cmd:cmd",
 )
 
-# container_push(
-#     name = "push",
-#     format = "Docker",
-#     image = ":container_image",
-#     registry = "asia.gcr.io",
-#     repository = "teko-registry/tekone/orders/fulfillment-router-service",
-#     skip_unchanged_digest = False,
-#     tag = "{IMAGE_TAG}",
-# )
+container_push(
+    name = "push",
+    format = "Docker",
+    image = ":base_binary_image",
+    registry = "buildify.azurecr.io",
+    repository = "gen-code",
+    skip_unchanged_digest = False,
+    tag = "3",
+)

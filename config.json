@@ -1,0 +1,7 @@
+{
+  "auths": {
+      "buildify.azurecr.io": {
+          "auth": "YnVpbGRpZnk6VzA0OVNFUmtZSkJtbTl5emxCS1V0ak8xUXZCOWs2ZnZ0Vmw4a01Ubjg4K0FDUkE4SWlJVg=="
+      }
+  }
+}
