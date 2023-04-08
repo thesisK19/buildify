@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package buildify.app.user.api;
+option go_package = "github.com/thesisK19/buildify/app/user/api";
+import "google/api/annotations.proto";
+import "google/rpc/code.proto";
+
+message CreateUserRequest {
+    string name = 1;
+    string username = 2;
+    string password = 3;
+}
+
+message CreateUserResponse {
+    google.rpc.Code code = 1;
+    string message = 2;
+    string id = 3;
+}
+
+message GetUserRequest {
+    string id = 1;
+    string username = 2;
+}
+
+message GetUserResponse {
+    google.rpc.Code code = 1;
+    string message = 2;
+    User user = 3;
+}
+
+message UpdateUserRequest {
+    string id = 1;
+    string name = 2;
+    string username = 3;
+    string password = 4;
+}
+
+message UpdateUserResponse {
+    google.rpc.Code code = 1;
+    string message = 2;
+}
+
+message User {
+    string name = 1;
+    string username = 2;
+}

@@ -1,37 +1,28 @@
 syntax = "proto3";
 
-package app.user.api;
+package buildify.app.user.api;
 option go_package = "github.com/thesisK19/buildify/app/user/api";
 import "google/api/annotations.proto";
+import "app/user/api/data.proto";
 
 service UserService {
-    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
-            post: "/api/user"
-            body: "*"
+            post : "/api/user"
+            body : "*"
         };
     }
-    rpc GetUser (GetUserRequest) returns (GetUserResponse) {
+
+    rpc GetUser(GetUserRequest) returns (GetUserResponse) {
         option (google.api.http) = {
-            get: "/api/user"
+            get : "/api/user"
         };
     }
-}
-
-message CreateUserRequest {
-    string name = 1;
-    string username = 2;
-    string password = 3;
-}
-
-message CreateUserResponse {
-    string code = 1;
-    string message = 2;
-}
-
-message GetUserRequest {}
-
-message GetUserResponse {
-    string code = 1;
-    string message = 2;
+    
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+        option (google.api.http) = {
+            put : "/api/user"
+            body : "*"
+        };
+    }
 }
