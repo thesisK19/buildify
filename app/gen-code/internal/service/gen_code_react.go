@@ -13,7 +13,7 @@ import (
 	"github.com/thesisK19/buildify/app/gen-code/api"
 	"github.com/thesisK19/buildify/app/gen-code/internal/consts"
 	"github.com/thesisK19/buildify/app/gen-code/internal/dto"
-	"github.com/thesisK19/buildify/app/gen-code/internal/utils"
+	"github.com/thesisK19/buildify/app/gen-code/internal/util"
 
 	"github.com/iancoleman/strcase"
 	"github.com/scylladb/go-set/strset"
@@ -56,7 +56,7 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	formatCode(rootDirPath)
 
 	// create zip file
-	err = utils.ZipDir(rootDirPath, outputZipPath)
+	err = util.ZipDir(rootDirPath, outputZipPath)
 	if err != nil {
 		return &api.GenReactSourceCodeResponse{
 			Code:    "Error",
@@ -66,7 +66,7 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	}
 
 	// upload File
-	url, err := utils.UploadFile(outputZipPath, outputZipPath)
+	url, err := util.UploadFile(outputZipPath, outputZipPath)
 	if err != nil {
 		return &api.GenReactSourceCodeResponse{
 			Code:    "Error",
@@ -103,7 +103,7 @@ func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
 	propsString := fmt.Sprintf("export const %s = {%s}", consts.PROPS_BY_ID, strings.Join(propsByIds, ","))
 
 	propsFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, consts.PAGES_DIR, pageInfo.Name, consts.PROPS_TSX)
-	err := utils.WriteFile(propsFilePath, []byte(propsString))
+	err := util.WriteFile(propsFilePath, []byte(propsString))
 	if err != nil {
 		return nil
 	}
@@ -122,7 +122,7 @@ func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
 		strings.Join(components, ","), consts.PROPS_BY_ID, pageInfo.Name, reactElementString, pageInfo.Name)
 
 	indexFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, consts.PAGES_DIR, pageInfo.Name, consts.INDEX_TSX)
-	err = utils.WriteFile(indexFilePath, []byte(content))
+	err = util.WriteFile(indexFilePath, []byte(content))
 	if err != nil {
 		return nil
 	}
@@ -145,7 +145,7 @@ func genIndexPages(rootDirPath string, pages []*api.Page) error {
 
 	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, consts.PAGES_DIR, consts.INDEX_TS)
 
-	err := utils.WriteFile(filePath, []byte(content))
+	err := util.WriteFile(filePath, []byte(content))
 	return err
 }
 
@@ -180,7 +180,7 @@ func genRoutes(rootDirPath string, pages []*api.Page) error {
 	`, strings.Join(importPages, ", "), strings.Join(routes, ","))
 
 	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, consts.ROUTES_DIR, consts.CONFIG_TSX)
-	err := utils.WriteFile(filePath, []byte(content))
+	err := util.WriteFile(filePath, []byte(content))
 	return err
 }
 func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.ReactElement, []string) {
@@ -236,13 +236,13 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 }
 
 func setUpDir(rootDirPath string, pages []*api.Page) error {
-	err := utils.CopyDirRecursively(consts.REACT_JS_BASE_DIR, rootDirPath)
+	err := util.CopyDirRecursively(consts.REACT_JS_BASE_DIR, rootDirPath)
 	if err != nil {
 		return err
 	}
 
 	for _, page := range pages {
-		err = utils.CreateDir(fmt.Sprintf("%s/%s/%s", rootDirPath, consts.PAGES_DIR, page.Name))
+		err = util.CreateDir(fmt.Sprintf("%s/%s/%s", rootDirPath, consts.PAGES_DIR, page.Name))
 		if err != nil {
 			return err
 		}

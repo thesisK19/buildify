@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "thesis-378216",
+  "private_key_id": "74950c5fa69f2f05395bb7edbd88a7d975ac3c33",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2ajTdKyjyU6KQ\n2YDbqsc4RKya468QSn+e2c6P1Gft1d0ncTNthJ0HC2wQqg3ZjUD5wcgC4MnEWB7a\neh3J/PPg5tnTpDvMsB7s7Dn/jfB1gcwjelUkEoEy0KcCRFlX3LmtD7UjS7+5QcX8\n12mL1/a2VmhKXXMMoJdkPxie+PlwKmThRheUEdQw5JuwCin7i4bl66MxNMLsQOn3\nHrN1Csni8nQdQ208v6BP9EzLK5jEh0B+F/9FUaiIaMG532X2hsNwDDFvz9oqSO0F\njt/Hh3g8Z45tk99G8ync7TnLV78RTsZ7qYoxkfArSkS80zpxtWfVAuFb8XITMHz9\nNSP2zuuPAgMBAAECggEADk7ZU6nBffRycWMmGNTV6IN2eHW4cxIs3XRfH+f8uOqH\n/MKD0qjOulE6ijoUeQZ73LtG6XbhTJ3O2bsvX/sP1Am3d0LQD/eWjWXgDLwA6u6h\n6Px89iXfbXFxUBu1WE9vXvQ29IxJ/wl6MqFg3X+0kcvIRWD8F7b2+P17/GgyBIqk\na1svwzh5295eUFgUoWwVelWdw0cbazbXMyA3bh+0YZfWXT7kXiVVJYj8DzePRHDY\nzxRWY0dd+zrRTd21ThmziS8KHZM88KZ1LoAEuAqmgp3fXYKKQOcEXE2athgxIgWL\ng3N4YuA7HkEkHZBoRE8+27oqO7ZlTi0m54cwL/1nwQKBgQD8pTJj8Y7WCFL/T0GZ\nt2XHtAGNThltIeNJ0vHuwz+99jGAyN60XG5qn56RIm47bpFte3JB6+DqiyxVNfp8\ndQhM3Pcs5tzuTmAENbT942BJEAzKN8jlwrUZm5nv2DN3aLGXd1BBI1Udf5kcVaVf\noafR/MD5KyTGaghr90FheiAPzwKBgQC41kd9CHdvY0wa4ssOCZid7qdsLAV2flUK\nC0D8DkqCzxYpVZNt8whDHd1imwniTamqrO7sWvi1sUzU3PyiM25lTKkI/IS8mpOV\nn0K6BdmEhKgoULCd9gX5lHgdngmM8g+fqojA4i7hCfOfim/S9VQFGcTcEf3MRs1s\n5XpCqjiYQQKBgF8+3C9nisTP4JJVy9JqnJlcGFWwQs+sveY/+2ta+nXgEauOjr8K\nNapGwN3QUCRhu7u9lUaa6XEixLTfI6615Eot55Vq95FzxKjxomkwxkTlIx09SKSt\n8d5UlgUgyc5TjtgeaAgWjOkRCKTw+OaDqCP3GL0W8cdHhCNH1MMt6lZrAoGBAKBR\nIuJc1JLlUl5DdZFwW1IobEiTig1zl7jFeBDnKFN64KLrWZtU30avgZSEGreRWubx\nZa3VXcDhzl0Wa30YFNmB+18S/uJDRFzTLOICLt8U3HFTQ01O1XHbB6/QokIAtfJr\nzH9X7wc7RXaMcV9NcBmYdznV1Qc4JfcctsVZtQrBAoGAE5rGVsaLqOp8BRlaOSLq\n1Aq8XH56lDKFfq7ktSVdf6Tbd5uoBUFUiswjJTpM9X7YwBBo8l/uJKC+BLEKJ6ZE\nxsLhotCkjzbkG8K+pyyqk1ElJrQ5KzhwY0OvcdHf7Jxh0pIiFyOKYvWYzHhBMbu1\n9/w1oUuRjoREP1PshlXpuAc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "buildify@thesis-378216.iam.gserviceaccount.com",
+  "client_id": "104782357271370398957",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/buildify%40thesis-378216.iam.gserviceaccount.com"
+}

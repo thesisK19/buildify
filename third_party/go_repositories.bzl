@@ -406,6 +406,13 @@ def go_repositories():
         sum = "h1:tlyzajkF3030q6M8SvmJSemC9DTHL/xaMa18b65+JM4=",
         version = "v0.0.0-20200911160855-bcd43fbb19e8",
     )
+    go_repository(
+        name = "com_github_gorilla_mux",
+        build_file_proto_mode = "disable",
+        importpath = "github.com/gorilla/mux",
+        sum = "h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=",
+        version = "v1.8.0",
+    )
 
     go_repository(
         name = "com_github_grpc_ecosystem_go_grpc_middleware",
@@ -818,6 +825,13 @@ def go_repositories():
         importpath = "github.com/sagikazarmark/crypt",
         sum = "h1:fipzMFW34hFUEc4D7fsLQFtE7yElkpgyS2zruedRdZk=",
         version = "v0.9.0",
+    )
+    go_repository(
+        name = "com_github_satori_go_uuid",
+        build_file_proto_mode = "disable",
+        importpath = "github.com/satori/go.uuid",
+        sum = "h1:0uYX9dsZ2yD7q2RtLRtPSdGDWzjeM3TbMJP9utgA0ww=",
+        version = "v1.2.0",
     )
 
     go_repository(

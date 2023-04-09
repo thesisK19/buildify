@@ -14,3 +14,18 @@ go_library(
         "@org_golang_google_api//option",
     ],
 )
+
+go_library(
+    name = "util",
+    srcs = [
+        "file.go",
+        "upload_file.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/gen-code/internal/util",
+    visibility = ["//app/gen-code:__subpackages__"],
+    deps = [
+        "@com_github_otiai10_copy//:copy",
+        "@com_google_cloud_go_storage//:storage",
+        "@org_golang_google_api//option",
+    ],
+)

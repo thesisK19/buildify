@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "config",
+    srcs = [
+        "config.go",
+        "config_gen.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/file-management/config",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//library/log",
+        "//library/server",
+        "@com_github_spf13_viper//:viper",
+    ],
+)

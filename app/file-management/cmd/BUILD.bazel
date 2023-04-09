@@ -1,0 +1,28 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "cmd_lib",
+    srcs = [
+        "initialize.go",
+        "main.go",
+        "service.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/file-management/cmd",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//app/file-management/config",
+        "//app/file-management/internal/handler",
+        "//app/file-management/internal/store",
+        "@com_github_gorilla_mux//:mux",
+        "@com_github_rs_cors//:cors",
+        "@com_github_sirupsen_logrus//:logrus",
+        "@org_mongodb_go_mongo_driver//mongo",
+        "@org_mongodb_go_mongo_driver//mongo/options",
+    ],
+)
+
+go_binary(
+    name = "cmd",
+    embed = [":cmd_lib"],
+    visibility = ["//visibility:public"],
+)
