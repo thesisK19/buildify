@@ -49,4 +49,4 @@ container_push(
 )
 
 # bazel build //app/gen-code:base_binary_image
-# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/gen-code:push  
+# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/gen-code:push

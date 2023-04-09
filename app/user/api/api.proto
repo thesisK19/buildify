@@ -25,11 +25,4 @@ service UserService {
             body : "*"
         };
     }
-
-    rpc UploadImage(UploadImageRequest) returns (UploadImageResponse) {
-        option (google.api.http) = {
-            put : "/api/upload-image"
-            body : "*"
-        };
-    }
 }

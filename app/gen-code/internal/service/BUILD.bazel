@@ -13,7 +13,7 @@ go_library(
     deps = [
         "//app/gen-code/api",
         "//app/gen-code/config",
-        "//app/gen-code/internal/consts",
+        "//app/gen-code/internal/constant",
         "//app/gen-code/internal/dto",
         "//app/gen-code/internal/store",
         "//app/gen-code/internal/util",

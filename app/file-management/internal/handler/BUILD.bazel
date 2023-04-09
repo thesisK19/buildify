@@ -10,5 +10,8 @@ go_library(
     ],
     importpath = "github.com/thesisK19/buildify/app/file-management/internal/handler",
     visibility = ["//app/file-management:__subpackages__"],
-    deps = ["//app/file-management/internal/util"],
+    deps = [
+        "//app/file-management/internal/constant",
+        "//app/file-management/internal/util",
+    ],
 )

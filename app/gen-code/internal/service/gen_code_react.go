@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/thesisK19/buildify/app/gen-code/api"
-	"github.com/thesisK19/buildify/app/gen-code/internal/consts"
+	"github.com/thesisK19/buildify/app/gen-code/internal/constant"
 	"github.com/thesisK19/buildify/app/gen-code/internal/dto"
 	"github.com/thesisK19/buildify/app/gen-code/internal/util"
 
@@ -30,9 +30,9 @@ func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactS
 func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
 	mapPagePathToPageInfo := getMapPagePathToPageInfo(request)
 
-	rootDirName := strconv.FormatInt(time.Now().Unix(), consts.BASE_DECIMAL)
-	rootDirPath := fmt.Sprintf("%s/%s", consts.EXPORT_DIR, rootDirName)
-	outputZipPath := fmt.Sprintf("%s/%s.zip", consts.EXPORT_DIR, rootDirName)
+	rootDirName := strconv.FormatInt(time.Now().Unix(), constant.BASE_DECIMAL)
+	rootDirPath := fmt.Sprintf("%s/%s", constant.EXPORT_DIR, rootDirName)
+	outputZipPath := fmt.Sprintf("%s/%s.zip", constant.EXPORT_DIR, rootDirName)
 
 	err := setUpDir(rootDirPath, request.Pages)
 	if err != nil {
@@ -100,9 +100,9 @@ func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
 	reactElementString := mergeReactElements(pageInfo.RootID, mapIDToReactElements)
 
 	// create props
-	propsString := fmt.Sprintf("export const %s = {%s}", consts.PROPS_BY_ID, strings.Join(propsByIds, ","))
+	propsString := fmt.Sprintf("export const %s = {%s}", constant.PROPS_BY_ID, strings.Join(propsByIds, ","))
 
-	propsFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, consts.PAGES_DIR, pageInfo.Name, consts.PROPS_TSX)
+	propsFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.PROPS_TSX)
 	err := util.WriteFile(propsFilePath, []byte(propsString))
 	if err != nil {
 		return nil
@@ -119,9 +119,9 @@ func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
 		)
 		
 		export default %s`,
-		strings.Join(components, ","), consts.PROPS_BY_ID, pageInfo.Name, reactElementString, pageInfo.Name)
+		strings.Join(components, ","), constant.PROPS_BY_ID, pageInfo.Name, reactElementString, pageInfo.Name)
 
-	indexFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, consts.PAGES_DIR, pageInfo.Name, consts.INDEX_TSX)
+	indexFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.INDEX_TSX)
 	err = util.WriteFile(indexFilePath, []byte(content))
 	if err != nil {
 		return nil
@@ -143,7 +143,7 @@ func genIndexPages(rootDirPath string, pages []*api.Page) error {
 
 	content := fmt.Sprintf("%s \n\n export {%s}", strings.Join(importPages, "\n"), strings.Join(exportPages, ","))
 
-	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, consts.PAGES_DIR, consts.INDEX_TS)
+	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.PAGES_DIR, constant.INDEX_TS)
 
 	err := util.WriteFile(filePath, []byte(content))
 	return err
@@ -179,7 +179,7 @@ func genRoutes(rootDirPath string, pages []*api.Page) error {
 		]
 	`, strings.Join(importPages, ", "), strings.Join(routes, ","))
 
-	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, consts.ROUTES_DIR, consts.CONFIG_TSX)
+	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.ROUTES_DIR, constant.CONFIG_TSX)
 	err := util.WriteFile(filePath, []byte(content))
 	return err
 }
@@ -204,7 +204,7 @@ func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.
 }
 
 func genReactElementFromNode(node *dto.Node) *dto.ReactElement {
-	elementString := fmt.Sprintf(`<%s {...%s["%s"]}>%s</%s>`, node.ComponentType, consts.PROPS_BY_ID, node.ID, consts.KEY_CHILDREN, node.ComponentType)
+	elementString := fmt.Sprintf(`<%s {...%s["%s"]}>%s</%s>`, node.ComponentType, constant.PROPS_BY_ID, node.ID, constant.KEY_CHILDREN, node.ComponentType)
 
 	return &dto.ReactElement{
 		ID:            node.ID,
@@ -221,7 +221,7 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 	}
 
 	if len(reactElement.Children) == 0 {
-		reactElement.ElementString = fmt.Sprintf(`<%s {...%s["%s"]}/>`, reactElement.Component, consts.PROPS_BY_ID, reactElement.ID)
+		reactElement.ElementString = fmt.Sprintf(`<%s {...%s["%s"]}/>`, reactElement.Component, constant.PROPS_BY_ID, reactElement.ID)
 		return reactElement.ElementString
 	}
 
@@ -230,19 +230,19 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 		childrenString += mergeReactElements(childID, mapIDToReactElements)
 	}
 
-	reactElement.ElementString = strings.Replace(reactElement.ElementString, consts.KEY_CHILDREN, childrenString, 1)
+	reactElement.ElementString = strings.Replace(reactElement.ElementString, constant.KEY_CHILDREN, childrenString, 1)
 
 	return reactElement.ElementString
 }
 
 func setUpDir(rootDirPath string, pages []*api.Page) error {
-	err := util.CopyDirRecursively(consts.REACT_JS_BASE_DIR, rootDirPath)
+	err := util.CopyDirRecursively(constant.REACT_JS_BASE_DIR, rootDirPath)
 	if err != nil {
 		return err
 	}
 
 	for _, page := range pages {
-		err = util.CreateDir(fmt.Sprintf("%s/%s/%s", rootDirPath, consts.PAGES_DIR, page.Name))
+		err = util.CreateDir(fmt.Sprintf("%s/%s/%s", rootDirPath, constant.PAGES_DIR, page.Name))
 		if err != nil {
 			return err
 		}
@@ -262,7 +262,7 @@ func getMapPagePathToPageInfo(request *api.GenReactSourceCodeRequest) map[string
 
 	for _, node := range request.Nodes {
 		pagePath := node.PagePath
-		if pagePath == consts.INVALID_PAGE_PATH {
+		if pagePath == constant.INVALID_PAGE_PATH {
 			continue // TODO: should return err
 		}
 
@@ -279,7 +279,7 @@ func getMapPagePathToPageInfo(request *api.GenReactSourceCodeRequest) map[string
 
 		}
 
-		if strings.HasPrefix(node.Id, consts.ROOT_ID_PREFIX) {
+		if strings.HasPrefix(node.Id, constant.ROOT_ID_PREFIX) {
 			mapPagePathToPageInfo[pagePath].RootID = node.Id
 		}
 		mapPagePathToPageInfo[pagePath].Nodes = append(mapPagePathToPageInfo[pagePath].Nodes, &dto.Node{

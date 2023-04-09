@@ -3,12 +3,14 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+
+	"github.com/thesisK19/buildify/app/file-management/internal/constant"
 )
 
 type Response struct {
-	Code    string         `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Code    constant.Code `json:"code"`
+	Message string        `json:"message"`
+	Data    interface{}   `json:"data"`
 }
 
 func Send(w http.ResponseWriter, res Response) error {

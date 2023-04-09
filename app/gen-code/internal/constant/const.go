@@ -1,4 +1,4 @@
-package consts
+package constant
 
 const (
 	BASE_DECIMAL = 10

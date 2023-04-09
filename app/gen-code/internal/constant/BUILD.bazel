@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "consts",
+    srcs = ["constant.go"],
+    importpath = "github.com/thesisK19/buildify/app/gen-code/internal/consts",
+    visibility = ["//app/gen-code:__subpackages__"],
+)
+
+go_library(
+    name = "constant",
+    srcs = ["const.go"],
+    importpath = "github.com/thesisK19/buildify/app/gen-code/internal/constant",
+    visibility = ["//app/gen-code:__subpackages__"],
+)

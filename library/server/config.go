@@ -5,14 +5,11 @@ import (
 	"net"
 )
 
-type ContextKey string
-
-const (
-	Identity       ContextKey = "identity"
-	StandardClaims ContextKey = "standardclaims"
-	// ForbiddenMesage ...
-	ForbiddenMesage = "User don't have role to access this api"
-)
+type Config struct {
+	Gateway        *gatewayConfig
+	Grpc           *grpcConfig
+	ServiceServers []ServiceServer
+}
 
 func (l Listen) String() string {
 	return fmt.Sprintf("%s:%d", l.Host, l.Port)
@@ -41,8 +38,3 @@ func createDefaultConfig() *Config {
 	return config
 }
 
-type Config struct {
-	Gateway        *gatewayConfig
-	Grpc           *grpcConfig
-	ServiceServers []ServiceServer
-}
