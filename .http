@@ -1,14 +1,31 @@
+# -- user -- 
+
+### create user
 POST http://localhost:3002/api/user HTTP/1.1
 content-type: application/json
 
 {
-    "name": "sample",
-    "username": "ycuteqtqd",
-    "password": "hoooo"
+    "name": "name 1",
+    "username": "user1",
+    "password": "ahaha"
+}
+
+### get user
+GET http://localhost:3002/api/user?username=user1 HTTP/1.1
+
+### update user
+PUT http://localhost:3002/api/user HTTP/1.1
+content-type: application/json
+
+{
+    "id": "6431535f1c16a4a882d35119",
+    "name": "new name",
+    "username": "new username",
+    "password": "hiiii"
 }
 
 ###
-GET http://localhost:3003//api/hello-world HTTP/1.1
+GET http://localhost:3005 HTTP/1.1
 
 ###
 GET https://user-buildify-2.azurewebsites.net:443/api/user HTTP/1.1

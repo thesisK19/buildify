@@ -7,12 +7,6 @@ import (
 	server "github.com/thesisK19/buildify/library/server"
 )
 
-// deploy env.
-const (
-	DeployEnvDev  = "dev"
-	DeployEnvProd = "prod"
-)
-
 const (
 	ContainerStartTimeout = 5 * time.Minute
 )
@@ -40,20 +34,12 @@ func DefaultServerConfig() ServerConfig {
 
 // Config ...
 type Base struct {
-	Env string     `json:"env" mapstructure:"env"`
 	Log log.Config `json:"log" mapstructure:"log"`
-	// LogLevel int `json:"log_level" mapstructure: "log_level"`
 	Server ServerConfig `json:"server" mapstructure:"server"`
-}
-
-func (b Base) IsDevelopment() bool {
-	return b.Env == DeployEnvDev
 }
 
 func DefaultBaseConfig() *Base {
 	return &Base{
-		Env: DeployEnvDev,
-		// LogLevel: 2,
 		Log:    log.DefaultConfig(),
 		Server: DefaultServerConfig(),
 	}

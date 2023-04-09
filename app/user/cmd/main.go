@@ -57,10 +57,10 @@ func runServer() error {
 		// server.WithGrpcServerUnaryInterceptors(
 		// grpc_zap.UnaryServerInterceptor(logger),                     // This is for assign logger to server -> Have to stand before every interceptor need logging
 		// interceptors.InjectTraceIDLogger,                            // This is for inject trace id to logger -> Have to stand after logger inject and before another processes
-		// grpc_recovery.UnaryServerInterceptor(utils.LogTraceStack()), // This is for recover from panic
+		// grpc_recovery.UnaryServerInterceptor(util.LogTraceStack()), // This is for recover from panic
 		// interceptors.SchemaLogInterceptor,
 		// interceptors.LogSlowAPI(logger, cfg.SlowResponseCheckingMap, cfg.SlowResponseExceedTime, static),
-		// utils.CatchContextErrorInterceptor,
+		// util.CatchContextErrorInterceptor,
 		// ),
 		server.WithGatewayAddrListen(cfg.Server.HTTP),
 		server.WithServiceServer(service),

@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "util",
+    srcs = [
+        "helper.go",
+        "upload_file.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/file-management/internal/util",
+    visibility = ["//app/file-management:__subpackages__"],
+    deps = [
+        "@com_github_satori_go_uuid//:go_uuid",
+        "@com_google_cloud_go_storage//:storage",
+        "@org_golang_google_api//option",
+    ],
+)

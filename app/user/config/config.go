@@ -11,9 +11,9 @@ type Config struct {
 
 func loadDefaultConfig() *Config {
 	return &Config{
-		MongoDB:   "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net/user_service",
-		ServiceDB: "user_service",
-		Base:      *conf.DefaultBaseConfig(),
+		MongoDB:     "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net/user_service",
+		ServiceDB:   "user_service",
+		Base:        *conf.DefaultBaseConfig(),
 		GenCodeHost: "localhost:9093",
 	}
 }
