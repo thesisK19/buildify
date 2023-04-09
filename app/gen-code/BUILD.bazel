@@ -45,5 +45,8 @@ container_push(
     registry = "buildify.azurecr.io",
     repository = "gen-code",
     skip_unchanged_digest = False,
-    tag = "3",
+    tag = "{IMAGE_TAG}",
 )
+
+# bazel build //app/gen-code:base_binary_image
+# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/gen-code:push  
