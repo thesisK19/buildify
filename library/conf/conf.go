@@ -34,7 +34,7 @@ func DefaultServerConfig() ServerConfig {
 
 // Config ...
 type Base struct {
-	Log log.Config `json:"log" mapstructure:"log"`
+	Log    log.Config   `json:"log" mapstructure:"log"`
 	Server ServerConfig `json:"server" mapstructure:"server"`
 }
 

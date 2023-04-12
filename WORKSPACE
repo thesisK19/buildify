@@ -72,9 +72,9 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 
 
 # Use gazelle to declare Go dependencies in Bazel.
-# gazelle:repository_macro third_party/go_repositories.bzl%go_repositories
+# gazelle:repository_macro go_repositories.bzl%go_repositories
 
-load("//third_party:go_repositories.bzl", "go_repositories")
+load("//:go_repositories.bzl", "go_repositories")
 
 go_repositories()
 

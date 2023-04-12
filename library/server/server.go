@@ -9,8 +9,6 @@ import (
 	"syscall"
 	"time"
 
-	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
-
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/reflection"
@@ -23,21 +21,15 @@ type Server struct {
 	config        *Config
 }
 
-// New creates a server intstance.
+// New creates a server instance.
 func New(opts ...Option) (*Server, error) {
 	c := createConfig(opts)
 
-	log.Println("Create grpc server")
+	log.Println("Create grpc server..")
 	grpcServer := newGrpcServer(c.Grpc, c.ServiceServers)
 	reflection.Register(grpcServer.server)
 
-	conn, err := grpc.Dial(c.Grpc.Addr.String(), grpc.WithTransportCredentials(insecure.NewCredentials()),
-		//nolint:gomnd
-		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(1024*1024*50)),
-		grpc.WithChainUnaryInterceptor(
-			otelgrpc.UnaryClientInterceptor(),
-		),
-	)
+	conn, err := grpc.Dial(c.Grpc.Addr.String(), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return nil, fmt.Errorf("fail to dial gRPC server. %w", err)
 	}

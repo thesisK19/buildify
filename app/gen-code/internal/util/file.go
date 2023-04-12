@@ -2,13 +2,14 @@ package util
 
 import (
 	"archive/zip"
+	"context"
 	"errors"
 	"io"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	cp "github.com/otiai10/copy"
 )
 
@@ -16,10 +17,12 @@ import (
 // https://freshman.tech/snippets/go/create-directory-if-not-exist/
 
 // If the file already exists, it is truncated. If the file does not exist, it is created with mode 0666
-func CreateFile(filename string) error {
+func CreateFile(ctx context.Context, filename string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateFile")
+
 	file, err := os.Create(filename)
 	if err != nil {
-		log.Fatal(err) // TODO:
+		logger.WithError(err).Error("Failed to os.Create file")
 		return err
 	}
 
@@ -28,75 +31,83 @@ func CreateFile(filename string) error {
 	return nil
 }
 
-func RemoveFile(filename string) error {
+func RemoveFile(ctx context.Context, filename string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "RemoveFile")
 	err := os.Remove(filename)
 
 	if err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to os.Remove file")
 		return err
 	}
 
 	return nil
 }
 
-func ReadFile(filename string) ([]byte, error) {
+func ReadFile(ctx context.Context, filename string) ([]byte, error) {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "ReadFile")
+
 	content, err := os.ReadFile(filename)
 	if err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to os.ReadFile file")
 		return nil, err
 	}
 
 	return content, nil
 }
 
-func WriteFile(filename string, data []byte) error {
-	err := os.WriteFile(filename, data, 0644)
+func WriteFile(ctx context.Context, filename string, data []byte) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "WriteFile")
 
+	err := os.WriteFile(filename, data, 0644)
 	if err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to os.WriteFile file")
+		return err
 	}
 
 	return nil
 }
 
-func AppendFile(filename string, data []byte) error {
+func AppendFile(ctx context.Context, filename string, data []byte) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "AppendFile")
 	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		log.Fatal(err)
-		return nil
+		logger.WithError(err).Error("Failed to os.OpenFile file")
+		return err
 	}
 
 	defer file.Close()
 
 	if _, err := file.Write(data); err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to file.Write file")
 		return err
 	}
 
 	return nil
 }
 
-func CopyFile(src string, dest string) error {
+func CopyFile(ctx context.Context, src string, dest string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "CopyFile")
 	bytesRead, err := os.ReadFile(src)
 	if err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to os.ReadFile file")
 		return err
 	}
 
 	err = os.WriteFile(dest, bytesRead, 0644)
 	if err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to os.WriteFile file")
 		return err
 	}
 
 	return nil
 }
 
-func CreateDir(path string) error {
+func CreateDir(ctx context.Context, path string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateDir")
 	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
 		err := os.Mkdir(path, os.ModePerm)
 		if err != nil {
-			log.Println(err) // TODO:
+			logger.WithError(err).Error("Failed to os.Mkdir")
 			return err
 		}
 	}
@@ -104,18 +115,20 @@ func CreateDir(path string) error {
 	return nil
 }
 
-func CreateDirRecursively(path string) error {
+func CreateDirRecursively(ctx context.Context, path string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateDirRecursively")
 	err := os.MkdirAll(path, os.ModePerm)
 	if err != nil {
-		log.Println(err) // TODO:
+		logger.WithError(err).Error("Failed to os.MkdirAll")
 		return err
 	}
 
 	return nil
 }
 
-func CopyDirRecursively(src string, dest string) error {
-	// TODO: add option param
+func CopyDirRecursively(ctx context.Context, src string, dest string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "CopyDirRecursively")
+	// TODO: add option param outsite
 
 	opt := cp.Options{
 		Skip: func(info os.FileInfo, src, dest string) (bool, error) {
@@ -125,17 +138,19 @@ func CopyDirRecursively(src string, dest string) error {
 
 	err := cp.Copy(src, dest, opt)
 	if err != nil {
-		log.Println(err) // TODO:
+		logger.WithError(err).Error("Failed to cp.Copy")
 		return err
 	}
 
 	return nil
 }
 
-func ZipDir(inputDir, outputZip string) error {
+func ZipDir(ctx context.Context, inputDir, outputZip string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "ZipDir")
 	// Create a new file to write the archive to
 	zipFile, err := os.Create(outputZip)
 	if err != nil {
+		logger.WithError(err).Error("Failed to os.Create")
 		return err
 	}
 	defer zipFile.Close()
@@ -147,18 +162,21 @@ func ZipDir(inputDir, outputZip string) error {
 	// Walk the directory tree recursively and add files to the archive
 	err = filepath.Walk(inputDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
+			logger.WithError(err).Error("Failed to filepath.Walk")
 			return err
 		}
 
 		// Get the file header
 		header, err := zip.FileInfoHeader(info)
 		if err != nil {
+			logger.WithError(err).Error("Failed to zip.FileInfoHeader")
 			return err
 		}
 
 		// Set the header name to the relative path of the file
 		header.Name, err = filepath.Rel(inputDir, path)
 		if err != nil {
+			logger.WithError(err).Error("Failed to filepath.Rel")
 			return err
 		}
 
@@ -174,6 +192,7 @@ func ZipDir(inputDir, outputZip string) error {
 		// Create a new file entry in the archive
 		writer, err := zipWriter.CreateHeader(header)
 		if err != nil {
+			logger.WithError(err).Error("Failed to zipWriter.CreateHeader")
 			return err
 		}
 
@@ -181,18 +200,24 @@ func ZipDir(inputDir, outputZip string) error {
 		if !info.IsDir() {
 			file, err := os.Open(path)
 			if err != nil {
+				logger.WithError(err).Error("Failed to os.Open")
 				return err
 			}
 			defer file.Close()
 
 			_, err = io.Copy(writer, file)
 			if err != nil {
+				logger.WithError(err).Error("Failed to io.Copy")
 				return err
 			}
 		}
 
 		return nil
 	})
+	if err != nil {
+		logger.WithError(err).Error("Failed to filepath.Walk")
+		return err
+	}
 
-	return err
+	return nil
 }

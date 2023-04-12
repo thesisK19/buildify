@@ -12,7 +12,7 @@ buf-gen:
 # bazel run //:gazelle -- update-repos 
 update:
 	go mod tidy
-	bazel --max_idle_secs=30 run //:gazelle -- update-repos -from_file=go.mod -to_macro=third_party/go_repositories.bzl%go_repositories -build_file_proto_mode=disable -prune=true
+	bazel --max_idle_secs=30 run //:gazelle -- update-repos -from_file=go.mod -to_macro=go_repositories.bzl%go_repositories -build_file_proto_mode=disable -prune=true
 	bazel --max_idle_secs=30 run //:gazelle -- update
 
 run-user:

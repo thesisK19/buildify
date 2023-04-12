@@ -44,5 +44,3 @@ message User {
     string name = 1;
     string username = 2;
 }
-
-message UploadImageRequest { bytes image_bytes = 1; }

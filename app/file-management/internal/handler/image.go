@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/thesisK19/buildify/app/file-management/internal/constant"
 	"github.com/thesisK19/buildify/app/file-management/internal/util"
 )
 
@@ -43,8 +44,8 @@ func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Send a success response
 	Send(w, Response{
-		Code:    "OK",
-		Message: "OK",
+		Code:    constant.Code_OK,
+		Message: constant.Code_OK.String(),
 		Data: struct {
 			Url string `json:"url"`
 		}{Url: *url},

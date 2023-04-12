@@ -7,15 +7,16 @@ import "google/api/annotations.proto";
 import "app/gen-code/api/data.proto";
 
 service GenCodeService {
-    rpc GenReactSourceCode (GenReactSourceCodeRequest) returns (GenReactSourceCodeResponse) {
+    rpc GenReactSourceCode(GenReactSourceCodeRequest)
+        returns (GenReactSourceCodeResponse) {
         option (google.api.http) = {
-            post: "/api/gen-react-code"
-            body: "*"
+            post : "/api/gen-react-code"
+            body : "*"
         };
     }
-    rpc HelloWorld (HelloWorldRequest) returns (HelloWorldResponse) {
+    rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {
         option (google.api.http) = {
-            get: "/api/hello-world"
+            get : "/api/hello-world"
         };
     }
 }
@@ -25,14 +26,9 @@ message GenReactSourceCodeRequest {
     repeated Page pages = 2;
 }
 
-message GenReactSourceCodeResponse {
-    string code = 1;
-    string message = 2;
-    string url = 3;
-}
+message GenReactSourceCodeResponse { string url = 1; }
 
 message HelloWorldRequest {}
 message HelloWorldResponse {
-    string code = 1;
-    string message = 2;
+    string message = 1;
 }
