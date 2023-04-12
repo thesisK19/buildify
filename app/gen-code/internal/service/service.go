@@ -5,13 +5,10 @@ import (
 
 	"github.com/thesisK19/buildify/app/gen-code/config"
 	"github.com/thesisK19/buildify/app/gen-code/internal/store"
-
-	"github.com/sirupsen/logrus"
 )
 
 type Service struct {
 	config     *config.Config
-	log        *logrus.Logger
 	repository store.Repository
 	adapters   serviceAdapters
 }
@@ -19,10 +16,9 @@ type Service struct {
 type serviceAdapters struct {
 }
 
-func NewService(cfg *config.Config, logger *logrus.Logger, repository store.Repository) *Service {
+func NewService(cfg *config.Config, repository store.Repository) *Service {
 	return &Service{
 		config:     cfg,
-		log:        logger,
 		repository: repository,
 		adapters:   serviceAdapters{},
 	}
@@ -33,7 +29,7 @@ func (s *Service) Close(ctx context.Context) {
 }
 
 func (s *Service) Ping() error {
-	err := s.repository.Ping()
+	err := s.repository.Ping() // TODO:
 	return err
 }
 

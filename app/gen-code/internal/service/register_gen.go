@@ -17,12 +17,13 @@ func (s *Service) RegisterWithServer(server *grpc.Server) {
 
 // RegisterWithHandler implementing service server interface
 func (s *Service) RegisterWithHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	entry := ctxlogrus.Extract(ctx)
+	logger := ctxlogrus.Extract(ctx).WithField("func", "RegisterWithHandler")
 
 	err := api.RegisterGenCodeServiceHandler(ctx, mux, conn)
 	if err != nil {
-		entry.Error("Error register servers")
+		logger.WithError(err).Error("Failed to register servers")
+		return err
 	}
 
-	return err
+	return nil
 }

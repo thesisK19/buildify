@@ -10,6 +10,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/thesisK19/buildify/app/gen-code/api"
 	"github.com/thesisK19/buildify/app/gen-code/internal/constant"
 	"github.com/thesisK19/buildify/app/gen-code/internal/dto"
@@ -20,7 +21,9 @@ import (
 )
 
 func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
-	fmt.Println("gen start nek")
+	logger := ctxlogrus.Extract(ctx)
+	logger.Info("GenReactSourceCode begin")
+
 	if len(request.Nodes) == 0 || len(request.Pages) == 0 {
 		return nil, nil
 	}
@@ -28,61 +31,71 @@ func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactS
 }
 
 func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
-	mapPagePathToPageInfo := getMapPagePathToPageInfo(request)
+	logger := ctxlogrus.Extract(ctx).WithField("func", "doGenReactSourceCode")
+
+	mapPagePathToPageInfo, err := getMapPagePathToPageInfo(ctx, request)
+	if err != nil {
+		logger.WithError(err).Error("Failed to getMapPagePathToPageInfo")
+		return nil, err
+	}
 
 	rootDirName := strconv.FormatInt(time.Now().Unix(), constant.BASE_DECIMAL)
 	rootDirPath := fmt.Sprintf("%s/%s", constant.EXPORT_DIR, rootDirName)
 	outputZipPath := fmt.Sprintf("%s/%s.zip", constant.EXPORT_DIR, rootDirName)
 
-	err := setUpDir(rootDirPath, request.Pages)
+	err = setUpDir(ctx, rootDirPath, request.Pages)
 	if err != nil {
+		logger.WithError(err).Error("Failed to setUpDir")
 		return nil, err
 	}
 
 	for _, pageInfo := range mapPagePathToPageInfo {
-		err = genPage(rootDirPath, pageInfo)
+		err = genPage(ctx, rootDirPath, pageInfo)
 		if err != nil {
+			logger.WithError(err).Error("Failed to genPage")
 			return nil, err
 		}
 	}
 
 	// index pages
-	genIndexPages(rootDirPath, request.Pages)
+	err = genIndexPages(ctx, rootDirPath, request.Pages)
+	if err != nil {
+		logger.WithError(err).Error("Failed to genIndexPages")
+		return nil, err
+	}
 
 	// routing
-	genRoutes(rootDirPath, request.Pages)
+	err = genRoutes(ctx, rootDirPath, request.Pages)
+	if err != nil {
+		logger.WithError(err).Error("Failed to genRoutes")
+		return nil, err
+	}
 
 	// format code
 	formatCode(rootDirPath)
 
 	// create zip file
-	err = util.ZipDir(rootDirPath, outputZipPath)
+	err = util.ZipDir(ctx, rootDirPath, outputZipPath)
 	if err != nil {
-		return &api.GenReactSourceCodeResponse{
-			Code:    "Error",
-			Message: err.Error(),
-			Url:     "",
-		}, nil
+		logger.WithError(err).Error("Failed to ZipDir")
+		return nil, err
 	}
 
 	// upload File
-	url, err := util.UploadFile(outputZipPath, outputZipPath)
+	url, err := util.UploadFile(ctx, outputZipPath, outputZipPath)
 	if err != nil {
-		return &api.GenReactSourceCodeResponse{
-			Code:    "Error",
-			Message: err.Error(),
-			Url:     "",
-		}, nil
+		logger.WithError(err).Error("Failed to UploadFile")
+		return nil, err
 	}
 
 	// Remove the input directory after zipping.
 	os.RemoveAll(outputZipPath)
 	os.RemoveAll(rootDirPath)
 
+	// TODO: delete remote file after 10 mins
+
 	return &api.GenReactSourceCodeResponse{
-		Code:    "OK",
-		Message: "OK",
-		Url:     *url,
+		Url: *url,
 	}, nil
 }
 
@@ -94,7 +107,9 @@ func formatCode(rootDirPath string) {
 	command.Run()
 }
 
-func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
+func genPage(ctx context.Context, rootDirPath string, pageInfo *dto.PageInfo) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "genPage")
+
 	components, mapIDToReactElements, propsByIds := getReactElementInfoFromNodes(pageInfo.Nodes)
 
 	reactElementString := mergeReactElements(pageInfo.RootID, mapIDToReactElements)
@@ -103,9 +118,10 @@ func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
 	propsString := fmt.Sprintf("export const %s = {%s}", constant.PROPS_BY_ID, strings.Join(propsByIds, ","))
 
 	propsFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.PROPS_TSX)
-	err := util.WriteFile(propsFilePath, []byte(propsString))
+	err := util.WriteFile(ctx, propsFilePath, []byte(propsString))
 	if err != nil {
-		return nil
+		logger.WithError(err).Error("Failed to WriteFile")
+		return err
 	}
 
 	// create page
@@ -122,15 +138,18 @@ func genPage(rootDirPath string, pageInfo *dto.PageInfo) error {
 		strings.Join(components, ","), constant.PROPS_BY_ID, pageInfo.Name, reactElementString, pageInfo.Name)
 
 	indexFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.INDEX_TSX)
-	err = util.WriteFile(indexFilePath, []byte(content))
+	err = util.WriteFile(ctx, indexFilePath, []byte(content))
 	if err != nil {
-		return nil
+		logger.WithError(err).Error("Failed to WriteFile")
+		return err
 	}
 
 	return nil
 }
 
-func genIndexPages(rootDirPath string, pages []*api.Page) error {
+func genIndexPages(ctx context.Context, rootDirPath string, pages []*api.Page) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "genIndexPages")
+
 	var (
 		exportPages []string
 		importPages []string
@@ -145,11 +164,17 @@ func genIndexPages(rootDirPath string, pages []*api.Page) error {
 
 	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.PAGES_DIR, constant.INDEX_TS)
 
-	err := util.WriteFile(filePath, []byte(content))
-	return err
+	err := util.WriteFile(ctx, filePath, []byte(content))
+	if err != nil {
+		logger.WithError(err).Error("Failed to WriteFile")
+		return err
+	}
+	return nil
 }
 
-func genRoutes(rootDirPath string, pages []*api.Page) error {
+func genRoutes(ctx context.Context, rootDirPath string, pages []*api.Page) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "genRoutes")
+
 	var (
 		importPages []string
 		routes      []string
@@ -180,8 +205,12 @@ func genRoutes(rootDirPath string, pages []*api.Page) error {
 	`, strings.Join(importPages, ", "), strings.Join(routes, ","))
 
 	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.ROUTES_DIR, constant.CONFIG_TSX)
-	err := util.WriteFile(filePath, []byte(content))
-	return err
+	err := util.WriteFile(ctx, filePath, []byte(content))
+	if err != nil {
+		logger.WithError(err).Error("Failed to WriteFile")
+		return err
+	}
+	return nil
 }
 func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.ReactElement, []string) {
 	components := strset.New()
@@ -235,15 +264,19 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 	return reactElement.ElementString
 }
 
-func setUpDir(rootDirPath string, pages []*api.Page) error {
-	err := util.CopyDirRecursively(constant.REACT_JS_BASE_DIR, rootDirPath)
+func setUpDir(ctx context.Context, rootDirPath string, pages []*api.Page) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "setUpDir")
+
+	err := util.CopyDirRecursively(ctx, constant.REACT_JS_BASE_DIR, rootDirPath)
 	if err != nil {
+		logger.WithError(err).Error("Failed to CopyDirRecursively")
 		return err
 	}
 
 	for _, page := range pages {
-		err = util.CreateDir(fmt.Sprintf("%s/%s/%s", rootDirPath, constant.PAGES_DIR, page.Name))
+		err = util.CreateDir(ctx, fmt.Sprintf("%s/%s/%s", rootDirPath, constant.PAGES_DIR, page.Name))
 		if err != nil {
+			logger.WithError(err).Error("Failed to CreateDir")
 			return err
 		}
 	}
@@ -251,7 +284,9 @@ func setUpDir(rootDirPath string, pages []*api.Page) error {
 	return nil
 }
 
-func getMapPagePathToPageInfo(request *api.GenReactSourceCodeRequest) map[string]*dto.PageInfo {
+func getMapPagePathToPageInfo(ctx context.Context, request *api.GenReactSourceCodeRequest) (map[string]*dto.PageInfo, error) {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "getMapPagePathToPageInfo")
+
 	mapPagePathToPageInfo := make(map[string]*dto.PageInfo)
 	mapPagePathToPageName := make(map[string]string)
 
@@ -263,7 +298,9 @@ func getMapPagePathToPageInfo(request *api.GenReactSourceCodeRequest) map[string
 	for _, node := range request.Nodes {
 		pagePath := node.PagePath
 		if pagePath == constant.INVALID_PAGE_PATH {
-			continue // TODO: should return err
+			err := fmt.Errorf("invalid page path, node=%v", node)
+			logger.WithError(err).Error("Failed to CreateDir")
+			return nil, err
 		}
 
 		_, ok := mapPagePathToPageInfo[pagePath]
@@ -290,5 +327,5 @@ func getMapPagePathToPageInfo(request *api.GenReactSourceCodeRequest) map[string
 		})
 	}
 
-	return mapPagePathToPageInfo
+	return mapPagePathToPageInfo, nil
 }
