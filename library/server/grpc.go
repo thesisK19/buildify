@@ -5,11 +5,19 @@ import (
 	"fmt"
 	"log"
 
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"google.golang.org/grpc"
 )
 
 type grpcConfig struct {
-	Addr         Listen
+	Addr Listen
+
+	PreServerUnaryInterceptors  []grpc.UnaryServerInterceptor
+	PostServerUnaryInterceptors []grpc.UnaryServerInterceptor
+	MaxConcurrentStreams        uint32
+
+	ServerOption []grpc.ServerOption
 }
 
 // grpcServer wraps grpc.Server setup process.
@@ -19,7 +27,7 @@ type grpcServer struct {
 }
 
 func newGrpcServer(c *grpcConfig, servers []ServiceServer) *grpcServer {
-	s := grpc.NewServer()
+	s := grpc.NewServer(c.ServerOptions()...)
 	for _, svr := range servers {
 		svr.RegisterWithServer(s)
 	}
@@ -33,7 +41,7 @@ func newGrpcServer(c *grpcConfig, servers []ServiceServer) *grpcServer {
 func (s *grpcServer) Serve() error {
 	l, err := s.config.Addr.CreateListener()
 	if err != nil {
-		return fmt.Errorf("failed to create listener %w", err)
+		return fmt.Errorf("Failed to create listener %w", err)
 	}
 
 	log.Println("gRPC server is starting ", l.Addr())
@@ -42,7 +50,7 @@ func (s *grpcServer) Serve() error {
 
 	if err != nil {
 		log.Println(err)
-		return fmt.Errorf("failed to serve gRPC server %w", err)
+		return fmt.Errorf("Failed to serve gRPC server %w", err)
 	}
 	log.Println("gRPC server ready")
 
@@ -60,7 +68,27 @@ func createDefaultGrpcConfig() *grpcConfig {
 			Host: "0.0.0.0",
 			Port: 443,
 		},
+		PreServerUnaryInterceptors: []grpc.UnaryServerInterceptor{
+			grpc_ctxtags.UnaryServerInterceptor(grpc_ctxtags.WithFieldExtractor(grpc_ctxtags.CodeGenRequestFieldExtractor)),
+		},
+		MaxConcurrentStreams: 100,
 	}
 
 	return config
+}
+
+func (c *grpcConfig) buildServerUnaryInterceptors() []grpc.UnaryServerInterceptor {
+	unaryInterceptors := c.PreServerUnaryInterceptors
+	unaryInterceptors = append(unaryInterceptors, c.PostServerUnaryInterceptors...)
+	return unaryInterceptors
+}
+
+func (c *grpcConfig) ServerOptions() []grpc.ServerOption {
+	return append(
+		[]grpc.ServerOption{
+			grpc_middleware.WithUnaryServerChain(c.buildServerUnaryInterceptors()...),
+			grpc.MaxConcurrentStreams(c.MaxConcurrentStreams),
+		},
+		c.ServerOption...,
+	)
 }

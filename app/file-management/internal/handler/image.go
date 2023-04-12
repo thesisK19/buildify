@@ -13,7 +13,7 @@ import (
 func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
-		http.Error(w, fmt.Sprintf("failed to parse form: %s", err.Error()), http.StatusBadRequest)
+		http.Error(w, fmt.Sprintf("Failed to parse form: %s", err.Error()), http.StatusBadRequest)
 		return
 	}
 
@@ -21,8 +21,8 @@ func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	r.Body = http.MaxBytesReader(w, r.Body, 10*1024*1024) // Max 10 Mb
 	file, header, err := r.FormFile("image")
 	if err != nil {
-		Send(w, Response{
-			Code:    "INVALID",
+		Send(w, http.StatusBadRequest, UploadImageResponse{
+			Code:    constant.Code_INVALID_ARGUMENT,
 			Message: err.Error(),
 		})
 		return
@@ -35,19 +35,17 @@ func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
 
 	url, err := util.UploadFile(file, "images/"+filename)
 	if err != nil {
-		Send(w, Response{
-			Code:    "INTERNAL",
+		Send(w, http.StatusInternalServerError, UploadImageResponse{
+			Code:    constant.Code_INTERNAL,
 			Message: err.Error(),
 		})
 		return
 	}
 
 	// Send a success response
-	Send(w, Response{
+	Send(w, http.StatusOK, UploadImageResponse{
 		Code:    constant.Code_OK,
 		Message: constant.Code_OK.String(),
-		Data: struct {
-			Url string `json:"url"`
-		}{Url: *url},
+		Url:     *url,
 	})
 }

@@ -2,8 +2,8 @@ package adapter
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	genCodeApi "github.com/thesisK19/buildify/app/gen-code/api"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -18,7 +18,7 @@ type ImplGenCodeClient struct {
 	client genCodeApi.GenCodeServiceClient
 }
 
-func (c *ImplGenCodeClient) getConnection() error {
+func (c *ImplGenCodeClient) connect() error {
 	if c.client == nil {
 		connectorChannel, err := grpc.DialContext(context.Background(), c.host, grpc.WithTransportCredentials(insecure.NewCredentials()))
 		if err != nil {
@@ -30,6 +30,7 @@ func (c *ImplGenCodeClient) getConnection() error {
 	return nil
 }
 
+// TODO: re-check
 func NewGenCodeClient(connectorAddr string) (*ImplGenCodeClient, error) {
 	serviceGRPC := ImplGenCodeClient{
 		host: connectorAddr,
@@ -45,19 +46,19 @@ func NewGenCodeClient(connectorAddr string) (*ImplGenCodeClient, error) {
 }
 
 func (c *ImplGenCodeClient) HelloWorld(ctx context.Context) (*genCodeApi.HelloWorldResponse, error) {
-	if err := c.getConnection(); err != nil {
-		return nil, fmt.Errorf("error to connect to gen code service %v", err.Error())
-	}
-	var err error
-	var resp *genCodeApi.HelloWorldResponse
-	req := genCodeApi.HelloWorldRequest{}
-	resp, err = c.client.HelloWorld(ctx, &req)
-	if err != nil {
-		return nil, fmt.Errorf("GenCode adapter: HelloWorld failed %w", err)
+	logger := ctxlogrus.Extract(ctx).WithField("func", "HelloWorld")
+
+	if err := c.connect(); err != nil {
+		logger.WithError(err).Error("Failed to connect client")
+		return nil, err
 	}
 
-	if resp.Code != "OK" {
-		return nil, fmt.Errorf("GenCode adapter: HelloWorld failed %v", resp.Message)
+	req := genCodeApi.HelloWorldRequest{}
+
+	resp, err := c.client.HelloWorld(ctx, &req)
+	if err != nil {
+		logger.WithError(err).Error("Failed to call HelloWorld")
+		return nil, err
 	}
 
 	return resp, nil

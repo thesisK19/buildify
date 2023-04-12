@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -15,13 +14,10 @@ import (
 	"github.com/thesisK19/buildify/app/file-management/config"
 	"github.com/thesisK19/buildify/app/file-management/internal/handler"
 	"github.com/thesisK19/buildify/app/file-management/internal/store"
-
-	"github.com/sirupsen/logrus"
 )
 
 type Service struct {
 	config     *config.Config
-	log        *logrus.Logger
 	repository store.Repository
 	adapters   serviceAdapters
 	router     *mux.Router
@@ -30,10 +26,9 @@ type Service struct {
 type serviceAdapters struct {
 }
 
-func NewService(cfg *config.Config, logger *logrus.Logger, repository store.Repository, router *mux.Router) *Service {
+func NewService(cfg *config.Config, repository store.Repository, router *mux.Router) *Service {
 	return &Service{
 		config:     cfg,
-		log:        logger,
 		repository: repository,
 		adapters:   serviceAdapters{},
 		router:     router,
@@ -42,11 +37,14 @@ func NewService(cfg *config.Config, logger *logrus.Logger, repository store.Repo
 
 func (s *Service) setRouter() {
 	s.Post("/upload/image", handler.UploadImageHandler)
-	s.Get("/", handler.HelloWorld)
+	// s.Get("/", handler.HelloWorld)
 }
 
 // Run will start the http server on host that you pass in. host:<ip:port>
-func (s *Service) Serve() {
+func (s *Service) Serve() error {
+	errch := make(chan error)
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
 
 	address := fmt.Sprintf("%s:%d", s.config.HTTP.Host, s.config.HTTP.Port)
 	srv := &http.Server{
@@ -61,32 +59,26 @@ func (s *Service) Serve() {
 	// Run our server in a goroutine so that it doesn't block.
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
-			log.Println(err)
+			log.Println("Error starting http server, ", err)
+			errch <- err
 		}
+		log.Printf("Server is listening on %s\n", address)
 	}()
 
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-
-	log.Printf("Server is listening on %s\n", address)
-
-	// Block until we receive our signal.
-	<-c
-
-	log.Println("Signal: ", c)
-
-	var wait time.Duration
-	flag.DurationVar(&wait, "graceful-timeout", time.Second*15, "the duration for which the server gracefully wait for existing connections to finish - e.g. 15s or 1m")
-	flag.Parse()
-	// Create a deadline to wait for.
-	ctx, cancel := context.WithTimeout(context.Background(), wait)
-	defer cancel()
-	// Doesn't block if no connections, but will otherwise wait
-	// until the timeout deadline.
-	log.Println("shutting down...")
-	srv.Shutdown(ctx)
-	s.Close()
-	os.Exit(0)
+	// shutdown
+	for {
+		select {
+		case <-stop:
+			log.Println("Shutting down server")
+			//nolint:gomnd
+			ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancel()
+			srv.Shutdown(ctx)
+			return nil
+		case err := <-errch:
+			return err
+		}
+	}
 }
 
 func (s *Service) Close() {

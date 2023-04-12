@@ -12,8 +12,6 @@ message CreateUserRequest {
 }
 
 message CreateUserResponse {
-    google.rpc.Code code = 1;
-    string message = 2;
     string id = 3;
 }
 
@@ -23,8 +21,6 @@ message GetUserRequest {
 }
 
 message GetUserResponse {
-    google.rpc.Code code = 1;
-    string message = 2;
     User user = 3;
 }
 
@@ -36,11 +32,18 @@ message UpdateUserRequest {
 }
 
 message UpdateUserResponse {
-    google.rpc.Code code = 1;
+    int32 code = 1;
     string message = 2;
 }
 
 message User {
     string name = 1;
     string username = 2;
+}
+
+message TestRequest {
+    int32 id = 1;
+}
+
+message TestResponse {
 }

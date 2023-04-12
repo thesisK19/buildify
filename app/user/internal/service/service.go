@@ -7,13 +7,10 @@ import (
 	"github.com/thesisK19/buildify/app/user/config"
 	"github.com/thesisK19/buildify/app/user/internal/adapter"
 	"github.com/thesisK19/buildify/app/user/internal/store"
-
-	"github.com/sirupsen/logrus"
 )
 
 type Service struct {
 	config     *config.Config
-	log        *logrus.Logger
 	repository store.Repository
 	adapters   serviceAdapters
 }
@@ -22,15 +19,15 @@ type serviceAdapters struct {
 	genCode adapter.GenCodeClient
 }
 
-func NewService(cfg *config.Config, logger *logrus.Logger, repository store.Repository) *Service {
+func NewService(cfg *config.Config, repository store.Repository) *Service {
 	genCode, err := adapter.NewGenCodeClient(cfg.GenCodeHost)
 	if err != nil {
-		fmt.Println("Init deliveryCentral fail...")
+		// should not return err, we will re-connect later
+		fmt.Println("Init NewGenCodeClient fail...")
 	}
 
 	return &Service{
 		config:     cfg,
-		log:        logger,
 		repository: repository,
 		adapters: serviceAdapters{
 			genCode: genCode,

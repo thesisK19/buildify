@@ -2,13 +2,17 @@ package service
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/thesisK19/buildify/app/user/api"
 	"github.com/thesisK19/buildify/app/user/internal/model"
-	"google.golang.org/genproto/googleapis/rpc/code"
+	"github.com/thesisK19/buildify/library/errors"
 )
 
 func (s *Service) CreateUser(ctx context.Context, in *api.CreateUserRequest) (*api.CreateUserResponse, error) {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateUser")
+
 	createParams := model.CreateUserParams{
 		Name:     in.Name,
 		Username: in.Username,
@@ -16,25 +20,18 @@ func (s *Service) CreateUser(ctx context.Context, in *api.CreateUserRequest) (*a
 	}
 	id, err := s.repository.CreateUser(ctx, createParams)
 	if err != nil {
-		return &api.CreateUserResponse{
-			Code:    code.Code_OK,
-			Message: err.Error(),
-		}, nil
+		logger.WithError(err).Error("Failed to repo.CreateUser")
+		return nil, err
 	}
 
 	return &api.CreateUserResponse{
-		Code:    code.Code_OK,
-		Message: code.Code_OK.String(),
-		Id:      *id,
+		Id: *id,
 	}, nil
 }
 
 func (s *Service) GetUser(ctx context.Context, in *api.GetUserRequest) (*api.GetUserResponse, error) {
 	if in.Id == "" && in.Username == "" {
-		return &api.GetUserResponse{
-			Code:    code.Code_INTERNAL,
-			Message: "id or username is required",
-		}, nil
+		return nil, errors.ToInvalidArgumentError(fmt.Errorf("id or username is required"))
 	}
 
 	var (
@@ -49,15 +46,10 @@ func (s *Service) GetUser(ctx context.Context, in *api.GetUserRequest) (*api.Get
 	}
 
 	if err != nil {
-		return &api.GetUserResponse{
-			Code:    code.Code_INTERNAL,
-			Message: err.Error(),
-		}, nil
+		return nil, err
 	}
 
 	return &api.GetUserResponse{
-		Code:    code.Code_OK,
-		Message: code.Code_OK.String(),
 		User: &api.User{
 			Username: user.Username,
 			Name:     user.Name,
@@ -67,10 +59,7 @@ func (s *Service) GetUser(ctx context.Context, in *api.GetUserRequest) (*api.Get
 
 func (s *Service) UpdateUser(ctx context.Context, in *api.UpdateUserRequest) (*api.UpdateUserResponse, error) {
 	if in.Id == "" && in.Username == "" {
-		return &api.UpdateUserResponse{
-			Code:    code.Code_INVALID_ARGUMENT,
-			Message: "id or username is required",
-		}, nil
+		return nil, errors.ToInvalidArgumentError(fmt.Errorf("id or username is required"))
 	}
 
 	var (
@@ -89,14 +78,8 @@ func (s *Service) UpdateUser(ctx context.Context, in *api.UpdateUserRequest) (*a
 	}
 
 	if err != nil {
-		return &api.UpdateUserResponse{
-			Code:    code.Code_INTERNAL,
-			Message: err.Error(),
-		}, nil
+		return nil, err
 	}
 
-	return &api.UpdateUserResponse{
-		Code:    code.Code_OK,
-		Message: code.Code_OK.String(),
-	}, nil
+	return &api.UpdateUserResponse{}, nil
 }
