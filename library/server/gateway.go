@@ -10,7 +10,6 @@ import (
 	runtime "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/rs/cors"
 
-	"github.com/gorilla/mux"
 	"google.golang.org/grpc"
 )
 
@@ -21,7 +20,7 @@ type gatewayServer struct {
 }
 
 type gatewayConfig struct {
-	Addr              Listen
+	Addr Listen
 }
 
 func createDefaultGatewayConfig() *gatewayConfig {
@@ -47,20 +46,20 @@ func newGatewayServer(c *gatewayConfig, conn *grpc.ClientConn, servers []Service
 		}
 	}
 
-	router := mux.NewRouter()
-	router.Handle("/", gw)
+	mux := http.NewServeMux()
+	mux.Handle("/", gw)
 
-	srv := &http.Server{
+	svr := &http.Server{
 		Addr: c.Addr.String(),
 		// Good practice to set timeouts to avoid Slowloris attacks.
 		WriteTimeout: time.Second * 15,
 		ReadTimeout:  time.Second * 15,
 		IdleTimeout:  time.Second * 60,
-		Handler:      cors.AllowAll().Handler(router), // Pass our instance of gorilla/mux in.
+		Handler:      cors.AllowAll().Handler(mux),
 	}
 
 	return &gatewayServer{
-		server: srv,
+		server: svr,
 		config: c,
 	}, nil
 }

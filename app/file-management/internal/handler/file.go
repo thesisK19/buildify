@@ -1,13 +1,9 @@
 package handler
 
-import (
-	"net/http"
-)
-
 // func UploadHandler(w http.ResponseWriter, r *http.Request) {
 // 	err := r.ParseForm()
 // 	if err != nil {
-// 		http.Error(w, fmt.Sprintf("failed to parse form: %s", err.Error()), http.StatusBadRequest)
+// 		http.Error(w, fmt.Sprintf("Failed to parse form: %s", err.Error()), http.StatusBadRequest)
 // 		return
 // 	}
 
@@ -30,12 +26,3 @@ import (
 // 		Data:    "hii data",
 // 	})
 // }
-
-func HelloWorld(w http.ResponseWriter, r *http.Request) {
-	// Send a success response
-	Send(w, Response{
-		Code:    "OK",
-		Message: "OK",
-		Data:    "Helloooo nheeee",
-	})
-}

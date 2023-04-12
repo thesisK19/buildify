@@ -2,21 +2,24 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/thesisK19/buildify/app/file-management/internal/constant"
 )
 
-type Response struct {
+type UploadImageResponse struct {
 	Code    constant.Code `json:"code"`
 	Message string        `json:"message"`
-	Data    interface{}   `json:"data"`
+	Url     string        `json:"url"`
 }
 
-func Send(w http.ResponseWriter, res Response) error {
+func Send(w http.ResponseWriter, statusCode int, res interface{}) {
 	w.Header().Set("Content-type", "application/json")
-	w.WriteHeader(http.StatusOK) // alway return 200 Ok ?
+	w.WriteHeader(statusCode)
 
-	err := json.NewEncoder(w).Encode(res)
-	return err
+	if err := json.NewEncoder(w).Encode(res); err != nil {
+		// Log the error
+		log.Printf("Error encoding response: %s", err.Error())
+	}
 }

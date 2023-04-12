@@ -9,7 +9,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Load()(*Config, error) {
+
+func Load() (*Config, error) {
 	c := loadDefaultConfig()
 
 	viper.SetConfigType("yaml")
@@ -18,15 +19,17 @@ func Load()(*Config, error) {
 
 	err := viper.ReadInConfig()
 	if err != nil {
-		log.Println("No config file, load default.")
+		log.Println("No config file, load default")
 
 		configBuffer, err := json.Marshal(c)
 		if err != nil {
+			log.Fatal("Failed to malshal config", err)
 			return nil, err
 		}
 
 		err = viper.ReadConfig(bytes.NewBuffer(configBuffer))
 		if err != nil {
+			log.Fatal("Failed to read config by viper", err)
 			return nil, err
 		}
 	}
@@ -35,5 +38,10 @@ func Load()(*Config, error) {
 
 	viper.AutomaticEnv()
 	err = viper.Unmarshal(c)
-	return c, err
+	if err != nil {
+		log.Fatal("Failed to unmarshal config by viper", err)
+		return nil, err
+	}
+
+	return c, nil
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/thesisK19/buildify/app/user/config"
 	"github.com/thesisK19/buildify/app/user/internal/model"
 
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -23,17 +22,15 @@ type Repository interface {
 }
 
 type repository struct {
-	log         *logrus.Logger
 	config      *config.Config
 	mongoClient *mongo.Client
 	db          *mongo.Database
 }
 
-func NewRepository(log *logrus.Logger, config *config.Config, mongoClient *mongo.Client) Repository {
+func NewRepository(config *config.Config, mongoClient *mongo.Client) Repository {
 	db := mongoClient.Database(config.ServiceDB)
 
 	return &repository{
-		log:         log,
 		config:      config,
 		mongoClient: mongoClient,
 		db:          db,

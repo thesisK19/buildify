@@ -25,4 +25,10 @@ service UserService {
             body : "*"
         };
     }
+
+    rpc Test(TestRequest) returns (TestResponse) {
+        option (google.api.http) = {
+            get : "/api/test"
+        };
+    }
 }

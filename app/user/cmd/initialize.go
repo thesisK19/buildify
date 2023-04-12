@@ -2,15 +2,12 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"log"
 	"time"
 
 	"github.com/thesisK19/buildify/app/user/config"
 	"github.com/thesisK19/buildify/app/user/internal/service"
 	"github.com/thesisK19/buildify/app/user/internal/store"
 
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -26,30 +23,29 @@ func connectDB(connectionString string, serviceDB string) (*mongo.Client, error)
 	client, err := mongo.Connect(ctx, clientOptions)
 
 	if err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to connect mongoDB. ", "connectionStr=", connectionString)
+		return nil, err
 	}
 
 	// Check the connection
 	err = client.Ping(context.TODO(), nil)
 
 	if err != nil {
-		log.Fatal(err)
+		logger.WithError(err).Error("Failed to ping mongoDB. ", "connectionStr=", connectionString)
+		return nil, err
 	}
 
-	fmt.Println("Connected to MongoDB!")
+	logger.Info("Connected to MongoDB!!")
 	return client, nil
 }
 
-func newService(cfg *config.Config, log *logrus.Logger) (*service.Service, error) {
+func newService(cfg *config.Config) (*service.Service, error) {
 	mongoClient, err := connectDB(cfg.MongoDB, cfg.ServiceDB)
 	if err != nil {
-		logger.WithFields(logrus.Fields{
-			"DB config": cfg.MongoDB,
-			"err":       err,
-		}).Error("Error connect database")
+		logger.WithError(err).Error("Failed to connectDB")
 		return nil, err
 	}
-	repository := store.NewRepository(log, cfg, mongoClient)
+	repository := store.NewRepository(cfg, mongoClient)
 
-	return service.NewService(cfg, log, repository), nil
+	return service.NewService(cfg, repository), nil
 }

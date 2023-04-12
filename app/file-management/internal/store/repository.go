@@ -3,7 +3,6 @@ package store
 import (
 	"context"
 
-	"github.com/sirupsen/logrus"
 	"github.com/thesisK19/buildify/app/file-management/config"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -16,17 +15,15 @@ type Repository interface {
 }
 
 type repository struct {
-	log         *logrus.Logger
 	config      *config.Config
 	mongoClient *mongo.Client
 	db          *mongo.Database
 }
 
-func NewRepository(log *logrus.Logger, config *config.Config, mongoClient *mongo.Client) Repository {
+func NewRepository(config *config.Config, mongoClient *mongo.Client) Repository {
 	db := mongoClient.Database(config.ServiceDB)
 
 	return &repository{
-		log:         log,
 		config:      config,
 		mongoClient: mongoClient,
 		db:          db,

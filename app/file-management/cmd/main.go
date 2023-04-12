@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 
-	"github.com/sirupsen/logrus"
 	"github.com/thesisK19/buildify/app/file-management/config"
 )
 
@@ -14,8 +13,7 @@ func main() {
 }
 
 var (
-	cfg    *config.Config
-	logger *logrus.Logger
+	cfg *config.Config
 )
 
 func run() error {
@@ -27,14 +25,8 @@ func run() error {
 		return err
 	}
 
-	// init logging
-	logger, err = cfg.Log.Build()
-	if err != nil {
-		return err
-	}
-
 	// start server
-	server, err := newService(cfg, logger)
+	server, err := newService(cfg)
 	if err != nil {
 		return err
 	}
