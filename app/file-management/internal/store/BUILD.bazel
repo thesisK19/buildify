@@ -7,7 +7,6 @@ go_library(
     visibility = ["//app/file-management:__subpackages__"],
     deps = [
         "//app/file-management/config",
-        "@com_github_sirupsen_logrus//:logrus",
         "@org_mongodb_go_mongo_driver//mongo",
     ],
 )

@@ -21,7 +21,6 @@ go_library(
         "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime",
         "@com_github_iancoleman_strcase//:strcase",
         "@com_github_scylladb_go_set//strset",
-        "@com_github_sirupsen_logrus//:logrus",
         "@org_golang_google_grpc//:go_default_library",
     ],
 )

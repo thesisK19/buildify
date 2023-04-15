@@ -51,6 +51,8 @@ run-gen-code:
 # docker tag user:base_binary_image buildify.azurecr.io/user:base_binary_image
 
 # docker tag bazel/app/gen-code:base_binary_image buildify.azurecr.io/gen-code:base_binary_image
+# docker tag bazel/app/file-management:container_image buildify.azurecr.io/file_mgt:base_binary_image
+# docker push buildify.azurecr.io/file_mgt:base_binary_image
 
 
 

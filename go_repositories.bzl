@@ -26,14 +26,6 @@ def go_repositories():
     )
 
     go_repository(
-        name = "com_github_benbjohnson_clock",
-        build_file_proto_mode = "disable",
-        importpath = "github.com/benbjohnson/clock",
-        sum = "h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=",
-        version = "v1.1.0",
-    )
-
-    go_repository(
         name = "com_github_burntsushi_toml",
         build_file_proto_mode = "disable",
         importpath = "github.com/BurntSushi/toml",
@@ -2006,13 +1998,6 @@ def go_repositories():
         version = "v1.9.0",
     )
 
-    go_repository(
-        name = "org_uber_go_goleak",
-        build_file_proto_mode = "disable",
-        importpath = "go.uber.org/goleak",
-        sum = "h1:wy28qYRKZgnJTxGxvye5/wgWr1EKjmUDGYox5mGlRlI=",
-        version = "v1.1.11",
-    )
     go_repository(
         name = "org_uber_go_multierr",
         build_file_proto_mode = "disable",

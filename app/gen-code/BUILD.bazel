@@ -33,7 +33,7 @@ container_image(
 
 # using base image defined in this repo
 go_image(
-    name = "base_binary_image",
+    name = "npx_go_image",
     base = ":custom_go_with_npx_image",
     binary = "//app/gen-code/cmd:cmd",
 )
@@ -41,12 +41,12 @@ go_image(
 container_push(
     name = "push",
     format = "Docker",
-    image = ":base_binary_image",
+    image = ":npx_go_image",
     registry = "buildify.azurecr.io",
     repository = "gen-code",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",
 )
 
-# bazel build //app/gen-code:base_binary_image
+# bazel build //app/gen-code:npx_go_image
 # bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/gen-code:push

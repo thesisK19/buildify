@@ -11,18 +11,14 @@ message CreateUserRequest {
     string password = 3;
 }
 
-message CreateUserResponse {
-    string id = 3;
-}
+message CreateUserResponse { string id = 1; }
 
 message GetUserRequest {
     string id = 1;
     string username = 2;
 }
 
-message GetUserResponse {
-    User user = 3;
-}
+message GetUserResponse { User user = 1; }
 
 message UpdateUserRequest {
     string id = 1;
@@ -31,19 +27,13 @@ message UpdateUserRequest {
     string password = 4;
 }
 
-message UpdateUserResponse {
-    int32 code = 1;
-    string message = 2;
-}
+message UpdateUserResponse {}
 
 message User {
     string name = 1;
     string username = 2;
 }
 
-message TestRequest {
-    int32 id = 1;
-}
+message TestRequest { int32 id = 1; }
 
-message TestResponse {
-}
+message TestResponse {}

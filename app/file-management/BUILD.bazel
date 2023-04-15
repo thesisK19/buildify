@@ -16,14 +16,14 @@ pkg_tar(
 
 go_image(
     name = "base_binary_image",
-    binary = "//app/user/cmd:cmd",
+    binary = "//app/file-management/cmd:cmd",
 )
 
 container_image(
     name = "container_image",
     base = ":base_binary_image",
-    data_path = "app/user",
-    directory = "/app/app/user/cmd/cmd.runfiles/buildify/",
+    data_path = "app/file-management",
+    directory = "/app/app/file-management/cmd/cmd.runfiles/buildify/",
     tars = [
         ":config_files",
     ],
@@ -34,10 +34,10 @@ container_push(
     format = "Docker",
     image = ":container_image",
     registry = "buildify.azurecr.io",
-    repository = "user",
+    repository = "file_mgt",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",
 )
 
-# bazel build //app/user:container_image
-# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/user:push
+# bazel build //app/file-management:container_image
+# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/file-management:push
