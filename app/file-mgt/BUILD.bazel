@@ -24,11 +24,11 @@ container_image(
     base = ":base_binary_image",
     data_path = "app/file-mgt",
     directory = "/app/app/file-mgt/cmd/cmd.runfiles/buildify/",
-    tars = [
-        ":config_files",
-    ],
     ports = [
         "80",
+    ],
+    tars = [
+        ":config_files",
     ],
 )
 
