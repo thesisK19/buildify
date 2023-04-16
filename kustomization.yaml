@@ -6,6 +6,3 @@ resources:
 - k8s/user-deployment.yaml
 - k8s/user-service.yaml
 - k8s/ingress.yaml
-images:
-- name: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user
-  newTag: "1"
