@@ -1,0 +1,67 @@
+name: deploy-user
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/user/**'
+env:
+  DEPLOYMENT_NAME: user-deployment
+  IMAGE: user
+
+jobs:
+  build-and-deploy:
+    name: build and deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+        with:
+          service_account_key: ${{ secrets.GKE_CREDENTIAL }}
+          project_id: ${{ secrets.PROJECT_ID }}
+
+      # Configure Docker to use the gcloud command-line tool as a credential
+      - name: Config Docker Client
+        run: |-
+          gcloud auth configure-docker ${{ secrets.DOCKER_CLIENT }} --quiet
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_CREDENTIAL }}
+
+      # Building Docker image
+      - uses: bazelbuild/setup-bazelisk@v1
+      - run: bazel build //...
+      - name: Bazel Build Image
+        run: |-
+          bazel build //app/user:container_image
+
+      # Push to GCR
+      - name: Push Image to Artifact Registry
+        run: |-
+          bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/user:push
+
+      # Setup Kustomize
+      - name: Set up Kustomize
+        run: |-
+          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+          chmod u+x ./kustomize
+
+      # Deploy to the GKE cluster
+      - name: Deploy to GKE cluster
+        run: |-
+          ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:$(git rev-parse --short HEAD)
+          ./kustomize build . | kubectl apply -f -
+          kubectl rollout status deployment/$DEPLOYMENT_NAME
+          kubectl get services -o wide
+
+# ./kustomize edit set image asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user:1
