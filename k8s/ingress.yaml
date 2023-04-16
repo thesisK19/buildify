@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: basic-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "ingress-static-ip"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /user-service/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: user-service
+            port:
+              number: 80
+      - path: /gen-code-service/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: gen-code-service
+            port:
+              number: 80
+
+

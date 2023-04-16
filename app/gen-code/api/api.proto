@@ -10,13 +10,18 @@ service GenCodeService {
     rpc GenReactSourceCode(GenReactSourceCodeRequest)
         returns (GenReactSourceCodeResponse) {
         option (google.api.http) = {
-            post : "/api/gen-react-code"
+            post : "/gen-code-service/api/gen-react-code"
             body : "*"
         };
     }
     rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {
         option (google.api.http) = {
-            get : "/api/hello-world"
+            get : "/gen-code-service/api/hello-world"
+        };
+    }
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+        option (google.api.http) = {
+            get : "/"
         };
     }
 }
@@ -32,3 +37,6 @@ message HelloWorldRequest {}
 message HelloWorldResponse {
     string message = 1;
 }
+
+message HealthCheckRequest {}
+message HealthCheckResponse {}

@@ -114,7 +114,7 @@ load("@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
 )
 docker_toolchain_configure(
   name = "docker_config",
-  client_config="config.json",
+  client_config="service_account.json",
 )
 
 _go_image_repos()

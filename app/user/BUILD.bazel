@@ -24,6 +24,10 @@ container_image(
     base = ":base_binary_image",
     data_path = "app/user",
     directory = "/app/app/user/cmd/cmd.runfiles/buildify/",
+    ports = [
+        "80",
+        "443",
+    ],
     tars = [
         ":config_files",
     ],
@@ -33,7 +37,7 @@ container_push(
     name = "push",
     format = "Docker",
     image = ":container_image",
-    registry = "buildify.azurecr.io",
+    registry = "asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry",
     repository = "user",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",

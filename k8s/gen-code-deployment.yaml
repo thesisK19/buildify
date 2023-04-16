@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gen-code-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gen-code-deployment
+  template:
+    metadata:
+      labels:
+        app: gen-code-deployment
+    spec:
+      containers:
+      - image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/gen-code:bba08ce
+        imagePullPolicy: Always
+        name: gen-code-deployment
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        resources:
+          limits:
+            cpu: 100m
+            memory: 500Mi

@@ -25,6 +25,10 @@ container_image(
     base = "@go_with_npx_dockerfile//image:dockerfile_image.tar",
     data_path = "app/gen-code",
     directory = "/app/app/gen-code/cmd/cmd.runfiles/buildify/",
+    ports = [
+        "80",
+        "443",
+    ],
     tars = [
         ":config_files",
         ":baseReact_files",
@@ -42,7 +46,7 @@ container_push(
     name = "push",
     format = "Docker",
     image = ":npx_go_image",
-    registry = "buildify.azurecr.io",
+    registry = "asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry",
     repository = "gen-code",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",

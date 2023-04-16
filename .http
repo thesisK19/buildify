@@ -1,20 +1,20 @@
 # -- user -- 
 
 ### create user
-POST https://user-buildify.azurewebsites.net/api/user HTTP/1.1
+POST http://34.117.219.34/user-service/api/user HTTP/1.1
 content-type: application/json
 
 {
-    "name": "name 1",
-    "username": "user1",
-    "password": "ahaha"
+    "name": "GKEname",
+    "username": "GKEuser",
+    "password": "kkkkkkkkkkkkkkk"
 }
 
 ### get user
 GET https://user-buildify.azurewebsites.net/api/user?id=6436998847cb069d979d5a53 HTTP/1.1
 
 ### update user
-PUT http://localhost:3002/api/user HTTP/1.1
+PUT http://34.117.219.34/user-service/api/user HTTP/1.1
 content-type: application/json
 
 {
