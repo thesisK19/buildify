@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/thesisK19/buildify/app/user/api"
 	"github.com/thesisK19/buildify/library/errors"
 )
@@ -11,16 +11,18 @@ import (
 func (s *Service) Test(ctx context.Context, in *api.TestRequest) (*api.TestResponse, error) {
 	// logger := ctxlogrus.Extract(ctx).WithField("func", "Test")
 
-	err := fmt.Errorf("alo alo errr")
-	if in.Id == 1 {
-		return nil, errors.ToDefaultError(err)
-	}
-	if in.Id == 2 {
-		return nil, errors.ToInvalidArgumentError(err)
-	}
-	if in.Id == 3 {
+	resp, err := s.adapters.genCode.HelloWorld(ctx)
+	if err != nil {
 		return nil, errors.ToNotFoundError(err)
 	}
+	return &api.TestResponse{
+		Message: resp.Message,
+	}, nil
+}
 
-	return nil, err
+func (s *Service) HealthCheck(ctx context.Context, in *api.HealthCheckRequest) (*api.HealthCheckResponse, error) {
+	logger := ctxlogrus.Extract(ctx)
+	logger.Info("Check Health")
+
+	return &api.HealthCheckResponse{}, nil
 }

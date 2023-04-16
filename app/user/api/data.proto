@@ -35,5 +35,7 @@ message User {
 }
 
 message TestRequest { int32 id = 1; }
+message TestResponse { string message = 1;}
 
-message TestResponse {}
+message HealthCheckRequest {}
+message HealthCheckResponse {}

@@ -449,6 +449,8 @@ type TestResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
 }
 
 func (x *TestResponse) Reset() {
@@ -481,6 +483,89 @@ func (x *TestResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use TestResponse.ProtoReflect.Descriptor instead.
 func (*TestResponse) Descriptor() ([]byte, []int) {
 	return file_app_user_api_data_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *TestResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type HealthCheckRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *HealthCheckRequest) Reset() {
+	*x = HealthCheckRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_app_user_api_data_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HealthCheckRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckRequest) ProtoMessage() {}
+
+func (x *HealthCheckRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_app_user_api_data_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckRequest.ProtoReflect.Descriptor instead.
+func (*HealthCheckRequest) Descriptor() ([]byte, []int) {
+	return file_app_user_api_data_proto_rawDescGZIP(), []int{9}
+}
+
+type HealthCheckResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *HealthCheckResponse) Reset() {
+	*x = HealthCheckResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_app_user_api_data_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HealthCheckResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthCheckResponse) ProtoMessage() {}
+
+func (x *HealthCheckResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_app_user_api_data_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthCheckResponse.ProtoReflect.Descriptor instead.
+func (*HealthCheckResponse) Descriptor() ([]byte, []int) {
+	return file_app_user_api_data_proto_rawDescGZIP(), []int{10}
 }
 
 var File_app_user_api_data_proto protoreflect.FileDescriptor
@@ -522,12 +607,16 @@ var file_app_user_api_data_proto_rawDesc = []byte{
 	0x65, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20,
 	0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x1d, 0x0a,
 	0x0b, 0x54, 0x65, 0x73, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x0e, 0x0a, 0x0c,
-	0x54, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x2c, 0x5a, 0x2a,
-	0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x74, 0x68, 0x65, 0x73, 0x69,
-	0x73, 0x4b, 0x31, 0x39, 0x2f, 0x62, 0x75, 0x69, 0x6c, 0x64, 0x69, 0x66, 0x79, 0x2f, 0x61, 0x70,
-	0x70, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x02, 0x69, 0x64, 0x22, 0x28, 0x0a, 0x0c,
+	0x54, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07,
+	0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d,
+	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x14, 0x0a, 0x12, 0x48, 0x65, 0x61, 0x6c, 0x74, 0x68,
+	0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x15, 0x0a, 0x13,
+	0x48, 0x65, 0x61, 0x6c, 0x74, 0x68, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x42, 0x2c, 0x5a, 0x2a, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x74, 0x68, 0x65, 0x73, 0x69, 0x73, 0x4b, 0x31, 0x39, 0x2f, 0x62, 0x75, 0x69, 0x6c,
+	0x64, 0x69, 0x66, 0x79, 0x2f, 0x61, 0x70, 0x70, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2f, 0x61, 0x70,
+	0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -542,17 +631,19 @@ func file_app_user_api_data_proto_rawDescGZIP() []byte {
 	return file_app_user_api_data_proto_rawDescData
 }
 
-var file_app_user_api_data_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_app_user_api_data_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_app_user_api_data_proto_goTypes = []interface{}{
-	(*CreateUserRequest)(nil),  // 0: buildify.app.user.api.CreateUserRequest
-	(*CreateUserResponse)(nil), // 1: buildify.app.user.api.CreateUserResponse
-	(*GetUserRequest)(nil),     // 2: buildify.app.user.api.GetUserRequest
-	(*GetUserResponse)(nil),    // 3: buildify.app.user.api.GetUserResponse
-	(*UpdateUserRequest)(nil),  // 4: buildify.app.user.api.UpdateUserRequest
-	(*UpdateUserResponse)(nil), // 5: buildify.app.user.api.UpdateUserResponse
-	(*User)(nil),               // 6: buildify.app.user.api.User
-	(*TestRequest)(nil),        // 7: buildify.app.user.api.TestRequest
-	(*TestResponse)(nil),       // 8: buildify.app.user.api.TestResponse
+	(*CreateUserRequest)(nil),   // 0: buildify.app.user.api.CreateUserRequest
+	(*CreateUserResponse)(nil),  // 1: buildify.app.user.api.CreateUserResponse
+	(*GetUserRequest)(nil),      // 2: buildify.app.user.api.GetUserRequest
+	(*GetUserResponse)(nil),     // 3: buildify.app.user.api.GetUserResponse
+	(*UpdateUserRequest)(nil),   // 4: buildify.app.user.api.UpdateUserRequest
+	(*UpdateUserResponse)(nil),  // 5: buildify.app.user.api.UpdateUserResponse
+	(*User)(nil),                // 6: buildify.app.user.api.User
+	(*TestRequest)(nil),         // 7: buildify.app.user.api.TestRequest
+	(*TestResponse)(nil),        // 8: buildify.app.user.api.TestResponse
+	(*HealthCheckRequest)(nil),  // 9: buildify.app.user.api.HealthCheckRequest
+	(*HealthCheckResponse)(nil), // 10: buildify.app.user.api.HealthCheckResponse
 }
 var file_app_user_api_data_proto_depIdxs = []int32{
 	6, // 0: buildify.app.user.api.GetUserResponse.user:type_name -> buildify.app.user.api.User
@@ -677,6 +768,30 @@ func file_app_user_api_data_proto_init() {
 				return nil
 			}
 		}
+		file_app_user_api_data_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HealthCheckRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_app_user_api_data_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HealthCheckResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -684,7 +799,7 @@ func file_app_user_api_data_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_app_user_api_data_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

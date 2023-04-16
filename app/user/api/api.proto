@@ -8,27 +8,33 @@ import "app/user/api/data.proto";
 service UserService {
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
         option (google.api.http) = {
-            post : "/api/user"
+            post : "/user-service/api/user"
             body : "*"
         };
     }
 
     rpc GetUser(GetUserRequest) returns (GetUserResponse) {
         option (google.api.http) = {
-            get : "/api/user"
+            get : "/user-service/api/user"
         };
     }
     
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
         option (google.api.http) = {
-            put : "/api/user"
+            put : "/user-service/api/user"
             body : "*"
         };
     }
 
     rpc Test(TestRequest) returns (TestResponse) {
         option (google.api.http) = {
-            get : "/api/test"
+            get : "/user-service/api/test"
+        };
+    }
+
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+        option (google.api.http) = {
+            get : "/"
         };
     }
 }
