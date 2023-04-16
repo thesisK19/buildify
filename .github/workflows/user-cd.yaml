@@ -46,7 +46,7 @@ jobs:
       # Push to GCR
       - name: Push Image to Artifact Registry
         run: |-
-          bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/user:push
+          bazel run --stamp --workspace_status_command="echo IMAGE_TAG ${{ github.run_number }}" //app/user:push
 
       # Setup Kustomize
       - name: Set up Kustomize
@@ -57,7 +57,7 @@ jobs:
       # Deploy to the GKE cluster
       - name: Deploy to GKE cluster
         run: |-
-          ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:$(git rev-parse --short HEAD)
+          ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get services -o wide
