@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -38,6 +37,7 @@ func NewService(cfg *config.Config, repository store.Repository, router *mux.Rou
 func (s *Service) setRouter() {
 	s.Post("/file-mgt-service/api/upload/image", handler.UploadImageHandler)
 	s.Get("/", handler.HealthCheck)
+	s.Get("/file-mgt-service", handler.Test)
 }
 
 // Run will start the http server on host that you pass in. host:<ip:port>
@@ -46,7 +46,7 @@ func (s *Service) Serve() error {
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt)
 
-	address := fmt.Sprintf("%s:%d", s.config.HTTP.Host, s.config.HTTP.Port)
+	address := s.config.HTTP.String()
 	srv := &http.Server{
 		Addr: address,
 		// Good practice to set timeouts to avoid Slowloris attacks.
@@ -57,13 +57,13 @@ func (s *Service) Serve() error {
 	}
 
 	// Run our server in a goroutine so that it doesn't block.
+	log.Printf("HTTP Server starting at %s\n", address)
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
 			log.Println("Error starting http server, ", err)
 			errch <- err
 		}
 	}()
-	log.Printf("Server is listening on %s\n", address)
 
 	// shutdown
 	for {
