@@ -40,12 +40,13 @@ jobs:
 
       # Building Docker image
       - uses: bazelbuild/setup-bazelisk@v2
-      - run: bazel build //...
+      - name: Build Container Image
+        run: bazel build //app/gen-code:npx_go_image
       - name: Mount bazel cache # Optional
         uses: actions/cache@v3
         with:
-          path: '~/.cache/bazel'
-          key: bazel
+          path: '~/.cache/bazel-gen-code'
+          key: bazel-gen-code
 
       # Push to GCR
       - name: Push Image to Artifact Registry

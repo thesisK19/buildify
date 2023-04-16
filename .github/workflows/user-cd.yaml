@@ -40,12 +40,13 @@ jobs:
 
       # Building Docker image
       - uses: bazelbuild/setup-bazelisk@v2
-      - run: bazel build //...
+      - name: Build Container Image
+        run: bazel build //app/user:container_image
       - name: Mount bazel cache # Optional
         uses: actions/cache@v3
         with:
-          path: '~/.cache/bazel'
-          key: bazel
+          path: '~/.cache/bazel-user'
+          key: bazel-user
 
       # Push to GCR
       - name: Push Image to Artifact Registry
