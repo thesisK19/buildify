@@ -7,10 +7,6 @@ spec:
     app: file-mgt-deployment
   ports:
   - port: 80
-    name: gateway
+    name: http
     protocol: TCP
     targetPort: 80
-  - port: 443
-    name: grpc
-    protocol: TCP
-    targetPort: 443
