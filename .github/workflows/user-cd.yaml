@@ -45,7 +45,7 @@ jobs:
       - name: Mount bazel cache # Optional
         uses: actions/cache@v3
         with:
-          path: '~/.cache/bazel-user'
+          path: '~/.cache/bazel'
           key: bazel-user
 
       # Push to GCR
