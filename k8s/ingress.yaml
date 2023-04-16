@@ -22,5 +22,12 @@ spec:
             name: gen-code-service
             port:
               number: 80
+      - path: /file-mgt-service/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: file-mgt-service
+            port:
+              number: 80
 
 

@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/thesisK19/buildify/app/file-management/config"
-	"github.com/thesisK19/buildify/app/file-management/internal/store"
+	"github.com/thesisK19/buildify/app/file-mgt/config"
+	"github.com/thesisK19/buildify/app/file-mgt/internal/store"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )

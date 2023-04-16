@@ -47,3 +47,6 @@ content-type: application/json
 
 ###
 GET http://localhost:3003/api/hello-world HTTP/1.1
+
+###
+GET http://localhost:3007 HTTP/1.1
