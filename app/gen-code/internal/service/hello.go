@@ -10,7 +10,7 @@ import (
 func (s *Service) HelloWorld(ctx context.Context, request *api.HelloWorldRequest) (*api.HelloWorldResponse, error) {
 
 	return &api.HelloWorldResponse{
-		Message: "hellu from gencode <3 hi >.<",
+		Message: "hellu from gencode <3",
 	}, nil
 }
 
