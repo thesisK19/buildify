@@ -1,5 +1,5 @@
-# KTPM-BE-Website-Builder
+# BUILDIFY backend
 
-# bazel run //:gazelle -- update-repos -from_file=go.mod
+Expose IP address: 34.117.219.34
 
-# bazel clean --expunge
+<!-- https://faun.pub/building-ci-cd-pipeline-with-github-action-63082aa0bd1d -->
