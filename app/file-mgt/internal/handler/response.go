@@ -14,6 +14,8 @@ type UploadImageResponse struct {
 	Url     string        `json:"url"`
 }
 
+type HealthCheckResponse struct{}
+
 func Send(w http.ResponseWriter, statusCode int, res interface{}) {
 	w.Header().Set("Content-type", "application/json")
 	w.WriteHeader(statusCode)

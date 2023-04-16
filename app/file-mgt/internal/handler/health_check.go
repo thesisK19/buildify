@@ -1,8 +1,12 @@
 package handler
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 func HealthCheck(w http.ResponseWriter, r *http.Request) {
+	log.Println("HealthCheck")
 	// Send a success response
-	Send(w, http.StatusOK, "health check OK!!")
+	Send(w, http.StatusOK, HealthCheckResponse{})
 }
