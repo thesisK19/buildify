@@ -16,7 +16,7 @@ func (s *Service) Test(ctx context.Context, in *api.TestRequest) (*api.TestRespo
 		return nil, errors.ToNotFoundError(err)
 	}
 	return &api.TestResponse{
-		Message: resp.Message,
+		Message: resp.Message + "\nAnd this is user new version kk",
 	}, nil
 }
 
