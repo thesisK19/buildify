@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "handler",
+    srcs = [
+        "file.go",
+        "health_check.go",
+        "image.go",
+        "middleware.go",
+        "response.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/file-mgt/internal/handler",
+    visibility = ["//app/file-mgt:__subpackages__"],
+    deps = [
+        "//app/file-mgt/internal/constant",
+        "//app/file-mgt/internal/util",
+    ],
+)

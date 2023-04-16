@@ -13,7 +13,7 @@ spec:
         app: gen-code-deployment
     spec:
       containers:
-      - image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/gen-code:11
+      - image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/gen-code:1
         imagePullPolicy: Always
         name: gen-code-deployment
         ports:

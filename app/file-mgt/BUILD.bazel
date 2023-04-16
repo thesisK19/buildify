@@ -16,14 +16,14 @@ pkg_tar(
 
 go_image(
     name = "base_binary_image",
-    binary = "//app/file-management/cmd:cmd",
+    binary = "//app/file-mgt/cmd:cmd",
 )
 
 container_image(
     name = "container_image",
     base = ":base_binary_image",
-    data_path = "app/file-management",
-    directory = "/app/app/file-management/cmd/cmd.runfiles/buildify/",
+    data_path = "app/file-mgt",
+    directory = "/app/app/file-mgt/cmd/cmd.runfiles/buildify/",
     tars = [
         ":config_files",
     ],
@@ -33,11 +33,11 @@ container_push(
     name = "push",
     format = "Docker",
     image = ":container_image",
-    registry = "buildify.azurecr.io",
-    repository = "file_mgt",
+    registry = "asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry",
+    repository = "file-mgt",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",
 )
 
-# bazel build //app/file-management:container_image
-# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/file-management:push
+# bazel build //app/file-mgt:container_image
+# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/file-mgt:push

@@ -11,9 +11,9 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
-	"github.com/thesisK19/buildify/app/file-management/config"
-	"github.com/thesisK19/buildify/app/file-management/internal/handler"
-	"github.com/thesisK19/buildify/app/file-management/internal/store"
+	"github.com/thesisK19/buildify/app/file-mgt/config"
+	"github.com/thesisK19/buildify/app/file-mgt/internal/handler"
+	"github.com/thesisK19/buildify/app/file-mgt/internal/store"
 )
 
 type Service struct {
@@ -37,7 +37,7 @@ func NewService(cfg *config.Config, repository store.Repository, router *mux.Rou
 
 func (s *Service) setRouter() {
 	s.Post("file-mgt-service/api/upload/image", handler.UploadImageHandler)
-	// s.Get("/", handler.HelloWorld)
+	s.Get("/", handler.HealthCheck)
 }
 
 // Run will start the http server on host that you pass in. host:<ip:port>
@@ -62,8 +62,8 @@ func (s *Service) Serve() error {
 			log.Println("Error starting http server, ", err)
 			errch <- err
 		}
-		log.Printf("Server is listening on %s\n", address)
 	}()
+	log.Printf("Server is listening on %s\n", address)
 
 	// shutdown
 	for {

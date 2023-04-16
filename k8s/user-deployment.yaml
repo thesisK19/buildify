@@ -16,7 +16,7 @@ spec:
       - env:
         - name: GEN_CODE_HOST
           value: gen-code-service:443
-        image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user:9
+        image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user:1
         imagePullPolicy: Always
         name: user-deployment
         ports:
