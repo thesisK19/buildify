@@ -39,11 +39,13 @@ jobs:
           credentials: ${{ secrets.GKE_CREDENTIAL }}
 
       # Building Docker image
-      - uses: bazelbuild/setup-bazelisk@v1
+      - uses: bazelbuild/setup-bazelisk@v2
       - run: bazel build //...
-      - name: Bazel Build Image
-        run: |-
-          bazel build //app/user:container_image
+      - name: Mount bazel cache # Optional
+        uses: actions/cache@v3
+        with:
+          path: '~/.cache/bazel'
+          key: bazel
 
       # Push to GCR
       - name: Push Image to Artifact Registry
