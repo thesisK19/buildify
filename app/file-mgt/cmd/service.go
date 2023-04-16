@@ -36,8 +36,8 @@ func NewService(cfg *config.Config, repository store.Repository, router *mux.Rou
 
 func (s *Service) setRouter() {
 	s.Post("/file-mgt-service/api/upload/image", handler.UploadImageHandler)
+	s.Get("/file-mgt-service/api/test", handler.Test)
 	s.Get("/", handler.HealthCheck)
-	s.Get("/file-mgt-service", handler.Test)
 }
 
 // Run will start the http server on host that you pass in. host:<ip:port>
