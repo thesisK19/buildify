@@ -5,37 +5,7 @@ option go_package = "github.com/thesisK19/buildify/app/user/api";
 import "google/api/annotations.proto";
 import "google/rpc/code.proto";
 
-message CreateUserRequest {
-    string name = 1;
-    string username = 2;
-    string password = 3;
-}
-
-message CreateUserResponse { string id = 1; }
-
-message GetUserRequest {
-    string id = 1;
-    string username = 2;
-}
-
-message GetUserResponse { User user = 1; }
-
-message UpdateUserRequest {
-    string id = 1;
-    string name = 2;
-    string username = 3;
-    string password = 4;
-}
-
-message UpdateUserResponse {}
-
 message User {
     string name = 1;
     string username = 2;
 }
-
-message TestRequest { int32 id = 1; }
-message TestResponse { string message = 1;}
-
-message HealthCheckRequest {}
-message HealthCheckResponse {}

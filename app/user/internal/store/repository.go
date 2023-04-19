@@ -19,7 +19,7 @@ type Repository interface {
 	// repository
 	Ping() error
 	Close() error
-}
+} 
 
 type repository struct {
 	config      *config.Config

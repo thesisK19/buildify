@@ -13,4 +13,4 @@ MONGO_DB: mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net
 
 SERVICE_DB: user_service
 
-ALLOWED_ORIGINS: "*"
+JWT_SECRET: eyJhbGciOiJIUzI1NiJ9

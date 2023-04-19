@@ -1,4 +1,4 @@
-package errors
+package errors_lib
 
 import (
 	"google.golang.org/grpc/codes"
@@ -17,6 +17,13 @@ func ToNotFoundError(err error) error {
 		return status.Error(codes.NotFound, codes.NotFound.String())
 	}
 	return status.Error(codes.NotFound, err.Error())
+}
+
+func ToUnauthenticatedError(err error) error {
+	if err == nil {
+		return status.Error(codes.Unauthenticated, codes.Unauthenticated.String())
+	}
+	return status.Error(codes.Unauthenticated, err.Error())
 }
 
 func ToInvalidArgumentError(err error) error {

@@ -6,7 +6,8 @@ import (
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/thesisK19/buildify/app/user/config"
-	"github.com/thesisK19/buildify/library/server"
+	server_lib "github.com/thesisK19/buildify/library/server"
+	"google.golang.org/grpc"
 
 	"github.com/sirupsen/logrus"
 )
@@ -57,14 +58,15 @@ func runServer() error {
 	// Logrus entry is used, allowing pre-definition of certain fields by the user.
 	logrusEntry := logrus.NewEntry(logger)
 
-	s, err := server.New(
-		server.WithGrpcAddrListen(cfg.Server.GRPC),
-		server.WithGatewayAddrListen(cfg.Server.HTTP),
-		server.WithGrpcServerUnaryInterceptors(
+	s, err := server_lib.New(
+		server_lib.WithGrpcAddrListen(cfg.Server.GRPC),
+		server_lib.WithGatewayAddrListen(cfg.Server.HTTP),
+		server_lib.WithGrpcServerUnaryInterceptors(
 			grpc_ctxtags.UnaryServerInterceptor(),
 			grpc_logrus.UnaryServerInterceptor(logrusEntry),
+			grpc.UnaryServerInterceptor(server_lib.AuthInterceptor),
 		),
-		server.WithServiceServer(service),
+		server_lib.WithServiceServer(service),
 	)
 	if err != nil {
 		logger.WithError(err).Error("Failed to get new servers")

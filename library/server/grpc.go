@@ -1,4 +1,4 @@
-package server
+package server_lib
 
 import (
 	"context"

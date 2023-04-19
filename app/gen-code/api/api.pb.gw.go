@@ -66,7 +66,7 @@ func local_request_GenCodeService_GenReactSourceCode_0(ctx context.Context, mars
 }
 
 func request_GenCodeService_HelloWorld_0(ctx context.Context, marshaler runtime.Marshaler, client GenCodeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq HelloWorldRequest
+	var protoReq EmptyRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := client.HelloWorld(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -75,7 +75,7 @@ func request_GenCodeService_HelloWorld_0(ctx context.Context, marshaler runtime.
 }
 
 func local_request_GenCodeService_HelloWorld_0(ctx context.Context, marshaler runtime.Marshaler, server GenCodeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq HelloWorldRequest
+	var protoReq EmptyRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := server.HelloWorld(ctx, &protoReq)
@@ -84,7 +84,7 @@ func local_request_GenCodeService_HelloWorld_0(ctx context.Context, marshaler ru
 }
 
 func request_GenCodeService_HealthCheck_0(ctx context.Context, marshaler runtime.Marshaler, client GenCodeServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq HealthCheckRequest
+	var protoReq EmptyRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := client.HealthCheck(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -93,7 +93,7 @@ func request_GenCodeService_HealthCheck_0(ctx context.Context, marshaler runtime
 }
 
 func local_request_GenCodeService_HealthCheck_0(ctx context.Context, marshaler runtime.Marshaler, server GenCodeServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq HealthCheckRequest
+	var protoReq EmptyRequest
 	var metadata runtime.ServerMetadata
 
 	msg, err := server.HealthCheck(ctx, &protoReq)

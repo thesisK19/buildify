@@ -1,6 +1,9 @@
 package model
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"github.com/golang-jwt/jwt"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 // User Model
 type User struct {
@@ -20,4 +23,10 @@ type UpdateUserParams struct {
 	Name     string `json:"name,omitempty" bson:"name,omitempty" validate:"alpha"`
 	Username string `json:"username,omitempty" bson:"username,omitempty" validate:"alpha"`
 	Password string `json:"password,omitempty" bson:"password,omitempty" validate:"alpha"`
+}
+
+// Claims struct for JWT claims
+type Claims struct {
+	Username string `json:"username"`
+	jwt.StandardClaims
 }

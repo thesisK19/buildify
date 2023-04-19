@@ -6,35 +6,66 @@ import "google/api/annotations.proto";
 import "app/user/api/data.proto";
 
 service UserService {
-    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    rpc SignUp(SignUpRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            post : "/user-service/api/user"
+            post : "/user-service/api/sign-up"
             body : "*"
         };
     }
 
-    rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    rpc SignIn(SignInRequest) returns (SignInResponse) {
         option (google.api.http) = {
-            get : "/user-service/api/user"
-        };
-    }
-    
-    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
-        option (google.api.http) = {
-            put : "/user-service/api/user"
+            post : "/user-service/api/sign-in"
             body : "*"
         };
     }
 
-    rpc Test(TestRequest) returns (TestResponse) {
+    rpc GetUser(EmptyRequest) returns (GetUserResponse) {
+        option (google.api.http) = {
+            get : "/user-service/api/user-info"
+        };
+    }
+
+    rpc UpdateUser(UpdateUserRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            put : "/user-service/api/user-info"
+            body : "*"
+        };
+    }
+
+    rpc Test(EmptyRequest) returns (TestResponse) {
         option (google.api.http) = {
             get : "/user-service/api/test"
         };
     }
 
-    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+    rpc HealthCheck(EmptyRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             get : "/"
         };
     }
 }
+
+message EmptyRequest {}
+message EmptyResponse {}
+
+message SignUpRequest {
+    string name = 1;
+    string username = 2;
+    string password = 3;
+}
+
+message SignInRequest {
+    string username = 1;
+    string password = 2;
+}
+message SignInResponse { string token = 1; }
+
+message GetUserResponse { User user = 1; }
+
+message UpdateUserRequest {
+    string name = 1;
+    string password = 2;
+}
+
+message TestResponse { string message = 1; }

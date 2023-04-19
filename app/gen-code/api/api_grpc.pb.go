@@ -23,8 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GenCodeServiceClient interface {
 	GenReactSourceCode(ctx context.Context, in *GenReactSourceCodeRequest, opts ...grpc.CallOption) (*GenReactSourceCodeResponse, error)
-	HelloWorld(ctx context.Context, in *HelloWorldRequest, opts ...grpc.CallOption) (*HelloWorldResponse, error)
-	HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error)
+	HelloWorld(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*HelloWorldResponse, error)
+	HealthCheck(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 }
 
 type genCodeServiceClient struct {
@@ -44,7 +44,7 @@ func (c *genCodeServiceClient) GenReactSourceCode(ctx context.Context, in *GenRe
 	return out, nil
 }
 
-func (c *genCodeServiceClient) HelloWorld(ctx context.Context, in *HelloWorldRequest, opts ...grpc.CallOption) (*HelloWorldResponse, error) {
+func (c *genCodeServiceClient) HelloWorld(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*HelloWorldResponse, error) {
 	out := new(HelloWorldResponse)
 	err := c.cc.Invoke(ctx, "/app.gen_code.api.GenCodeService/HelloWorld", in, out, opts...)
 	if err != nil {
@@ -53,8 +53,8 @@ func (c *genCodeServiceClient) HelloWorld(ctx context.Context, in *HelloWorldReq
 	return out, nil
 }
 
-func (c *genCodeServiceClient) HealthCheck(ctx context.Context, in *HealthCheckRequest, opts ...grpc.CallOption) (*HealthCheckResponse, error) {
-	out := new(HealthCheckResponse)
+func (c *genCodeServiceClient) HealthCheck(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
+	out := new(EmptyResponse)
 	err := c.cc.Invoke(ctx, "/app.gen_code.api.GenCodeService/HealthCheck", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -67,8 +67,8 @@ func (c *genCodeServiceClient) HealthCheck(ctx context.Context, in *HealthCheckR
 // for forward compatibility
 type GenCodeServiceServer interface {
 	GenReactSourceCode(context.Context, *GenReactSourceCodeRequest) (*GenReactSourceCodeResponse, error)
-	HelloWorld(context.Context, *HelloWorldRequest) (*HelloWorldResponse, error)
-	HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error)
+	HelloWorld(context.Context, *EmptyRequest) (*HelloWorldResponse, error)
+	HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error)
 }
 
 // UnimplementedGenCodeServiceServer should be embedded to have forward compatible implementations.
@@ -78,10 +78,10 @@ type UnimplementedGenCodeServiceServer struct {
 func (UnimplementedGenCodeServiceServer) GenReactSourceCode(context.Context, *GenReactSourceCodeRequest) (*GenReactSourceCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenReactSourceCode not implemented")
 }
-func (UnimplementedGenCodeServiceServer) HelloWorld(context.Context, *HelloWorldRequest) (*HelloWorldResponse, error) {
+func (UnimplementedGenCodeServiceServer) HelloWorld(context.Context, *EmptyRequest) (*HelloWorldResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HelloWorld not implemented")
 }
-func (UnimplementedGenCodeServiceServer) HealthCheck(context.Context, *HealthCheckRequest) (*HealthCheckResponse, error) {
+func (UnimplementedGenCodeServiceServer) HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
 }
 
@@ -115,7 +115,7 @@ func _GenCodeService_GenReactSourceCode_Handler(srv interface{}, ctx context.Con
 }
 
 func _GenCodeService_HelloWorld_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HelloWorldRequest)
+	in := new(EmptyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -127,13 +127,13 @@ func _GenCodeService_HelloWorld_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: "/app.gen_code.api.GenCodeService/HelloWorld",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GenCodeServiceServer).HelloWorld(ctx, req.(*HelloWorldRequest))
+		return srv.(GenCodeServiceServer).HelloWorld(ctx, req.(*EmptyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _GenCodeService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HealthCheckRequest)
+	in := new(EmptyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -145,7 +145,7 @@ func _GenCodeService_HealthCheck_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: "/app.gen_code.api.GenCodeService/HealthCheck",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GenCodeServiceServer).HealthCheck(ctx, req.(*HealthCheckRequest))
+		return srv.(GenCodeServiceServer).HealthCheck(ctx, req.(*EmptyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

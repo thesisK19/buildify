@@ -1,0 +1,1 @@
+export jwtSecret=eyJhbGciOiJIUzI1NiJ9

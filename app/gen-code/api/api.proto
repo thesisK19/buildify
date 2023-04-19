@@ -14,17 +14,20 @@ service GenCodeService {
             body : "*"
         };
     }
-    rpc HelloWorld(HelloWorldRequest) returns (HelloWorldResponse) {
+    rpc HelloWorld(EmptyRequest) returns (HelloWorldResponse) {
         option (google.api.http) = {
             get : "/gen-code-service/api/hello-world"
         };
     }
-    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse) {
+    rpc HealthCheck(EmptyRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             get : "/"
         };
     }
 }
+
+message EmptyRequest {}
+message EmptyResponse {}
 
 message GenReactSourceCodeRequest {
     repeated Node nodes = 1;
@@ -33,10 +36,7 @@ message GenReactSourceCodeRequest {
 
 message GenReactSourceCodeResponse { string url = 1; }
 
-message HelloWorldRequest {}
 message HelloWorldResponse {
     string message = 1;
 }
 
-message HealthCheckRequest {}
-message HealthCheckResponse {}

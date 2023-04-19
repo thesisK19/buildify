@@ -15,11 +15,14 @@ update:
 	bazel --max_idle_secs=30 run //:gazelle -- update-repos -from_file=go.mod -to_macro=go_repositories.bzl%go_repositories -build_file_proto_mode=disable -prune=true
 	bazel --max_idle_secs=30 run //:gazelle -- fix
 
-run-user:
-	bazel run //app/user/cmd:cmd -- server
+build:
+	bazel build //...
 
-run-gen-code:
-	bazel run //app/gen-code/cmd:cmd -- server
+# run-user:
+# 	bazel run //app/user/cmd:cmd
+
+# run-gen-code:
+# 	bazel run //app/gen-code/cmd:cmd
 
 # bazel run //app/orders/fulfillment_router_service --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64
 

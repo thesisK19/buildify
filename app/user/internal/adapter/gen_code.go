@@ -53,7 +53,7 @@ func (c *ImplGenCodeClient) HelloWorld(ctx context.Context) (*genCodeApi.HelloWo
 		return nil, err
 	}
 
-	req := genCodeApi.HelloWorldRequest{}
+	req := genCodeApi.EmptyRequest{}
 
 	resp, err := c.client.HelloWorld(ctx, &req)
 	if err != nil {
