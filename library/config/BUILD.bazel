@@ -1,9 +1,9 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
-    name = "conf",
-    srcs = ["conf.go"],
-    importpath = "github.com/thesisK19/buildify/library/conf",
+    name = "config",
+    srcs = ["config.go"],
+    importpath = "github.com/thesisK19/buildify/library/config",
     visibility = ["//visibility:public"],
     deps = [
         "//library/log",

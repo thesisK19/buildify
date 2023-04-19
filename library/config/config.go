@@ -1,10 +1,10 @@
-package conf
+package config_lib
 
 import (
 	"time"
 
 	"github.com/thesisK19/buildify/library/log"
-	server "github.com/thesisK19/buildify/library/server"
+	server_lib "github.com/thesisK19/buildify/library/server"
 )
 
 const (
@@ -13,19 +13,19 @@ const (
 
 // Config hold http/grpc server config
 type ServerConfig struct {
-	GRPC server.Listen `json:"grpc" mapstructure:"grpc" yaml:"grpc"`
-	HTTP server.Listen `json:"http" mapstructure:"http" yaml:"http"`
+	GRPC server_lib.Listen `json:"grpc" mapstructure:"grpc" yaml:"grpc"`
+	HTTP server_lib.Listen `json:"http" mapstructure:"http" yaml:"http"`
 }
 
 // DefaultServerConfig return a default server config
 func DefaultServerConfig() ServerConfig {
 	//nolint:gomnd
 	return ServerConfig{
-		GRPC: server.Listen{
+		GRPC: server_lib.Listen{
 			Host: "0.0.0.0",
 			Port: 443,
 		},
-		HTTP: server.Listen{
+		HTTP: server_lib.Listen{
 			Host: "0.0.0.0",
 			Port: 80,
 		},

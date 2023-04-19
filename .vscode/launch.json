@@ -12,7 +12,10 @@
       "cwd": "${workspaceRoot}/app/user",
       "program": "${workspaceFolder}/app/user/cmd",
       "args": ["server"],
-    //   "showLog": true
+      "env": {
+        "jwtSecret": "eyJhbGciOiJIUzI1NiJ9"
+      }
+      //   "showLog": true
     },
     {
       "name": "gen_code_service",
@@ -22,7 +25,10 @@
       "cwd": "${workspaceRoot}/app/gen-code",
       "program": "${workspaceFolder}/app/gen-code/cmd",
       "args": ["server"],
-    //   "showLog": true
+      "env": {
+        "jwtSecret": "eyJhbGciOiJIUzI1NiJ9"
+      }
+      //   "showLog": true
     }
   ]
 }
