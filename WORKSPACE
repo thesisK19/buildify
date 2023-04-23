@@ -101,7 +101,7 @@ load("@io_bazel_rules_docker//contrib:dockerfile_build.bzl", "dockerfile_image")
 
 dockerfile_image(
     name = "go_with_npx_dockerfile",
-    dockerfile = "//app/gen-code:Dockerfile",
+    dockerfile = "//app/gen_code:Dockerfile",
 )
 
 load(

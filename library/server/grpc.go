@@ -41,7 +41,7 @@ func newGrpcServer(c *grpcConfig, servers []ServiceServer) *grpcServer {
 func (s *grpcServer) Serve() error {
 	l, err := s.config.Addr.CreateListener()
 	if err != nil {
-		return fmt.Errorf("Failed to create listener %w", err)
+		return fmt.Errorf("failed to create listener %w", err)
 	}
 
 	log.Println("gRPC server is starting ", l.Addr())
@@ -50,7 +50,7 @@ func (s *grpcServer) Serve() error {
 
 	if err != nil {
 		log.Println(err)
-		return fmt.Errorf("Failed to serve gRPC server %w", err)
+		return fmt.Errorf("failed to serve gRPC server %w", err)
 	}
 	log.Println("gRPC server ready")
 

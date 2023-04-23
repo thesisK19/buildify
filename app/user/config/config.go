@@ -17,10 +17,10 @@ type Config struct {
 func loadDefaultConfig() *Config {
 
 	return &Config{
-		MongoDB:     "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net/user_service",
+		MongoDB:     "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net",
 		ServiceDB:   "user_service",
 		Base:        *config_lib.DefaultBaseConfig(),
 		GenCodeHost: "localhost:9093",
-		JWTSecret:   os.Getenv("jwtSecret"),
+		JWTSecret:   os.Getenv("jwt_secret"),
 	}
 }

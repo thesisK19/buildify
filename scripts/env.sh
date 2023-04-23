@@ -1,1 +1,1 @@
-export jwtSecret=eyJhbGciOiJIUzI1NiJ9
+export jwt_secret=eyJhbGciOiJIUzI1NiJ9

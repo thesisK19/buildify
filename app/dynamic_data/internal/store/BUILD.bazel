@@ -1,0 +1,24 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "store",
+    srcs = [
+        "collection.go",
+        "document.go",
+        "repository.go",
+        "user.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/dynamic_data/internal/store",
+    visibility = ["//app/dynamic_data:__subpackages__"],
+    deps = [
+        "//app/dynamic_data/config",
+        "//app/dynamic_data/internal/constant",
+        "//app/dynamic_data/internal/dto",
+        "//app/dynamic_data/internal/model",
+        "//app/dynamic_data/internal/util",
+        "@com_github_grpc_ecosystem_go_grpc_middleware//logging/logrus/ctxlogrus",
+        "@in_gopkg_mgo_v2//bson",
+        "@org_mongodb_go_mongo_driver//mongo",
+        "@org_mongodb_go_mongo_driver//mongo/options",
+    ],
+)

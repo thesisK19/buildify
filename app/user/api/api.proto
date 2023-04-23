@@ -22,13 +22,13 @@ service UserService {
 
     rpc GetUser(EmptyRequest) returns (GetUserResponse) {
         option (google.api.http) = {
-            get : "/user-service/api/user-info"
+            get : "/user-service/api/user"
         };
     }
 
     rpc UpdateUser(UpdateUserRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            put : "/user-service/api/user-info"
+            put : "/user-service/api/user"
             body : "*"
         };
     }
@@ -50,9 +50,10 @@ message EmptyRequest {}
 message EmptyResponse {}
 
 message SignUpRequest {
-    string name = 1;
-    string username = 2;
-    string password = 3;
+    string username = 1;
+    string password = 2;
+    string full_name = 3;
+    string email = 4;
 }
 
 message SignInRequest {
@@ -61,11 +62,16 @@ message SignInRequest {
 }
 message SignInResponse { string token = 1; }
 
-message GetUserResponse { User user = 1; }
+message GetUserResponse {
+    string username = 1;
+    string full_name = 2;
+    string email = 3;
+}
 
 message UpdateUserRequest {
-    string name = 1;
-    string password = 2;
+    string full_name = 1;
+    string email = 2;
+    string password = 3;
 }
 
 message TestResponse { string message = 1; }

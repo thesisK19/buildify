@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package app.gen_code.api;
+option go_package = "github.com/thesisK19/buildify/app/gen_code/api";
+
+message Node {
+    string id = 1;
+    string type = 2;
+    string props = 3;
+    string display_name = 4;
+    bool hidden = 5;
+    repeated string children = 6;
+    string page_path = 7;
+}
+
+message Page {
+    string path = 1;
+    string name = 2;
+}

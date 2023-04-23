@@ -12,9 +12,7 @@ import (
 type Repository interface {
 	// user
 	CreateUser(ctx context.Context, params model.CreateUserParams) (*string, error)
-	GetUserByID(ctx context.Context, id string) (*model.User, error)
 	GetUserByUsername(ctx context.Context, username string) (*model.User, error)
-	UpdateUserByID(ctx context.Context, id string, params model.UpdateUserParams) error
 	UpdateUserByUsername(ctx context.Context, username string, params model.UpdateUserParams) error
 	// repository
 	Ping() error

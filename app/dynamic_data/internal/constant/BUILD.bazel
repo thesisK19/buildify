@@ -1,0 +1,8 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "constant",
+    srcs = ["const.go"],
+    importpath = "github.com/thesisK19/buildify/app/dynamic_data/internal/constant",
+    visibility = ["//app/dynamic_data:__subpackages__"],
+)

@@ -22,26 +22,26 @@ build:
 # 	bazel run //app/user/cmd:cmd
 
 # run-gen-code:
-# 	bazel run //app/gen-code/cmd:cmd
+# 	bazel run //app/gen_code/cmd:cmd
 
 # bazel run //app/orders/fulfillment_router_service --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64
 
 #  bazel build //app/user:base_binary_image
 #  bazel run //app/user:base_binary_image
 
-# bazel build //app/gen-code:base_binary_image
-# bazel run //app/gen-code:base_binary_image
-# docker run --rm -it -p3003:3003 bazel/app/gen-code:base_binary_image
+# bazel build //app/gen_code:base_binary_image
+# bazel run //app/gen_code:base_binary_image
+# docker run --rm -it -p3003:3003 bazel/app/gen_code:base_binary_image
 
 
-# bazel build //app/gen-code/cmd:base_binary_image
-# bazel run //app/gen-code/cmd:base_binary_image -- --norun
-# docker run --rm -it -p3003:3003 bazel/app/gen-code:base_binary_image
+# bazel build //app/gen_code/cmd:base_binary_image
+# bazel run //app/gen_code/cmd:base_binary_image -- --norun
+# docker run --rm -it -p3003:3003 bazel/app/gen_code:base_binary_image
 
 
-# bazel build //app/gen-code:container_image
-# bazel run //app/gen-code:container_image
-# docker run --rm -it -p3003:3003 bazel/app/gen-code:container_image
+# bazel build //app/gen_code:container_image
+# bazel run //app/gen_code:container_image
+# docker run --rm -it -p3003:3003 bazel/app/gen_code:container_image
 
 # docker run --rm -it -p10080:10080 bazel/app/user:base_binary_image
 
@@ -55,13 +55,13 @@ build:
 
 # docker tag bazel/app/user:container_image gcr.io/thesis-378216/buildify-registry/user:base_binary_image
 
-# docker tag bazel/app/gen-code:base_binary_image buildify.azurecr.io/gen-code:base_binary_image
+# docker tag bazel/app/gen_code:base_binary_image buildify.azurecr.io/gen-code:base_binary_image
 # docker tag bazel/app/file-mgt:container_image buildify.azurecr.io/file_mgt:base_binary_image
 # docker push buildify.azurecr.io/file_mgt:base_binary_image
 
 
 
-# docker run -it bazel/app/gen-code:container_image
+# docker run -it bazel/app/gen_code:container_image
 
 
 
@@ -73,4 +73,4 @@ build:
 
 #  docker exec -it ad019aef5836 /bin/sh
 
-# bazel run //app/gen-code:push
+# bazel run //app/gen_code:push

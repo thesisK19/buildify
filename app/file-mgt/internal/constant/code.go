@@ -32,7 +32,7 @@ var codeToStr = map[Code]string{
 	Code_ALREADY_EXISTS:      "AlreadyExists",
 	Code_PERMISSION_DENIED:   "PermissionDenied",
 	Code_RESOURCE_EXHAUSTED:  "ResourceExhausted",
-	Code_FAILED_PRECONDITION: "FailedPrecondition",
+	Code_FAILED_PRECONDITION: "failedPrecondition",
 	Code_ABORTED:             "Aborted",
 	Code_OUT_OF_RANGE:        "OutOfRange",
 	Code_UNIMPLEMENTED:       "Unimplemented",

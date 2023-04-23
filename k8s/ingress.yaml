@@ -15,6 +15,13 @@ spec:
             name: user-service
             port:
               number: 80
+      - path: /dynamic-data-service/*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: dynamic-data-service
+            port:
+              number: 80
       - path: /gen-code-service/*
         pathType: ImplementationSpecific
         backend:
@@ -29,5 +36,4 @@ spec:
             name: file-mgt-service
             port:
               number: 80
-
 

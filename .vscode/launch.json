@@ -13,7 +13,7 @@
       "program": "${workspaceFolder}/app/user/cmd",
       "args": ["server"],
       "env": {
-        "jwtSecret": "eyJhbGciOiJIUzI1NiJ9"
+        "jwt_secret": "eyJhbGciOiJIUzI1NiJ9"
       }
       //   "showLog": true
     },
@@ -22,11 +22,11 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
-      "cwd": "${workspaceRoot}/app/gen-code",
-      "program": "${workspaceFolder}/app/gen-code/cmd",
+      "cwd": "${workspaceRoot}/app/gen_code",
+      "program": "${workspaceFolder}/app/gen_code/cmd",
       "args": ["server"],
       "env": {
-        "jwtSecret": "eyJhbGciOiJIUzI1NiJ9"
+        "jwt_secret": "eyJhbGciOiJIUzI1NiJ9"
       }
       //   "showLog": true
     }

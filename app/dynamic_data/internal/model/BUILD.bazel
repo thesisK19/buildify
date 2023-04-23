@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "model",
+    srcs = [
+        "collection.go",
+        "document.go",
+        "user.go",
+    ],
+    importpath = "github.com/thesisK19/buildify/app/dynamic_data/internal/model",
+    visibility = ["//app/dynamic_data:__subpackages__"],
+    deps = ["@in_gopkg_mgo_v2//bson"],
+)

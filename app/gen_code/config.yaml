@@ -1,0 +1,15 @@
+SERVER:
+  GRPC:
+    PORT: 9093
+  HTTP:
+    PORT: 3003
+
+LOG:
+  LEVEL: DEBUG
+  DISABLE_COLORS: false
+  REPORT_CALLER: true
+
+MONGO_DB: mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net
+
+SERVICE_DB: gen_code_service
+

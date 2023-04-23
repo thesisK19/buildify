@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'app/gen-code/**'
+      - 'app/gen_code/**'
 env:
   DEPLOYMENT_NAME: gen-code-deployment
   IMAGE: gen-code
@@ -41,12 +41,12 @@ jobs:
       # Building Docker image
       - uses: bazelbuild/setup-bazelisk@v2
       - name: Build Container Image
-        run: bazel build //app/gen-code:npx_go_image
+        run: bazel build //app/gen_code:npx_go_image
 
       # Push to GCR
       - name: Push Image to Artifact Registry
         run: |-
-          bazel run --stamp --workspace_status_command="echo IMAGE_TAG ${{ github.run_number }}" //app/gen-code:push
+          bazel run --stamp --workspace_status_command="echo IMAGE_TAG ${{ github.run_number }}" //app/gen_code:push
 
       # Setup Kustomize
       - name: Set up Kustomize

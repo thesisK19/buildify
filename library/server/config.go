@@ -24,7 +24,7 @@ type Listen struct {
 func (a *Listen) CreateListener() (net.Listener, error) {
 	lis, err := net.Listen("tcp", a.String())
 	if err != nil {
-		return nil, fmt.Errorf("Failed to listen %s: %w", a.String(), err)
+		return nil, fmt.Errorf("failed to listen %s: %w", a.String(), err)
 	}
 	return lis, nil
 }

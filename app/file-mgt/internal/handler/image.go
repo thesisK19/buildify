@@ -15,8 +15,8 @@ func UploadImageHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("UploadImageHandler processing...")
 	err := r.ParseForm()
 	if err != nil {
-		log.Printf("UploadImageHandler | Failed to parse form %s", err.Error())
-		http.Error(w, fmt.Sprintf("Failed to parse form: %s", err.Error()), http.StatusBadRequest)
+		log.Printf("UploadImageHandler | failed to parse form %s", err.Error())
+		http.Error(w, fmt.Sprintf("failed to parse form: %s", err.Error()), http.StatusBadRequest)
 		return
 	}
 

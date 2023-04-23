@@ -3,9 +3,8 @@ syntax = "proto3";
 package buildify.app.user.api;
 option go_package = "github.com/thesisK19/buildify/app/user/api";
 import "google/api/annotations.proto";
-import "google/rpc/code.proto";
 
-message User {
-    string name = 1;
-    string username = 2;
-}
+// message User {
+//     string name = 1;
+//     string username = 2;
+// }

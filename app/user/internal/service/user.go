@@ -8,8 +8,8 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/thesisK19/buildify/app/user/api"
 	"github.com/thesisK19/buildify/app/user/internal/model"
-	context_lib "github.com/thesisK19/buildify/library/context"
 	errors_lib "github.com/thesisK19/buildify/library/errors"
+	server_lib "github.com/thesisK19/buildify/library/server"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -19,18 +19,19 @@ func (s *Service) SignUp(ctx context.Context, in *api.SignUpRequest) (*api.Empty
 	// Hash the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(in.Password), bcrypt.DefaultCost)
 	if err != nil {
-		logger.WithError(err).Error("Failed to hashPassword")
+		logger.WithError(err).Error("failed to hashPassword")
 		return nil, err
 	}
 
 	createParams := model.CreateUserParams{
-		Name:     in.Name,
+		FullName: in.FullName,
+		Email:    in.Email,
 		Username: in.Username,
 		Password: string(hashedPassword),
 	}
 	_, err = s.repository.CreateUser(ctx, createParams)
 	if err != nil {
-		logger.WithError(err).Error("Failed to repo.CreateUser")
+		logger.WithError(err).Error("failed to repo.CreateUser")
 		return nil, err
 	}
 
@@ -42,7 +43,7 @@ func (s *Service) SignIn(ctx context.Context, in *api.SignInRequest) (*api.SignI
 
 	user, err := s.repository.GetUserByUsername(ctx, in.Username)
 	if err != nil {
-		logger.WithError(err).Error("Failed to GetUserByUsername")
+		logger.WithError(err).Error("failed to GetUserByUsername")
 		return nil, err
 	}
 	// Compare the provided password with the stored hashed password
@@ -64,7 +65,7 @@ func (s *Service) SignIn(ctx context.Context, in *api.SignInRequest) (*api.SignI
 	// Sign the token with the secret key
 	tokenString, err := token.SignedString([]byte(s.config.JWTSecret))
 	if err != nil {
-		logger.WithError(err).Error("Failed to SignedString token")
+		logger.WithError(err).Error("failed to SignedString token")
 		return nil, err
 	}
 
@@ -76,26 +77,25 @@ func (s *Service) SignIn(ctx context.Context, in *api.SignInRequest) (*api.SignI
 func (s *Service) GetUser(ctx context.Context, in *api.EmptyRequest) (*api.GetUserResponse, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "GetUser")
 
-	username := ctx.Value(context_lib.USERNAME).(string)
+	username := server_lib.GetUsernameFromContext(ctx)
 	user, err := s.repository.GetUserByUsername(ctx, username)
 
 	if err != nil {
-		logger.WithError(err).Error("Failed to repository.GetUserByUsername")
+		logger.WithError(err).Error("failed to repository.GetUserByUsername")
 		return nil, err
 	}
 
 	return &api.GetUserResponse{
-		User: &api.User{
-			Username: user.Username,
-			Name:     user.Name,
-		},
+		Username: user.Username,
+		FullName: user.FullName,
+		Email:    user.Email,
 	}, nil
 }
 
 func (s *Service) UpdateUser(ctx context.Context, in *api.UpdateUserRequest) (*api.EmptyResponse, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "SignUp")
 
-	username := ctx.Value(context_lib.USERNAME).(string)
+	username := server_lib.GetUsernameFromContext(ctx)
 
 	var (
 		err            error
@@ -106,20 +106,21 @@ func (s *Service) UpdateUser(ctx context.Context, in *api.UpdateUserRequest) (*a
 	if in.Password != "" {
 		hashedPassword, err = bcrypt.GenerateFromPassword([]byte(in.Password), bcrypt.DefaultCost)
 		if err != nil {
-			logger.WithError(err).Error("Failed to hashPassword")
+			logger.WithError(err).Error("failed to hashPassword")
 			return nil, err
 		}
 	}
 
 	updateParams := model.UpdateUserParams{
-		Name:     in.Name,
+		FullName: in.FullName,
+		Email:    in.Email,
 		Password: string(hashedPassword),
 	}
 
 	err = s.repository.UpdateUserByUsername(ctx, username, updateParams)
 
 	if err != nil {
-		logger.WithError(err).Error("Failed to repository.UpdateUserByUsername")
+		logger.WithError(err).Error("failed to repository.UpdateUserByUsername")
 		return nil, err
 	}
 
