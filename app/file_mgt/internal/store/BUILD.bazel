@@ -3,10 +3,10 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "store",
     srcs = ["repository.go"],
-    importpath = "github.com/thesisK19/buildify/app/file-mgt/internal/store",
-    visibility = ["//app/file-mgt:__subpackages__"],
+    importpath = "github.com/thesisK19/buildify/app/file_mgt/internal/store",
+    visibility = ["//app/file_mgt:__subpackages__"],
     deps = [
-        "//app/file-mgt/config",
+        "//app/file_mgt/config",
         "@org_mongodb_go_mongo_driver//mongo",
     ],
 )

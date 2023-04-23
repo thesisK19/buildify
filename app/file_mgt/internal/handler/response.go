@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/thesisK19/buildify/app/file-mgt/internal/constant"
+	"github.com/thesisK19/buildify/app/file_mgt/internal/constant"
 )
 
 type UploadImageResponse struct {

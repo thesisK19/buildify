@@ -10,9 +10,9 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
-	"github.com/thesisK19/buildify/app/file-mgt/config"
-	"github.com/thesisK19/buildify/app/file-mgt/internal/handler"
-	"github.com/thesisK19/buildify/app/file-mgt/internal/store"
+	"github.com/thesisK19/buildify/app/file_mgt/config"
+	"github.com/thesisK19/buildify/app/file_mgt/internal/handler"
+	"github.com/thesisK19/buildify/app/file_mgt/internal/store"
 )
 
 type Service struct {

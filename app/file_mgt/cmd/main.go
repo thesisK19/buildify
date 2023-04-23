@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/thesisK19/buildify/app/file-mgt/config"
+	"github.com/thesisK19/buildify/app/file_mgt/config"
 )
 
 func main() {
