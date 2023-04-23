@@ -5,6 +5,8 @@ resources:
 - k8s/gen-code-service.yaml
 - k8s/user-deployment.yaml
 - k8s/user-service.yaml
+- k8s/dynamic-data-deployment.yaml
+- k8s/dynamic-data-service.yaml
 - k8s/file-mgt-deployment.yaml
 - k8s/file-mgt-service.yaml
 - k8s/ingress.yaml

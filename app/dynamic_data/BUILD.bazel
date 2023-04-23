@@ -38,7 +38,7 @@ container_push(
     format = "Docker",
     image = ":container_image",
     registry = "asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry",
-    repository = "dynamic_data",
+    repository = "dynamic-data",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",
 )

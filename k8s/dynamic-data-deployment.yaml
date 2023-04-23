@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dynamic-data-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dynamic-data-deployment
+  template:
+    metadata:
+      labels:
+        app: dynamic-data-deployment
+    spec:
+      containers:
+        - env:
+            - name: GEN_CODE_HOST
+              value: gen-code-service:443
+            - name: jwt_secret
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: jwt_secret
+          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/dynamic-data:1
+          imagePullPolicy: IfNotPresent
+          name: dynamic-data-deployment
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
