@@ -9,10 +9,10 @@ go_library(
         "middleware.go",
         "response.go",
     ],
-    importpath = "github.com/thesisK19/buildify/app/file-mgt/internal/handler",
-    visibility = ["//app/file-mgt:__subpackages__"],
+    importpath = "github.com/thesisK19/buildify/app/file_mgt/internal/handler",
+    visibility = ["//app/file_mgt:__subpackages__"],
     deps = [
-        "//app/file-mgt/internal/constant",
-        "//app/file-mgt/internal/util",
+        "//app/file_mgt/internal/constant",
+        "//app/file_mgt/internal/util",
     ],
 )

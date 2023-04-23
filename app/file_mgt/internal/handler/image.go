@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/thesisK19/buildify/app/file-mgt/internal/constant"
-	"github.com/thesisK19/buildify/app/file-mgt/internal/util"
+	"github.com/thesisK19/buildify/app/file_mgt/internal/constant"
+	"github.com/thesisK19/buildify/app/file_mgt/internal/util"
 )
 
 func UploadImageHandler(w http.ResponseWriter, r *http.Request) {

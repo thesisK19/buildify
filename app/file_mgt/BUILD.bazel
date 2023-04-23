@@ -16,14 +16,14 @@ pkg_tar(
 
 go_image(
     name = "base_binary_image",
-    binary = "//app/file-mgt/cmd:cmd",
+    binary = "//app/file_mgt/cmd:cmd",
 )
 
 container_image(
     name = "container_image",
     base = ":base_binary_image",
-    data_path = "app/file-mgt",
-    directory = "/app/app/file-mgt/cmd/cmd.runfiles/buildify/",
+    data_path = "app/file_mgt",
+    directory = "/app/app/file_mgt/cmd/cmd.runfiles/buildify/",
     ports = [
         "80",
     ],
@@ -42,5 +42,5 @@ container_push(
     tag = "{IMAGE_TAG}",
 )
 
-# bazel build //app/file-mgt:container_image
-# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/file-mgt:push
+# bazel build //app/file_mgt:container_image
+# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/file_mgt:push

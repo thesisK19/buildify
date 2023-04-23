@@ -6,8 +6,8 @@ go_library(
         "helper.go",
         "upload_file.go",
     ],
-    importpath = "github.com/thesisK19/buildify/app/file-mgt/internal/util",
-    visibility = ["//app/file-mgt:__subpackages__"],
+    importpath = "github.com/thesisK19/buildify/app/file_mgt/internal/util",
+    visibility = ["//app/file_mgt:__subpackages__"],
     deps = [
         "@com_github_satori_go_uuid//:go_uuid",
         "@com_google_cloud_go_storage//:storage",

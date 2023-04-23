@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'app/file-mgt/**'
+      - 'app/file_mgt/**'
 env:
   DEPLOYMENT_NAME: file-mgt-deployment
   IMAGE: file-mgt
@@ -41,12 +41,12 @@ jobs:
       # Building Docker image
       - uses: bazelbuild/setup-bazelisk@v2
       - name: Build Container Image
-        run: bazel build //app/file-mgt:container_image
+        run: bazel build //app/file_mgt:container_image
 
       # Push to GCR
       - name: Push Image to Artifact Registry
         run: |-
-          bazel run --stamp --workspace_status_command="echo IMAGE_TAG ${{ github.run_number }}" //app/file-mgt:push
+          bazel run --stamp --workspace_status_command="echo IMAGE_TAG ${{ github.run_number }}" //app/file_mgt:push
 
       # Setup Kustomize
       - name: Set up Kustomize

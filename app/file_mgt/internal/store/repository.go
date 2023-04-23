@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 
-	"github.com/thesisK19/buildify/app/file-mgt/config"
+	"github.com/thesisK19/buildify/app/file_mgt/config"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
