@@ -477,7 +477,7 @@
         ]
       }
     },
-    "/user-service/api/user-info": {
+    "/user-service/api/user": {
       "get": {
         "operationId": "UserService_GetUser",
         "responses": {
@@ -735,8 +735,14 @@
     "apiGetUserResponse": {
       "type": "object",
       "properties": {
-        "user": {
-          "$ref": "#/definitions/apiUser"
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
         }
       }
     },
@@ -810,13 +816,16 @@
     "apiSignUpRequest": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string"
-        },
         "username": {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
           "type": "string"
         }
       }
@@ -876,21 +885,13 @@
     "apiUpdateUserRequest": {
       "type": "object",
       "properties": {
-        "name": {
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
           "type": "string"
         },
         "password": {
-          "type": "string"
-        }
-      }
-    },
-    "apiUser": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "username": {
           "type": "string"
         }
       }

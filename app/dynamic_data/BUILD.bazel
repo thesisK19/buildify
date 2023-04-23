@@ -16,14 +16,14 @@ pkg_tar(
 
 go_image(
     name = "base_binary_image",
-    binary = "//app/user/cmd:cmd",
+    binary = "//app/dynamic_data/cmd:cmd",
 )
 
 container_image(
     name = "container_image",
     base = ":base_binary_image",
-    data_path = "app/user",
-    directory = "/app/app/user/cmd/cmd.runfiles/buildify/",
+    data_path = "app/dynamic_data",
+    directory = "/app/app/dynamic_data/cmd/cmd.runfiles/buildify/",
     ports = [
         "80",
         "443",
@@ -38,10 +38,10 @@ container_push(
     format = "Docker",
     image = ":container_image",
     registry = "asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry",
-    repository = "user",
+    repository = "dynamic_data",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",
 )
 
-# bazel build //app/user:container_image
-# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/user:push
+# bazel build //app/dynamic_data:container_image
+# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/dynamic_data:push

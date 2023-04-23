@@ -5,9 +5,9 @@ POST http://localhost:3002/user-service/api/sign-up HTTP/1.1
 content-type: application/json
 
 {
-    "name": "GKEname",
-    "username": "GKEuser",
-    "password": "kkkkkkkkkkkkkkk"
+    "fullName": "new user",
+    "username": "newUser",
+    "password": "dada"
 }
 
 ### sign in
@@ -15,23 +15,24 @@ POST http://localhost:3002/user-service/api/sign-in HTTP/1.1
 content-type: application/json
 
 {
-    "username": "GKEuser",
-    "password": "kkkkkkkkkkkkkkk"
+    "username": "newUser",
+    "password": "newPass"
 }
 
 ### get user
 GET http://localhost:3002/user-service/api/user HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ld1VzZXIiLCJleHAiOjIwNDIyNzQ1NDB9.PCIjiOy6zmSVm2ilrzlWZctmyBKIRnP1ECSP9G_O2mY
 
 
 ### update user
 PUT http://localhost:3002/user-service/api/user HTTP/1.1
 content-type: application/json
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5ld1VzZXIiLCJleHAiOjIwNDIyNzQ1NDB9.PCIjiOy6zmSVm2ilrzlWZctmyBKIRnP1ECSP9G_O2mY
 
 {
-    "username": "GKEuser",
-    "name": "game onn"
+    "fullName": "new FullName",
+    "email": "email@gmail.com",
+    "password": "newPass"
 }
 
 ###/api/test

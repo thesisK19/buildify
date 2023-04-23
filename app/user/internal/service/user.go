@@ -24,7 +24,8 @@ func (s *Service) SignUp(ctx context.Context, in *api.SignUpRequest) (*api.Empty
 	}
 
 	createParams := model.CreateUserParams{
-		Name:     in.Name,
+		FullName: in.FullName,
+		Email:    in.Email,
 		Username: in.Username,
 		Password: string(hashedPassword),
 	}
@@ -85,10 +86,9 @@ func (s *Service) GetUser(ctx context.Context, in *api.EmptyRequest) (*api.GetUs
 	}
 
 	return &api.GetUserResponse{
-		User: &api.User{
-			Username: user.Username,
-			Name:     user.Name,
-		},
+		Username: user.Username,
+		FullName: user.FullName,
+		Email:    user.Email,
 	}, nil
 }
 
@@ -112,7 +112,8 @@ func (s *Service) UpdateUser(ctx context.Context, in *api.UpdateUserRequest) (*a
 	}
 
 	updateParams := model.UpdateUserParams{
-		Name:     in.Name,
+		FullName: in.FullName,
+		Email:    in.Email,
 		Password: string(hashedPassword),
 	}
 

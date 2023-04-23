@@ -251,7 +251,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/user-service/api/user-info"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -276,7 +276,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user-service/api/user-info"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -434,7 +434,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/user-service/api/user-info"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -456,7 +456,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user-service/api/user-info"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -524,9 +524,9 @@ var (
 
 	pattern_UserService_SignIn_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "sign-in"}, ""))
 
-	pattern_UserService_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "user-info"}, ""))
+	pattern_UserService_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "user"}, ""))
 
-	pattern_UserService_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "user-info"}, ""))
+	pattern_UserService_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "user"}, ""))
 
 	pattern_UserService_Test_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "test"}, ""))
 

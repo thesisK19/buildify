@@ -32,25 +32,6 @@ func (r *repository) CreateUser(ctx context.Context, params model.CreateUserPara
 	return &stringId, nil
 }
 
-func (r *repository) GetUserByID(ctx context.Context, id string) (*model.User, error) {
-	logger := ctxlogrus.Extract(ctx).WithField("func", "GetUserByID")
-
-	objID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		logger.WithError(err).Error("failed to convert objectID")
-		return nil, err
-	}
-
-	filter := bson.M{"_id": objID}
-	var user model.User
-
-	if err := r.db.Collection(constant.USER_COLL).FindOne(ctx, filter).Decode(&user); err != nil {
-		logger.WithError(err).Error("failed to FindOne")
-		return nil, err
-	}
-	return &user, nil
-}
-
 func (r *repository) GetUserByUsername(ctx context.Context, username string) (*model.User, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "GetUserByUsername")
 
@@ -62,38 +43,6 @@ func (r *repository) GetUserByUsername(ctx context.Context, username string) (*m
 		return nil, err
 	}
 	return &user, nil
-}
-
-func (r *repository) UpdateUserByID(ctx context.Context, id string, params model.UpdateUserParams) error {
-	logger := ctxlogrus.Extract(ctx).WithField("func", "UpdateUserByID")
-
-	objID, err := primitive.ObjectIDFromHex(id)
-	if err != nil {
-		return err
-	}
-
-	filter := bson.M{"_id": objID}
-	updateDoc := bson.M{"$set": params}
-
-	result, err := r.db.Collection(constant.USER_COLL).UpdateOne(ctx, filter, updateDoc)
-	if err != nil {
-		logger.WithError(err).Error("failed to UpdateOne")
-		return err
-	}
-
-	// Check the number of documents matched and modified
-	if result.MatchedCount == 0 {
-		err = fmt.Errorf("no documents matched the filter")
-		logger.WithError(err).Error("failed to UpdateOne")
-		return err
-	}
-	if result.ModifiedCount == 0 {
-		err = fmt.Errorf("no documents were modified")
-		logger.WithError(err).Error("failed to UpdateOne")
-		return err
-	}
-
-	return nil
 }
 
 func (r *repository) UpdateUserByUsername(ctx context.Context, username string, params model.UpdateUserParams) error {

@@ -23,7 +23,11 @@ go_proto_library(
 
 go_library(
     name = "api",
-    srcs = ["api.pb.gw.go"],
+    srcs = [
+        "api.pb.gw.go",
+        "api.pb.validate.go",
+        "data.pb.validate.go",
+    ],
     embed = [":api_go_proto"],
     importpath = "github.com/thesisK19/buildify/app/gen_code/api",
     visibility = ["//visibility:public"],
@@ -36,5 +40,6 @@ go_library(
         "@org_golang_google_grpc//metadata",
         "@org_golang_google_grpc//status",
         "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//types/known/anypb",
     ],
 )

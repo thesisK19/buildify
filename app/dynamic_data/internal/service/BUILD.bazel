@@ -3,6 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "service",
     srcs = [
+        "collection.go",
         "document.go",
         "register_gen.go",
         "service.go",
@@ -14,7 +15,10 @@ go_library(
         "//app/dynamic_data/api",
         "//app/dynamic_data/config",
         "//app/dynamic_data/internal/adapter",
+        "//app/dynamic_data/internal/model",
         "//app/dynamic_data/internal/store",
+        "//app/dynamic_data/internal/util",
+        "//library/server",
         "@com_github_grpc_ecosystem_go_grpc_middleware//logging/logrus/ctxlogrus",
         "@com_github_grpc_ecosystem_grpc_gateway_v2//runtime",
         "@org_golang_google_grpc//:go_default_library",

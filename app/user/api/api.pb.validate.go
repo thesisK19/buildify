@@ -256,11 +256,13 @@ func (m *SignUpRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
-
 	// no validation rules for Username
 
 	// no validation rules for Password
+
+	// no validation rules for FullName
+
+	// no validation rules for Email
 
 	if len(errors) > 0 {
 		return SignUpRequestMultiError(errors)
@@ -568,34 +570,11 @@ func (m *GetUserResponse) validate(all bool) error {
 
 	var errors []error
 
-	if all {
-		switch v := interface{}(m.GetUser()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, GetUserResponseValidationError{
-					field:  "User",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, GetUserResponseValidationError{
-					field:  "User",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return GetUserResponseValidationError{
-				field:  "User",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
+	// no validation rules for Username
+
+	// no validation rules for FullName
+
+	// no validation rules for Email
 
 	if len(errors) > 0 {
 		return GetUserResponseMultiError(errors)
@@ -697,7 +676,9 @@ func (m *UpdateUserRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Name
+	// no validation rules for FullName
+
+	// no validation rules for Email
 
 	// no validation rules for Password
 

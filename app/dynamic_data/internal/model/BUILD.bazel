@@ -8,6 +8,6 @@ go_library(
         "user.go",
     ],
     importpath = "github.com/thesisK19/buildify/app/dynamic_data/internal/model",
-    visibility = ["//app/user:__subpackages__"],
+    visibility = ["//app/dynamic_data:__subpackages__"],
     deps = ["@in_gopkg_mgo_v2//bson"],
 )

@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	cloud.google.com/go/storage v1.30.1
-	github.com/envoyproxy/protoc-gen-validate v0.10.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
