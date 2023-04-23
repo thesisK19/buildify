@@ -14,7 +14,7 @@ type Config struct {
 
 func loadDefaultConfig() *Config {
 	return &Config{
-		MongoDB:   "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net/file_management_service",
+		MongoDB:   "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net",
 		ServiceDB: "file_management_service",
 		HTTP: server_lib.Listen{
 			Host: "0.0.0.0",

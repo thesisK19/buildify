@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package buildify.app.dynamic_data.api;
+option go_package = "github.com/thesisK19/buildify/app/dynamic_data/api";
+import "google/api/annotations.proto";
+import "google/rpc/code.proto";
+
+

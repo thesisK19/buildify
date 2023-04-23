@@ -1,0 +1,27 @@
+### health check
+GET http://localhost:3005 HTTP/1.1
+
+###
+POST http://localhost:3005/document HTTP/1.1
+content-type: application/json
+
+{
+  "collectionId": 3,
+  "data": {
+    "name": "Document 2 Product",
+    "y1": "Document 1",
+    "y2": "Document 2",
+    "p3": "Document 3"
+  }
+}
+
+###
+POST http://localhost:3005/collection HTTP/1.1
+content-type: application/json
+
+{
+  "name": "new collection",
+  "semanticKey": "name",
+  "keys": ["name","type","title","price"],
+  "types": [1,1,1,1]
+}

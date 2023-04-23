@@ -1,0 +1,19 @@
+SERVER:
+  GRPC:
+    PORT: 9095
+  HTTP:
+    PORT: 3005
+
+LOG:
+  LEVEL: DEBUG
+  DISABLE_COLORS: false
+  REPORT_CALLER: true
+
+MONGO_DB: mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net
+
+SERVICE_DB: dynamic_data_service
+API_SECRET: Y1VFGSea2EPa6v3gFY84swUJbZCHY8WEzKfdq6uPUyRjYR
+
+GEN_CODE_HOST: localhost:9093
+
+JWT_SECRET: eyJhbGciOiJIUzI1NiJ9

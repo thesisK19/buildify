@@ -1,9 +1,0 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "model",
-    srcs = ["user.go"],
-    importpath = "github.com/thesisK19/buildify/app/gen-code/internal/model",
-    visibility = ["//app/gen-code:__subpackages__"],
-    deps = ["@org_mongodb_go_mongo_driver//bson/primitive"],
-)

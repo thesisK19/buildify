@@ -5,18 +5,17 @@ import (
 	"fmt"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
+	"github.com/thesisK19/buildify/app/user/internal/constant"
 	"github.com/thesisK19/buildify/app/user/internal/model"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"gopkg.in/mgo.v2/bson"
 )
 
-const userCol = "users"
-
 func (r *repository) CreateUser(ctx context.Context, params model.CreateUserParams) (*string, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateUser")
 
-	result, err := r.db.Collection(userCol).InsertOne(ctx, params)
+	result, err := r.db.Collection(constant.USER_COLL).InsertOne(ctx, params)
 	if err != nil {
 		logger.WithError(err).Error("Failed to InsertOne")
 		return nil, err
@@ -45,7 +44,7 @@ func (r *repository) GetUserByID(ctx context.Context, id string) (*model.User, e
 	filter := bson.M{"_id": objID}
 	var user model.User
 
-	if err := r.db.Collection(userCol).FindOne(ctx, filter).Decode(&user); err != nil {
+	if err := r.db.Collection(constant.USER_COLL).FindOne(ctx, filter).Decode(&user); err != nil {
 		logger.WithError(err).Error("Failed to FindOne")
 		return nil, err
 	}
@@ -58,7 +57,7 @@ func (r *repository) GetUserByUsername(ctx context.Context, username string) (*m
 	filter := bson.M{"username": username}
 	var user model.User
 
-	if err := r.db.Collection(userCol).FindOne(ctx, filter).Decode(&user); err != nil {
+	if err := r.db.Collection(constant.USER_COLL).FindOne(ctx, filter).Decode(&user); err != nil {
 		logger.WithError(err).Error("Failed to FindOne")
 		return nil, err
 	}
@@ -76,7 +75,7 @@ func (r *repository) UpdateUserByID(ctx context.Context, id string, params model
 	filter := bson.M{"_id": objID}
 	updateDoc := bson.M{"$set": params}
 
-	result, err := r.db.Collection(userCol).UpdateOne(ctx, filter, updateDoc)
+	result, err := r.db.Collection(constant.USER_COLL).UpdateOne(ctx, filter, updateDoc)
 	if err != nil {
 		logger.WithError(err).Error("Failed to UpdateOne")
 		return err
@@ -99,7 +98,7 @@ func (r *repository) UpdateUserByUsername(ctx context.Context, username string, 
 	filter := bson.M{"username": username}
 	updateDoc := bson.M{"$set": params}
 
-	result, err := r.db.Collection(userCol).UpdateOne(ctx, filter, updateDoc)
+	result, err := r.db.Collection(constant.USER_COLL).UpdateOne(ctx, filter, updateDoc)
 	if err != nil {
 		logger.WithError(err).Error("Failed to UpdateOne")
 		return err

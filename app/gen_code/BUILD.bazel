@@ -1,0 +1,56 @@
+package(default_visibility = ["//visibility:public"])
+
+## docker build - rebuild
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+
+pkg_tar(
+    name = "baseReact_files",
+    srcs = glob(["base/**"]),
+    strip_prefix = ".",
+)
+
+pkg_tar(
+    name = "config_files",
+    srcs = [
+        # "config.yaml",
+        "storage-key.json",
+    ],
+    strip_prefix = ".",
+)
+
+container_image(
+    name = "custom_go_with_npx_image",
+    base = "@go_with_npx_dockerfile//image:dockerfile_image.tar",
+    data_path = "app/gen_code",
+    directory = "/app/app/gen_code/cmd/cmd.runfiles/buildify/",
+    ports = [
+        "80",
+        "443",
+    ],
+    tars = [
+        ":config_files",
+        ":baseReact_files",
+    ],
+)
+
+# using base image defined in this repo
+go_image(
+    name = "npx_go_image",
+    base = ":custom_go_with_npx_image",
+    binary = "//app/gen_code/cmd:cmd",
+)
+
+container_push(
+    name = "push",
+    format = "Docker",
+    image = ":npx_go_image",
+    registry = "asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry",
+    repository = "gen-code",
+    skip_unchanged_digest = False,
+    tag = "{IMAGE_TAG}",
+)
+
+# bazel build //app/gen_code:npx_go_image
+# bazel run --stamp --workspace_status_command="echo IMAGE_TAG $(git rev-parse --short HEAD)" //app/gen_code:push

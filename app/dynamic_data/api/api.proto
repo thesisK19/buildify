@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package buildify.app.dynamic_data.api;
+option go_package = "github.com/thesisK19/buildify/app/dynamic_data/api";
+import "google/api/annotations.proto";
+import "app/dynamic_data/api/data.proto";
+
+service DynamicDataService {
+    rpc CreateDocument(CreateDocumentRequest) returns (CreateDocumentResponse) {
+        option (google.api.http) = {
+            post : "/document"
+            body : "*"
+        };
+    }
+    rpc CreateCollection(CreateCollectionRequest) returns (CreateCollectionResponse) {
+        option (google.api.http) = {
+            post : "/collection"
+            body : "*"
+        };
+    }
+
+    rpc HealthCheck(EmptyRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            get : "/"
+        };
+    }
+}
+
+message EmptyRequest {}
+message EmptyResponse {}
+
+message CreateDocumentRequest {
+    map<string, string> data = 1;
+    int32 collection_id = 2;
+}
+message CreateDocumentResponse {}
+
+message CreateCollectionRequest {
+    string name = 1;
+    string semantic_key = 2;
+    repeated string keys = 3;
+    repeated int32 types = 4;
+}
+message CreateCollectionResponse {}
