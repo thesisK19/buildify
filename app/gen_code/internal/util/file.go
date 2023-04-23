@@ -22,7 +22,7 @@ func CreateFile(ctx context.Context, filename string) error {
 
 	file, err := os.Create(filename)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.Create file")
+		logger.WithError(err).Error("failed to os.Create file")
 		return err
 	}
 
@@ -36,7 +36,7 @@ func RemoveFile(ctx context.Context, filename string) error {
 	err := os.Remove(filename)
 
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.Remove file")
+		logger.WithError(err).Error("failed to os.Remove file")
 		return err
 	}
 
@@ -48,7 +48,7 @@ func ReadFile(ctx context.Context, filename string) ([]byte, error) {
 
 	content, err := os.ReadFile(filename)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.ReadFile file")
+		logger.WithError(err).Error("failed to os.ReadFile file")
 		return nil, err
 	}
 
@@ -60,7 +60,7 @@ func WriteFile(ctx context.Context, filename string, data []byte) error {
 
 	err := os.WriteFile(filename, data, 0644)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.WriteFile file")
+		logger.WithError(err).Error("failed to os.WriteFile file")
 		return err
 	}
 
@@ -71,14 +71,14 @@ func AppendFile(ctx context.Context, filename string, data []byte) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "AppendFile")
 	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.OpenFile file")
+		logger.WithError(err).Error("failed to os.OpenFile file")
 		return err
 	}
 
 	defer file.Close()
 
 	if _, err := file.Write(data); err != nil {
-		logger.WithError(err).Error("Failed to file.Write file")
+		logger.WithError(err).Error("failed to file.Write file")
 		return err
 	}
 
@@ -89,13 +89,13 @@ func CopyFile(ctx context.Context, src string, dest string) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "CopyFile")
 	bytesRead, err := os.ReadFile(src)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.ReadFile file")
+		logger.WithError(err).Error("failed to os.ReadFile file")
 		return err
 	}
 
 	err = os.WriteFile(dest, bytesRead, 0644)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.WriteFile file")
+		logger.WithError(err).Error("failed to os.WriteFile file")
 		return err
 	}
 
@@ -107,7 +107,7 @@ func CreateDir(ctx context.Context, path string) error {
 	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
 		err := os.Mkdir(path, os.ModePerm)
 		if err != nil {
-			logger.WithError(err).Error("Failed to os.Mkdir")
+			logger.WithError(err).Error("failed to os.Mkdir")
 			return err
 		}
 	}
@@ -119,7 +119,7 @@ func CreateDirRecursively(ctx context.Context, path string) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateDirRecursively")
 	err := os.MkdirAll(path, os.ModePerm)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.MkdirAll")
+		logger.WithError(err).Error("failed to os.MkdirAll")
 		return err
 	}
 
@@ -138,7 +138,7 @@ func CopyDirRecursively(ctx context.Context, src string, dest string) error {
 
 	err := cp.Copy(src, dest, opt)
 	if err != nil {
-		logger.WithError(err).Error("Failed to cp.Copy")
+		logger.WithError(err).Error("failed to cp.Copy")
 		return err
 	}
 
@@ -150,7 +150,7 @@ func ZipDir(ctx context.Context, inputDir, outputZip string) error {
 	// Create a new file to write the archive to
 	zipFile, err := os.Create(outputZip)
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.Create")
+		logger.WithError(err).Error("failed to os.Create")
 		return err
 	}
 	defer zipFile.Close()
@@ -162,21 +162,21 @@ func ZipDir(ctx context.Context, inputDir, outputZip string) error {
 	// Walk the directory tree recursively and add files to the archive
 	err = filepath.Walk(inputDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
-			logger.WithError(err).Error("Failed to filepath.Walk")
+			logger.WithError(err).Error("failed to filepath.Walk")
 			return err
 		}
 
 		// Get the file header
 		header, err := zip.FileInfoHeader(info)
 		if err != nil {
-			logger.WithError(err).Error("Failed to zip.FileInfoHeader")
+			logger.WithError(err).Error("failed to zip.FileInfoHeader")
 			return err
 		}
 
 		// Set the header name to the relative path of the file
 		header.Name, err = filepath.Rel(inputDir, path)
 		if err != nil {
-			logger.WithError(err).Error("Failed to filepath.Rel")
+			logger.WithError(err).Error("failed to filepath.Rel")
 			return err
 		}
 
@@ -192,7 +192,7 @@ func ZipDir(ctx context.Context, inputDir, outputZip string) error {
 		// Create a new file entry in the archive
 		writer, err := zipWriter.CreateHeader(header)
 		if err != nil {
-			logger.WithError(err).Error("Failed to zipWriter.CreateHeader")
+			logger.WithError(err).Error("failed to zipWriter.CreateHeader")
 			return err
 		}
 
@@ -200,14 +200,14 @@ func ZipDir(ctx context.Context, inputDir, outputZip string) error {
 		if !info.IsDir() {
 			file, err := os.Open(path)
 			if err != nil {
-				logger.WithError(err).Error("Failed to os.Open")
+				logger.WithError(err).Error("failed to os.Open")
 				return err
 			}
 			defer file.Close()
 
 			_, err = io.Copy(writer, file)
 			if err != nil {
-				logger.WithError(err).Error("Failed to io.Copy")
+				logger.WithError(err).Error("failed to io.Copy")
 				return err
 			}
 		}
@@ -215,7 +215,7 @@ func ZipDir(ctx context.Context, inputDir, outputZip string) error {
 		return nil
 	})
 	if err != nil {
-		logger.WithError(err).Error("Failed to filepath.Walk")
+		logger.WithError(err).Error("failed to filepath.Walk")
 		return err
 	}
 

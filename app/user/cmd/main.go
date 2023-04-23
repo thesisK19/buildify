@@ -28,14 +28,14 @@ func run() error {
 	// load config
 	cfg, err = config.Load()
 	if err != nil {
-		log.Fatal("Failed to load config", err)
+		log.Fatal("failed to load config", err)
 		return err
 	}
 
 	// init logging
 	logger, err = cfg.Log.Build()
 	if err != nil {
-		log.Fatal("Failed to build logger", err)
+		log.Fatal("failed to build logger", err)
 		return err
 	}
 
@@ -51,7 +51,7 @@ func run() error {
 func runServer() error {
 	service, err := newService(cfg)
 	if err != nil {
-		logger.WithError(err).Error("Failed to init servers")
+		logger.WithError(err).Error("failed to init servers")
 		return err
 	}
 
@@ -69,12 +69,12 @@ func runServer() error {
 		server_lib.WithServiceServer(service),
 	)
 	if err != nil {
-		logger.WithError(err).Error("Failed to get new servers")
+		logger.WithError(err).Error("failed to get new servers")
 		return err
 	}
 
 	if err := s.Serve(); err != nil {
-		logger.WithError(err).Error("Failed to start servers")
+		logger.WithError(err).Error("failed to start servers")
 		return err
 	}
 	return nil

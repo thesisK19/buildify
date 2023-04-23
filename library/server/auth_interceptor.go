@@ -21,6 +21,11 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
+func GetUsernameFromContext(ctx context.Context) string {
+	username := ctx.Value(context_lib.USERNAME).(string)
+	return username
+}
+
 func AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	// Skip token verification for HealthCheck GKE and SignIn, SignUp api
 	if strings.Contains(info.FullMethod, "HealthCheck") ||
@@ -67,11 +72,11 @@ func extractTokenFromContextOrHeaders(ctx context.Context) (string, error) {
 
 func verifyAndParseJWT(tokenString string) (*Claims, error) {
 	// Retrieve the jwtSecret environment variable
-	jwtSecret := os.Getenv("jwtSecret")
+	jwtSecret := os.Getenv("jwt_secret")
 
 	if jwtSecret == "" {
-		// Handle the case when jwtSecret is not set
-		return nil, fmt.Errorf("jwtSecret environment variable is not set")
+		// Handle the case when jwt_secret is not set
+		return nil, fmt.Errorf("jwt_secret environment variable is not set")
 	}
 
 	// Parse and validate the JWT token

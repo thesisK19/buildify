@@ -17,13 +17,13 @@ func (r *repository) CreateUser(ctx context.Context, params model.CreateUserPara
 
 	result, err := r.db.Collection(constant.USER_COLL).InsertOne(ctx, params)
 	if err != nil {
-		logger.WithError(err).Error("Failed to InsertOne")
+		logger.WithError(err).Error("failed to InsertOne")
 		return nil, err
 	}
 
 	objID, ok := result.InsertedID.(primitive.ObjectID)
 	if !ok {
-		logger.WithError(err).Error("Failed to convert objectID")
+		logger.WithError(err).Error("failed to convert objectID")
 		return nil, err
 	}
 
@@ -37,7 +37,7 @@ func (r *repository) GetUserByID(ctx context.Context, id string) (*model.User, e
 
 	objID, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
-		logger.WithError(err).Error("Failed to convert objectID")
+		logger.WithError(err).Error("failed to convert objectID")
 		return nil, err
 	}
 
@@ -45,7 +45,7 @@ func (r *repository) GetUserByID(ctx context.Context, id string) (*model.User, e
 	var user model.User
 
 	if err := r.db.Collection(constant.USER_COLL).FindOne(ctx, filter).Decode(&user); err != nil {
-		logger.WithError(err).Error("Failed to FindOne")
+		logger.WithError(err).Error("failed to FindOne")
 		return nil, err
 	}
 	return &user, nil
@@ -58,7 +58,7 @@ func (r *repository) GetUserByUsername(ctx context.Context, username string) (*m
 	var user model.User
 
 	if err := r.db.Collection(constant.USER_COLL).FindOne(ctx, filter).Decode(&user); err != nil {
-		logger.WithError(err).Error("Failed to FindOne")
+		logger.WithError(err).Error("failed to FindOne")
 		return nil, err
 	}
 	return &user, nil
@@ -77,16 +77,20 @@ func (r *repository) UpdateUserByID(ctx context.Context, id string, params model
 
 	result, err := r.db.Collection(constant.USER_COLL).UpdateOne(ctx, filter, updateDoc)
 	if err != nil {
-		logger.WithError(err).Error("Failed to UpdateOne")
+		logger.WithError(err).Error("failed to UpdateOne")
 		return err
 	}
 
 	// Check the number of documents matched and modified
 	if result.MatchedCount == 0 {
-		return fmt.Errorf("no documents matched the filter")
+		err = fmt.Errorf("no documents matched the filter")
+		logger.WithError(err).Error("failed to UpdateOne")
+		return err
 	}
 	if result.ModifiedCount == 0 {
-		return fmt.Errorf("no documents were modified")
+		err = fmt.Errorf("no documents were modified")
+		logger.WithError(err).Error("failed to UpdateOne")
+		return err
 	}
 
 	return nil
@@ -100,16 +104,20 @@ func (r *repository) UpdateUserByUsername(ctx context.Context, username string, 
 
 	result, err := r.db.Collection(constant.USER_COLL).UpdateOne(ctx, filter, updateDoc)
 	if err != nil {
-		logger.WithError(err).Error("Failed to UpdateOne")
+		logger.WithError(err).Error("failed to UpdateOne")
 		return err
 	}
 
 	// Check the number of documents matched and modified
 	if result.MatchedCount == 0 {
-		return fmt.Errorf("no documents matched the filter")
+		err = fmt.Errorf("no documents matched the filter")
+		logger.WithError(err).Error("failed to UpdateOne")
+		return err
 	}
 	if result.ModifiedCount == 0 {
-		return fmt.Errorf("no documents were modified")
+		err = fmt.Errorf("no documents were modified")
+		logger.WithError(err).Error("failed to UpdateOne")
+		return err
 	}
 
 	return nil

@@ -13,13 +13,19 @@ spec:
         app: gen-code-deployment
     spec:
       containers:
-      - image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/gen-code:1
-        imagePullPolicy: Always
-        name: gen-code-deployment
-        ports:
-        - containerPort: 80
-        - containerPort: 443
-        resources:
-          limits:
-            cpu: 100m
-            memory: 300Mi
+        - env:
+            - name: jwt_secret
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: jwt_secret
+          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/gen-code:1
+          imagePullPolicy: IfNotPresent
+          name: gen-code-deployment
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi

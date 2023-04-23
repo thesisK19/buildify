@@ -49,7 +49,7 @@ func (c *ImplGenCodeClient) HelloWorld(ctx context.Context) (*genCodeApi.HelloWo
 	logger := ctxlogrus.Extract(ctx).WithField("func", "HelloWorld")
 
 	if err := c.connect(); err != nil {
-		logger.WithError(err).Error("Failed to connect client")
+		logger.WithError(err).Error("failed to connect client")
 		return nil, err
 	}
 
@@ -57,7 +57,7 @@ func (c *ImplGenCodeClient) HelloWorld(ctx context.Context) (*genCodeApi.HelloWo
 
 	resp, err := c.client.HelloWorld(ctx, &req)
 	if err != nil {
-		logger.WithError(err).Error("Failed to call HelloWorld")
+		logger.WithError(err).Error("failed to call HelloWorld")
 		return nil, err
 	}
 

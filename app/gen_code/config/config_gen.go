@@ -22,13 +22,13 @@ func Load() (*Config, error) {
 
 		configBuffer, err := json.Marshal(c)
 		if err != nil {
-			log.Fatal("Failed to malshal config", err)
+			log.Fatal("failed to malshal config", err)
 			return nil, err
 		}
 
 		err = viper.ReadConfig(bytes.NewBuffer(configBuffer))
 		if err != nil {
-			log.Fatal("Failed to read config by viper", err)
+			log.Fatal("failed to read config by viper", err)
 			return nil, err
 		}
 	}
@@ -38,7 +38,7 @@ func Load() (*Config, error) {
 	viper.AutomaticEnv()
 	err = viper.Unmarshal(c)
 	if err != nil {
-		log.Fatal("Failed to unmarshal config by viper", err)
+		log.Fatal("failed to unmarshal config by viper", err)
 		return nil, err
 	}
 

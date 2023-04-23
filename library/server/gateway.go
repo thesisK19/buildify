@@ -79,7 +79,7 @@ func (s *gatewayServer) Serve() error {
 func (s *gatewayServer) Shutdown(ctx context.Context) {
 	err := s.server.Shutdown(ctx)
 	if err != nil {
-		log.Println("Failed to shutdown grpc-gateway server: ", err)
+		log.Println("failed to shutdown grpc-gateway server: ", err)
 	}
 	log.Println("All http(s) requests finished")
 }

@@ -1,11 +1,11 @@
 package model
 
 type Collection struct {
-	ID          int32    `bson:"_id,omitempty"` // Custom ID field
-	Name        string   `bson:"name"`
-	SemanticKey string   `bson:"semantic_key"`
-	Keys        []string `bson:"keys"`
-	Types       []int32  `bson:"types"`
-	DocumentIDs []int32  `bson:"document_ids,omitempty"`
-	Username    string   `bson:"username"`
+	Id        int32    `bson:"id,omitempty"`
+	Name      string   `bson:"name,omitempty"`
+	DataKeys  []string `bson:"data_keys,omitempty"`
+	DataTypes []int32  `bson:"data_types,omitempty"`
+	Username  string   `bson:"username,omitempty"`
 }
+
+// DocumentIds []int32  `bson:"document_ids,omitempty"`

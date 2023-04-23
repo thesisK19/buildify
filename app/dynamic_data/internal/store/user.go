@@ -9,16 +9,16 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func (r *repository) CreateUser(ctx context.Context, username string, lastDocID int32, lastCollID int32) error {
+func (r *repository) CreateUser(ctx context.Context, username string, lastDocId int32, lastCollId int32) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateUser")
 
 	_, err := r.db.Collection(constant.USER_COLL).InsertOne(ctx, model.User{
 		Username:   username,
-		LastDocID:  lastDocID,
-		LastCollID: lastCollID,
+		LastDocId:  lastDocId,
+		LastCollId: lastCollId,
 	})
 	if err != nil {
-		logger.WithError(err).Error("Failed to InsertOne")
+		logger.WithError(err).Error("failed to InsertOne")
 		return err
 	}
 
@@ -32,7 +32,7 @@ func (r *repository) GetUserByUsername(ctx context.Context, username string) (*m
 	var user model.User
 
 	if err := r.db.Collection(constant.USER_COLL).FindOne(ctx, filter).Decode(&user); err != nil {
-		logger.WithError(err).Error("Failed to FindOne")
+		logger.WithError(err).Error("failed to FindOne")
 		return nil, err
 	}
 	return &user, nil

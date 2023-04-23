@@ -3,6 +3,16 @@ syntax = "proto3";
 package buildify.app.dynamic_data.api;
 option go_package = "github.com/thesisK19/buildify/app/dynamic_data/api";
 import "google/api/annotations.proto";
-import "google/rpc/code.proto";
 
+message Collection {
+    int32 id = 1;
+    string name = 2;
+    repeated string data_keys = 3;
+    repeated int32 data_types = 4;
+}
 
+message Document {
+    int32 id = 1;
+    map<string, string> data = 2;
+    int32 collection_id = 3;
+}

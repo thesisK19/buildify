@@ -1,8 +1,6 @@
 package config
 
 import (
-	"os"
-
 	config_lib "github.com/thesisK19/buildify/library/config"
 )
 
@@ -11,7 +9,6 @@ type Config struct {
 
 	MongoDB   string `mapstructure:"mongo_db"`
 	ServiceDB string `mapstructure:"service_db"`
-	JWTSecret string `mapstructure:"jwt_secret"`
 }
 
 func loadDefaultConfig() *Config {
@@ -19,6 +16,5 @@ func loadDefaultConfig() *Config {
 		MongoDB:   "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net",
 		ServiceDB: "gen_code_service",
 		Base:      *config_lib.DefaultBaseConfig(),
-		JWTSecret: os.Getenv("jwtSecret"),
 	}
 }

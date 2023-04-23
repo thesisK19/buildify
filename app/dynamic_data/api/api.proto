@@ -4,18 +4,63 @@ package buildify.app.dynamic_data.api;
 option go_package = "github.com/thesisK19/buildify/app/dynamic_data/api";
 import "google/api/annotations.proto";
 import "app/dynamic_data/api/data.proto";
+import "validate/validate.proto";
 
 service DynamicDataService {
     rpc CreateDocument(CreateDocumentRequest) returns (CreateDocumentResponse) {
         option (google.api.http) = {
-            post : "/document"
+            post : "/dynamic-data-service/api/document"
             body : "*"
         };
     }
-    rpc CreateCollection(CreateCollectionRequest) returns (CreateCollectionResponse) {
+    rpc GetDocument(GetDocumentRequest) returns (GetDocumentResponse) {
         option (google.api.http) = {
-            post : "/collection"
+            get : "/dynamic-data-service/api/document"
+        };
+    }
+    rpc GetListDocument(GetListDocumentRequest)
+        returns (GetListDocumentResponse) {
+        option (google.api.http) = {
+            get : "/dynamic-data-service/api/document/list"
+        };
+    }
+    rpc UpdateDocument(UpdateDocumentRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            put : "/dynamic-data-service/api/document"
             body : "*"
+        };
+    }
+    rpc DeleteDocument(DeleteDocumentRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            delete : "/dynamic-data-service/api/document"
+        };
+    }
+    rpc CreateCollection(CreateCollectionRequest)
+        returns (CreateCollectionResponse) {
+        option (google.api.http) = {
+            post : "/dynamic-data-service/api/collection"
+            body : "*"
+        };
+    }
+    rpc GetCollection(GetCollectionRequest) returns (GetCollectionResponse) {
+        option (google.api.http) = {
+            get : "/dynamic-data-service/api/collection"
+        };
+    }
+    rpc GetListCollections(EmptyRequest) returns (GetListCollectionsResponse) {
+        option (google.api.http) = {
+            get : "/dynamic-data-service/api/collection/list"
+        };
+    }
+    rpc UpdateCollection(UpdateCollectionRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            put : "/dynamic-data-service/api/collection"
+            body : "*"
+        };
+    }
+    rpc DeleteCollection(DeleteCollectionRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            delete : "/dynamic-data-service/api/collection"
         };
     }
 
@@ -31,14 +76,62 @@ message EmptyResponse {}
 
 message CreateDocumentRequest {
     map<string, string> data = 1;
-    int32 collection_id = 2;
+    int32 collection_id = 2 [ (validate.rules).int32.gte = 1 ];
 }
-message CreateDocumentResponse {}
+message CreateDocumentResponse { int32 id = 1; }
+
+message GetDocumentRequest { int32 id = 1 [ (validate.rules).int32.gte = 1 ]; }
+message GetDocumentResponse {
+    int32 id = 1;
+    map<string, string> data = 2;
+    int32 collection_id = 3;
+}
+
+message GetListDocumentRequest {
+    int32 collection_id = 1 [ (validate.rules).int32.gte = 1 ];
+}
+message GetListDocumentResponse { repeated Document documents = 1; }
+
+message UpdateDocumentRequest {
+    int32 id = 1 [ (validate.rules).int32.gte = 1 ];
+    map<string, string> data = 2;
+    int32 collection_id = 3;
+}
+
+message DeleteDocumentRequest {
+    int32 id = 1 [ (validate.rules).int32.gte = 1 ];
+}
 
 message CreateCollectionRequest {
     string name = 1;
-    string semantic_key = 2;
-    repeated string keys = 3;
-    repeated int32 types = 4;
+    repeated string data_keys = 2;
+    repeated int32 data_types = 3;
 }
-message CreateCollectionResponse {}
+message CreateCollectionResponse { int32 id = 1; }
+
+message GetCollectionRequest {
+    int32 id = 1 [ (validate.rules).int32.gte = 1 ];
+}
+message GetCollectionResponse {
+    int32 id = 1;
+    string name = 2;
+    repeated string data_keys = 3;
+    repeated int32 data_types = 4;
+    repeated Document documents = 5;
+}
+
+message GetListCollectionsResponse {
+    repeated Collection collections = 1;
+    repeated Document documents = 2;
+}
+
+message UpdateCollectionRequest {
+    int32 id = 1 [ (validate.rules).int32.gte = 1 ];
+    string name = 2;
+    repeated string data_keys = 3;
+    repeated int32 data_types = 4;
+}
+
+message DeleteCollectionRequest {
+    int32 id = 1 [ (validate.rules).int32.gte = 1 ];
+}

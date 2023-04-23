@@ -23,7 +23,15 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DynamicDataServiceClient interface {
 	CreateDocument(ctx context.Context, in *CreateDocumentRequest, opts ...grpc.CallOption) (*CreateDocumentResponse, error)
+	GetDocument(ctx context.Context, in *GetDocumentRequest, opts ...grpc.CallOption) (*GetDocumentResponse, error)
+	GetListDocument(ctx context.Context, in *GetListDocumentRequest, opts ...grpc.CallOption) (*GetListDocumentResponse, error)
+	UpdateDocument(ctx context.Context, in *UpdateDocumentRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
+	DeleteDocument(ctx context.Context, in *DeleteDocumentRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	CreateCollection(ctx context.Context, in *CreateCollectionRequest, opts ...grpc.CallOption) (*CreateCollectionResponse, error)
+	GetCollection(ctx context.Context, in *GetCollectionRequest, opts ...grpc.CallOption) (*GetCollectionResponse, error)
+	GetListCollections(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetListCollectionsResponse, error)
+	UpdateCollection(ctx context.Context, in *UpdateCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
+	DeleteCollection(ctx context.Context, in *DeleteCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	HealthCheck(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 }
 
@@ -44,9 +52,81 @@ func (c *dynamicDataServiceClient) CreateDocument(ctx context.Context, in *Creat
 	return out, nil
 }
 
+func (c *dynamicDataServiceClient) GetDocument(ctx context.Context, in *GetDocumentRequest, opts ...grpc.CallOption) (*GetDocumentResponse, error) {
+	out := new(GetDocumentResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/GetDocument", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynamicDataServiceClient) GetListDocument(ctx context.Context, in *GetListDocumentRequest, opts ...grpc.CallOption) (*GetListDocumentResponse, error) {
+	out := new(GetListDocumentResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/GetListDocument", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynamicDataServiceClient) UpdateDocument(ctx context.Context, in *UpdateDocumentRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
+	out := new(EmptyResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateDocument", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynamicDataServiceClient) DeleteDocument(ctx context.Context, in *DeleteDocumentRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
+	out := new(EmptyResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteDocument", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dynamicDataServiceClient) CreateCollection(ctx context.Context, in *CreateCollectionRequest, opts ...grpc.CallOption) (*CreateCollectionResponse, error) {
 	out := new(CreateCollectionResponse)
 	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/CreateCollection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynamicDataServiceClient) GetCollection(ctx context.Context, in *GetCollectionRequest, opts ...grpc.CallOption) (*GetCollectionResponse, error) {
+	out := new(GetCollectionResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/GetCollection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynamicDataServiceClient) GetListCollections(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetListCollectionsResponse, error) {
+	out := new(GetListCollectionsResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynamicDataServiceClient) UpdateCollection(ctx context.Context, in *UpdateCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
+	out := new(EmptyResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateCollection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dynamicDataServiceClient) DeleteCollection(ctx context.Context, in *DeleteCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
+	out := new(EmptyResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteCollection", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +147,15 @@ func (c *dynamicDataServiceClient) HealthCheck(ctx context.Context, in *EmptyReq
 // for forward compatibility
 type DynamicDataServiceServer interface {
 	CreateDocument(context.Context, *CreateDocumentRequest) (*CreateDocumentResponse, error)
+	GetDocument(context.Context, *GetDocumentRequest) (*GetDocumentResponse, error)
+	GetListDocument(context.Context, *GetListDocumentRequest) (*GetListDocumentResponse, error)
+	UpdateDocument(context.Context, *UpdateDocumentRequest) (*EmptyResponse, error)
+	DeleteDocument(context.Context, *DeleteDocumentRequest) (*EmptyResponse, error)
 	CreateCollection(context.Context, *CreateCollectionRequest) (*CreateCollectionResponse, error)
+	GetCollection(context.Context, *GetCollectionRequest) (*GetCollectionResponse, error)
+	GetListCollections(context.Context, *EmptyRequest) (*GetListCollectionsResponse, error)
+	UpdateCollection(context.Context, *UpdateCollectionRequest) (*EmptyResponse, error)
+	DeleteCollection(context.Context, *DeleteCollectionRequest) (*EmptyResponse, error)
 	HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error)
 }
 
@@ -78,8 +166,32 @@ type UnimplementedDynamicDataServiceServer struct {
 func (UnimplementedDynamicDataServiceServer) CreateDocument(context.Context, *CreateDocumentRequest) (*CreateDocumentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDocument not implemented")
 }
+func (UnimplementedDynamicDataServiceServer) GetDocument(context.Context, *GetDocumentRequest) (*GetDocumentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDocument not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) GetListDocument(context.Context, *GetListDocumentRequest) (*GetListDocumentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetListDocument not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) UpdateDocument(context.Context, *UpdateDocumentRequest) (*EmptyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateDocument not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) DeleteDocument(context.Context, *DeleteDocumentRequest) (*EmptyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteDocument not implemented")
+}
 func (UnimplementedDynamicDataServiceServer) CreateCollection(context.Context, *CreateCollectionRequest) (*CreateCollectionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCollection not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) GetCollection(context.Context, *GetCollectionRequest) (*GetCollectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCollection not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) GetListCollections(context.Context, *EmptyRequest) (*GetListCollectionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetListCollections not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) UpdateCollection(context.Context, *UpdateCollectionRequest) (*EmptyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCollection not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) DeleteCollection(context.Context, *DeleteCollectionRequest) (*EmptyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCollection not implemented")
 }
 func (UnimplementedDynamicDataServiceServer) HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
@@ -114,6 +226,78 @@ func _DynamicDataService_CreateDocument_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DynamicDataService_GetDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDocumentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).GetDocument(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/GetDocument",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).GetDocument(ctx, req.(*GetDocumentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DynamicDataService_GetListDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetListDocumentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).GetListDocument(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/GetListDocument",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).GetListDocument(ctx, req.(*GetListDocumentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DynamicDataService_UpdateDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateDocumentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).UpdateDocument(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/UpdateDocument",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).UpdateDocument(ctx, req.(*UpdateDocumentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DynamicDataService_DeleteDocument_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDocumentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).DeleteDocument(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/DeleteDocument",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).DeleteDocument(ctx, req.(*DeleteDocumentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DynamicDataService_CreateCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateCollectionRequest)
 	if err := dec(in); err != nil {
@@ -128,6 +312,78 @@ func _DynamicDataService_CreateCollection_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DynamicDataServiceServer).CreateCollection(ctx, req.(*CreateCollectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DynamicDataService_GetCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCollectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).GetCollection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/GetCollection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).GetCollection(ctx, req.(*GetCollectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DynamicDataService_GetListCollections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).GetListCollections(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).GetListCollections(ctx, req.(*EmptyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DynamicDataService_UpdateCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCollectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).UpdateCollection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/UpdateCollection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).UpdateCollection(ctx, req.(*UpdateCollectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DynamicDataService_DeleteCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCollectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).DeleteCollection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/DeleteCollection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).DeleteCollection(ctx, req.(*DeleteCollectionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -162,8 +418,40 @@ var DynamicDataService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DynamicDataService_CreateDocument_Handler,
 		},
 		{
+			MethodName: "GetDocument",
+			Handler:    _DynamicDataService_GetDocument_Handler,
+		},
+		{
+			MethodName: "GetListDocument",
+			Handler:    _DynamicDataService_GetListDocument_Handler,
+		},
+		{
+			MethodName: "UpdateDocument",
+			Handler:    _DynamicDataService_UpdateDocument_Handler,
+		},
+		{
+			MethodName: "DeleteDocument",
+			Handler:    _DynamicDataService_DeleteDocument_Handler,
+		},
+		{
 			MethodName: "CreateCollection",
 			Handler:    _DynamicDataService_CreateCollection_Handler,
+		},
+		{
+			MethodName: "GetCollection",
+			Handler:    _DynamicDataService_GetCollection_Handler,
+		},
+		{
+			MethodName: "GetListCollections",
+			Handler:    _DynamicDataService_GetListCollections_Handler,
+		},
+		{
+			MethodName: "UpdateCollection",
+			Handler:    _DynamicDataService_UpdateCollection_Handler,
+		},
+		{
+			MethodName: "DeleteCollection",
+			Handler:    _DynamicDataService_DeleteCollection_Handler,
 		},
 		{
 			MethodName: "HealthCheck",

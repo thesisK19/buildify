@@ -4,12 +4,24 @@ import (
 	"context"
 
 	"github.com/thesisK19/buildify/app/dynamic_data/config"
+	"github.com/thesisK19/buildify/app/dynamic_data/internal/dto"
+	"github.com/thesisK19/buildify/app/dynamic_data/internal/model"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type Repository interface {
-	CreateDocument(ctx context.Context, username string, collectionID int32, data map[string]string) (int32, error)
-	CreateCollection(ctx context.Context, username string, name string, semanticKey string, keys []string, types []int32) (int32, error)
+	// document
+	CreateDocument(ctx context.Context, doc model.Document) (int32, error)
+	GetDocument(ctx context.Context, username string, id int32) (*model.Document, error)
+	GetListDocuments(ctx context.Context, username string, collectionId int32) ([]*model.Document, error)
+	UpdateDocument(ctx context.Context, doc model.Document) error
+	DeleteDocument(ctx context.Context, username string, id int32) error
+	// collection
+	CreateCollection(ctx context.Context, coll model.Collection) (int32, error)
+	GetCollection(ctx context.Context, username string, id int32) (*dto.GetCollection, error)
+	GetListCollections(ctx context.Context, username string) (*dto.ListCollections, error)
+	UpdateCollection(ctx context.Context, coll model.Collection) error
+	DeleteCollection(ctx context.Context, username string, id int32) error
 	// repository
 	Ping() error
 	Close() error

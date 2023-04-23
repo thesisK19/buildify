@@ -21,6 +21,6 @@ func loadDefaultConfig() *Config {
 		ServiceDB:   "user_service",
 		Base:        *config_lib.DefaultBaseConfig(),
 		GenCodeHost: "localhost:9093",
-		JWTSecret:   os.Getenv("jwtSecret"),
+		JWTSecret:   os.Getenv("jwt_secret"),
 	}
 }

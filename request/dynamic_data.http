@@ -2,26 +2,76 @@
 GET http://localhost:3005 HTTP/1.1
 
 ###
-POST http://localhost:3005/document HTTP/1.1
+POST http://localhost:3005/dynamic-data-service/api/document HTTP/1.1
 content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
 {
   "collectionId": 3,
   "data": {
-    "name": "Document 2 Product",
-    "y1": "Document 1",
-    "y2": "Document 2",
-    "p3": "Document 3"
+    "name": "Document 4 Product",
+    "type": "Document 1",
+    "title": "Document 2",
+    "price": "Document 3"
   }
 }
 
 ###
-POST http://localhost:3005/collection HTTP/1.1
+GET http://localhost:3005/dynamic-data-service/api/document?id=4 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+###
+PUT http://localhost:3005/dynamic-data-service/api/document HTTP/1.1
 content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
 {
-  "name": "new collection",
-  "semanticKey": "name",
-  "keys": ["name","type","title","price"],
-  "types": [1,1,1,1]
+  "id": 4,
+  "collectionId": 1,
+  "data": {
+    "name": "Document 1 Product",
+    "type": "Document 1",
+    "title": "Document 2",
+    "price": "Document 3"
+  }
 }
+
+###
+DELETE  http://localhost:3005/dynamic-data-service/api/document?id=4 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+###
+POST http://localhost:3005/dynamic-data-service/api/collection HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+{
+  "name": "collection 3",
+  "dataKeys": ["name","type","title","price"],
+  "dataTypes": [1,1,1,1]
+}
+
+
+###
+GET http://localhost:3005/dynamic-data-service/api/collection?id=1 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+###
+GET http://localhost:3005/dynamic-data-service/api/collection/list HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+###
+PUT http://localhost:3005/dynamic-data-service/api/collection HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+{
+  "id": 3,
+  "name": "collection 33",
+  "dataKeys": ["name","new","title","price"],
+  "dataTypes": [1,1,1,1]
+}
+
+###
+DELETE  http://localhost:3005/dynamic-data-service/api/collection?id=3 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY

@@ -24,7 +24,7 @@ func connectDB(connectionString string, serviceDB string) (*mongo.Client, error)
 	client, err := mongo.Connect(ctx, clientOptions)
 
 	if err != nil {
-		log.Println("Failed to connect mongoDB. ", "connectionStr=", connectionString, "err=", err)
+		log.Println("failed to connect mongoDB. ", "connectionStr=", connectionString, "err=", err)
 		return nil, err
 	}
 
@@ -32,7 +32,7 @@ func connectDB(connectionString string, serviceDB string) (*mongo.Client, error)
 	err = client.Ping(context.TODO(), nil)
 
 	if err != nil {
-		log.Println("Failed to ping mongoDB. ", "connectionStr=", connectionString, "err=", err)
+		log.Println("failed to ping mongoDB. ", "connectionStr=", connectionString, "err=", err)
 		return nil, err
 	}
 
@@ -43,7 +43,7 @@ func connectDB(connectionString string, serviceDB string) (*mongo.Client, error)
 func newService(cfg *config.Config) (*Service, error) {
 	mongoClient, err := connectDB(cfg.MongoDB, cfg.ServiceDB)
 	if err != nil {
-		log.Println("Failed to connectDB", "err=", err)
+		log.Println("failed to connectDB", "err=", err)
 		return nil, err
 	}
 	repository := store.NewRepository(cfg, mongoClient)

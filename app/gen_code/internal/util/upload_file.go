@@ -18,7 +18,7 @@ func UploadFile(ctx context.Context, inputFilePath string, remoteFilePath string
 	bucket := "gen-code" //your bucket name TODO:
 	storageClient, err := storage.NewClient(ctx, option.WithCredentialsFile("storage-key.json"))
 	if err != nil {
-		logger.WithError(err).Error("Failed to create storage.NewClient")
+		logger.WithError(err).Error("failed to create storage.NewClient")
 		return nil, err
 	}
 
@@ -26,17 +26,17 @@ func UploadFile(ctx context.Context, inputFilePath string, remoteFilePath string
 
 	file, err := os.Open(inputFilePath) // For read access.
 	if err != nil {
-		logger.WithError(err).Error("Failed to os.Open")
+		logger.WithError(err).Error("failed to os.Open")
 		return nil, err
 	}
 
 	if _, err := io.Copy(sw, file); err != nil {
-		logger.WithError(err).Error("Failed to io.Copy")
+		logger.WithError(err).Error("failed to io.Copy")
 		return nil, err
 	}
 
 	if err := sw.Close(); err != nil {
-		logger.WithError(err).Error("Failed to sw.Close")
+		logger.WithError(err).Error("failed to sw.Close")
 		return nil, err
 	}
 

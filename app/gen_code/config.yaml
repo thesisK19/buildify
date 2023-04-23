@@ -13,4 +13,3 @@ MONGO_DB: mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net
 
 SERVICE_DB: gen_code_service
 
-JWT_SECRET: eyJhbGciOiJIUzI1NiJ9

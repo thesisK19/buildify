@@ -21,7 +21,7 @@ func (s *Service) RegisterWithHandler(ctx context.Context, mux *runtime.ServeMux
 
 	err := api.RegisterGenCodeServiceHandler(ctx, mux, conn)
 	if err != nil {
-		logger.WithError(err).Error("Failed to register servers")
+		logger.WithError(err).Error("failed to register servers")
 		return err
 	}
 
