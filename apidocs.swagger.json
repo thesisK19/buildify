@@ -4,6 +4,11 @@
     "title": "app/dynamic_data/api/data.proto",
     "version": "version not set"
   },
+  "host": "34.117.219.34",
+  "schemes": [
+      "http",
+      "https",
+  ],
   "tags": [
     {
       "name": "DynamicDataService"
