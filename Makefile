@@ -74,3 +74,5 @@ build:
 #  docker exec -it ad019aef5836 /bin/sh
 
 # bazel run //app/gen_code:push
+
+# kubectl logs --tail=20
