@@ -13,18 +13,18 @@ spec:
         app: file-mgt-deployment
     spec:
       containers:
-      - env:
-        - name: jwt_secret
-          valueFrom:
-            secretKeyRef:
-              name: my-secret
-              key: jwt_secret
-        image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/file-mgt:1
-        imagePullPolicy: IfNotPresent
-        name: file-mgt-deployment
-        ports:
-          - containerPort: 80
-        resources:
-          limits:
-            cpu: 100m
-            memory: 100Mi
+        - name: file-mgt-deployment
+          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/file-mgt:1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: jwt_secret
+              valueFrom:
+                secretKeyRef:
+                  name: my-secret
+                  key: jwt_secret
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi

@@ -6,9 +6,9 @@ import (
 
 type Config struct {
 	config_lib.Base `mapstructure:",squash"`
-	MongoDB         string `mapstructure:"mongo_db"`
-	ServiceDB       string `mapstructure:"service_db"`
-	GenCodeHost     string `mapstructure:"gen_code_host"`
+	MongoDB         string `json:"mongo_db" mapstructure:"mongo_db"`
+	ServiceDB       string `json:"service_db" mapstructure:"service_db"`
+	GenCodeHost     string `json:"gen_code_host" mapstructure:"gen_code_host"`
 }
 
 func loadDefaultConfig() *Config {

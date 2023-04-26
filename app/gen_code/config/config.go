@@ -7,8 +7,8 @@ import (
 type Config struct {
 	config_lib.Base `mapstructure:",squash"`
 
-	MongoDB   string `mapstructure:"mongo_db"`
-	ServiceDB string `mapstructure:"service_db"`
+	MongoDB   string `json:"mongo_db" mapstructure:"mongo_db"`
+	ServiceDB string `json:"service_db" mapstructure:"service_db"`
 }
 
 func loadDefaultConfig() *Config {

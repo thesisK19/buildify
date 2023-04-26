@@ -13,7 +13,8 @@
       "program": "${workspaceFolder}/app/user/cmd",
       "args": ["server"],
       "env": {
-        "jwt_secret": "eyJhbGciOiJIUzI1NiJ9"
+        "jwt_secret": "eyJhbGciOiJIUzI1NiJ9",
+        "GEN_CODE_HOST": "gen-code-service:443"
       }
       //   "showLog": true
     },
