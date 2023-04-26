@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-deployment
-          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user:test
+          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user:1
           imagePullPolicy: IfNotPresent
           env:
             - name: GEN_CODE_HOST
