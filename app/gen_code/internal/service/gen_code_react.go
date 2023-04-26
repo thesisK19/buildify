@@ -8,6 +8,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
@@ -49,26 +50,54 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 		return nil, err
 	}
 
+	var wg sync.WaitGroup
+	errChan := make(chan error)
+
+	// Generate pages concurrently
 	for _, pageInfo := range mapPagePathToPageInfo {
-		err = genPage(ctx, rootDirPath, pageInfo)
+		wg.Add(1)
+		go func(pageInfo *dto.PageInfo) {
+			defer wg.Done()
+			err := genPage(ctx, rootDirPath, pageInfo)
+			if err != nil {
+				logger.WithError(err).Error("failed to genPage")
+				errChan <- err
+			}
+		}(pageInfo)
+	}
+
+	// Generate index pages concurrently
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		err = genIndexPages(ctx, rootDirPath, request.Pages)
 		if err != nil {
-			logger.WithError(err).Error("failed to genPage")
+			logger.WithError(err).Error("failed to genIndexPages")
+			errChan <- err
+		}
+	}()
+
+	// Generate routes concurrently
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		err = genRoutes(ctx, rootDirPath, request.Pages)
+		if err != nil {
+			logger.WithError(err).Error("failed to genRoutes")
+			errChan <- err
+		}
+	}()
+
+	// Wait for all Goroutines to finish
+	wg.Wait()
+	close(errChan)
+
+	// Collect errors from errChan
+	for err := range errChan {
+		if err != nil {
+			logger.WithError(err).Error("failed to doGenReactSourceCode")
 			return nil, err
 		}
-	}
-
-	// index pages
-	err = genIndexPages(ctx, rootDirPath, request.Pages)
-	if err != nil {
-		logger.WithError(err).Error("failed to genIndexPages")
-		return nil, err
-	}
-
-	// routing
-	err = genRoutes(ctx, rootDirPath, request.Pages)
-	if err != nil {
-		logger.WithError(err).Error("failed to genRoutes")
-		return nil, err
 	}
 
 	// format code
@@ -89,10 +118,13 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	}
 
 	// Remove the input directory after zipping.
-	os.RemoveAll(outputZipPath)
-	os.RemoveAll(rootDirPath)
+	go func() {
+		os.RemoveAll(outputZipPath)
+		os.RemoveAll(rootDirPath)
+	}()
 
 	// TODO: delete remote file after 10 mins
+	logger.Info("url%s", *url)
 
 	return &api.GenReactSourceCodeResponse{
 		Url: *url,
@@ -101,7 +133,7 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 
 func formatCode(rootDirPath string) {
 	// npx prettier --write .
-	command := exec.Command("prettier", "--write", rootDirPath)
+	command := exec.Command("prettier", "--write", fmt.Sprintf("%s/%s", rootDirPath, constant.PAGES_DIR), fmt.Sprintf("%s/%s", rootDirPath, constant.ROUTES_DIR))
 	command.Stderr = os.Stderr
 	// Run the command
 	command.Run()
