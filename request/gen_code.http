@@ -3,7 +3,7 @@
 # http://localhost:3003
 
 ### hello world
-POST http://localhost:3003/gen-code-service/api/gen-react-code HTTP/1.1
+POST http://34.117.219.34/gen-code-service/api/gen-react-code HTTP/1.1
 content-type: application/json
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE4OTcyODZ9.r4_kQ4VCPss2xgoxuMdt2lXI-03xkmwboOD5tafUM-Q
 
