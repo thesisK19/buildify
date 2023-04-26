@@ -13,7 +13,10 @@ spec:
         app: dynamic-data-deployment
     spec:
       containers:
-        - env:
+        - name: dynamic-data-deployment
+          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/dynamic-data:1
+          imagePullPolicy: IfNotPresent
+          env:
             - name: GEN_CODE_HOST
               value: gen-code-service:443
             - name: jwt_secret
@@ -21,9 +24,6 @@ spec:
                 secretKeyRef:
                   name: my-secret
                   key: jwt_secret
-          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/dynamic-data:1
-          imagePullPolicy: IfNotPresent
-          name: dynamic-data-deployment
           ports:
             - containerPort: 80
             - containerPort: 443

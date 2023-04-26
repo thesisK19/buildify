@@ -6,10 +6,10 @@ import (
 )
 
 type Config struct {
-	HTTP      server_lib.Listen `json:"http" mapstructure:"http" yaml:"http"`
-	MongoDB   string        `mapstructure:"mongo_db"`
-	Log       log.Config    `json:"log" mapstructure:"log"`
-	ServiceDB string        `mapstructure:"service_db"`
+	HTTP      server_lib.Listen `json:"http" mapstructure:"http"`
+	MongoDB   string            `json:"mongo_db" mapstructure:"mongo_db"`
+	Log       log.Config        `json:"log" mapstructure:"log"`
+	ServiceDB string            `json:"service_db" mapstructure:"service_db"`
 }
 
 func loadDefaultConfig() *Config {
