@@ -76,3 +76,7 @@ build:
 # bazel run //app/gen_code:push
 
 # kubectl logs --tail=20
+
+#  docker run --rm -it -p3003:80 bazel/app/gen_code:npx_go_image 
+
+# kubectl exec -it gen-code-deployment-56bc5cb64d-wqs26 sh
