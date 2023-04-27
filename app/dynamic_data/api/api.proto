@@ -8,58 +8,58 @@ import "app/dynamic_data/api/data.proto";
 service DynamicDataService {
     rpc CreateDocument(CreateDocumentRequest) returns (CreateDocumentResponse) {
         option (google.api.http) = {
-            post : "/dynamic-data-service/api/document"
+            post : "/api/document"
             body : "*"
         };
     }
     rpc GetDocument(GetDocumentRequest) returns (GetDocumentResponse) {
         option (google.api.http) = {
-            get : "/dynamic-data-service/api/document"
+            get : "/api/document"
         };
     }
     rpc GetListDocument(GetListDocumentRequest)
         returns (GetListDocumentResponse) {
         option (google.api.http) = {
-            get : "/dynamic-data-service/api/document/list"
+            get : "/api/document/list"
         };
     }
     rpc UpdateDocument(UpdateDocumentRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            put : "/dynamic-data-service/api/document"
+            put : "/api/document"
             body : "*"
         };
     }
     rpc DeleteDocument(DeleteDocumentRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            delete : "/dynamic-data-service/api/document"
+            delete : "/api/document"
         };
     }
     rpc CreateCollection(CreateCollectionRequest)
         returns (CreateCollectionResponse) {
         option (google.api.http) = {
-            post : "/dynamic-data-service/api/collection"
+            post : "/api/collection"
             body : "*"
         };
     }
     rpc GetCollection(GetCollectionRequest) returns (GetCollectionResponse) {
         option (google.api.http) = {
-            get : "/dynamic-data-service/api/collection"
+            get : "/api/collection"
         };
     }
     rpc GetListCollections(EmptyRequest) returns (GetListCollectionsResponse) {
         option (google.api.http) = {
-            get : "/dynamic-data-service/api/collection/list"
+            get : "/api/collection/list"
         };
     }
     rpc UpdateCollection(UpdateCollectionRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            put : "/dynamic-data-service/api/collection"
+            put : "/api/collection"
             body : "*"
         };
     }
     rpc DeleteCollection(DeleteCollectionRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            delete : "/dynamic-data-service/api/collection"
+            delete : "/api/collection"
         };
     }
 

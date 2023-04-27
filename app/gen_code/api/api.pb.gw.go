@@ -115,7 +115,7 @@ func RegisterGenCodeServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/GenReactSourceCode", runtime.WithHTTPPathPattern("/gen-code-service/api/gen-react-code"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/GenReactSourceCode", runtime.WithHTTPPathPattern("/api/gen-react-code"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -140,7 +140,7 @@ func RegisterGenCodeServiceHandlerServer(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/HelloWorld", runtime.WithHTTPPathPattern("/gen-code-service/api/hello-world"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/HelloWorld", runtime.WithHTTPPathPattern("/api/hello-world"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -229,7 +229,7 @@ func RegisterGenCodeServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/GenReactSourceCode", runtime.WithHTTPPathPattern("/gen-code-service/api/gen-react-code"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/GenReactSourceCode", runtime.WithHTTPPathPattern("/api/gen-react-code"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -251,7 +251,7 @@ func RegisterGenCodeServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/HelloWorld", runtime.WithHTTPPathPattern("/gen-code-service/api/hello-world"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/app.gen_code.api.GenCodeService/HelloWorld", runtime.WithHTTPPathPattern("/api/hello-world"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -293,9 +293,9 @@ func RegisterGenCodeServiceHandlerClient(ctx context.Context, mux *runtime.Serve
 }
 
 var (
-	pattern_GenCodeService_GenReactSourceCode_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"gen-code-service", "api", "gen-react-code"}, ""))
+	pattern_GenCodeService_GenReactSourceCode_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "gen-react-code"}, ""))
 
-	pattern_GenCodeService_HelloWorld_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"gen-code-service", "api", "hello-world"}, ""))
+	pattern_GenCodeService_HelloWorld_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "hello-world"}, ""))
 
 	pattern_GenCodeService_HealthCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{""}, ""))
 )

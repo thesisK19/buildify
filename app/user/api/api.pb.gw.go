@@ -201,7 +201,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignUp", runtime.WithHTTPPathPattern("/user-service/api/sign-up"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignUp", runtime.WithHTTPPathPattern("/api/sign-up"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -226,7 +226,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignIn", runtime.WithHTTPPathPattern("/user-service/api/sign-in"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignIn", runtime.WithHTTPPathPattern("/api/sign-in"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -251,7 +251,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -276,7 +276,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -301,7 +301,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/Test", runtime.WithHTTPPathPattern("/user-service/api/test"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.user.api.UserService/Test", runtime.WithHTTPPathPattern("/api/test"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -390,7 +390,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignUp", runtime.WithHTTPPathPattern("/user-service/api/sign-up"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignUp", runtime.WithHTTPPathPattern("/api/sign-up"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -412,7 +412,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignIn", runtime.WithHTTPPathPattern("/user-service/api/sign-in"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/SignIn", runtime.WithHTTPPathPattern("/api/sign-in"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -434,7 +434,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/GetUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -456,7 +456,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user-service/api/user"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/UpdateUser", runtime.WithHTTPPathPattern("/api/user"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -478,7 +478,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/Test", runtime.WithHTTPPathPattern("/user-service/api/test"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.user.api.UserService/Test", runtime.WithHTTPPathPattern("/api/test"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -520,15 +520,15 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_UserService_SignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "sign-up"}, ""))
+	pattern_UserService_SignUp_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "sign-up"}, ""))
 
-	pattern_UserService_SignIn_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "sign-in"}, ""))
+	pattern_UserService_SignIn_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "sign-in"}, ""))
 
-	pattern_UserService_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "user"}, ""))
+	pattern_UserService_GetUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "user"}, ""))
 
-	pattern_UserService_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "user"}, ""))
+	pattern_UserService_UpdateUser_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "user"}, ""))
 
-	pattern_UserService_Test_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"user-service", "api", "test"}, ""))
+	pattern_UserService_Test_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "test"}, ""))
 
 	pattern_UserService_HealthCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{""}, ""))
 )

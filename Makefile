@@ -80,3 +80,5 @@ build:
 #  docker run --rm -it -p3003:80 bazel/app/gen_code:npx_go_image 
 
 # kubectl exec -it gen-code-deployment-56bc5cb64d-wqs26 sh
+# kubectl get managedcertificate
+# kubectl describe managedcertificate managed-cert

@@ -10,13 +10,13 @@ service GenCodeService {
     rpc GenReactSourceCode(GenReactSourceCodeRequest)
         returns (GenReactSourceCodeResponse) {
         option (google.api.http) = {
-            post : "/gen-code-service/api/gen-react-code"
+            post : "/api/gen-react-code"
             body : "*"
         };
     }
     rpc HelloWorld(EmptyRequest) returns (HelloWorldResponse) {
         option (google.api.http) = {
-            get : "/gen-code-service/api/hello-world"
+            get : "/api/hello-world"
         };
     }
     rpc HealthCheck(EmptyRequest) returns (EmptyResponse) {

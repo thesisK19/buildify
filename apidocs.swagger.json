@@ -4,11 +4,6 @@
     "title": "app/dynamic_data/api/data.proto",
     "version": "version not set"
   },
-  "host": "34.117.219.34",
-  "schemes": [
-      "http",
-      "https",
-  ],
   "tags": [
     {
       "name": "DynamicDataService"
@@ -49,7 +44,7 @@
         ]
       }
     },
-    "/dynamic-data-service/api/collection": {
+    "/api/collection": {
       "get": {
         "operationId": "DynamicDataService_GetCollection",
         "responses": {
@@ -169,7 +164,7 @@
         ]
       }
     },
-    "/dynamic-data-service/api/collection/list": {
+    "/api/collection/list": {
       "get": {
         "operationId": "DynamicDataService_GetListCollections",
         "responses": {
@@ -191,7 +186,7 @@
         ]
       }
     },
-    "/dynamic-data-service/api/document": {
+    "/api/document": {
       "get": {
         "operationId": "DynamicDataService_GetDocument",
         "responses": {
@@ -311,7 +306,7 @@
         ]
       }
     },
-    "/dynamic-data-service/api/document/list": {
+    "/api/document/list": {
       "get": {
         "operationId": "DynamicDataService_GetListDocument",
         "responses": {
@@ -342,7 +337,7 @@
         ]
       }
     },
-    "/gen-code-service/api/gen-react-code": {
+    "/api/gen-react-code": {
       "post": {
         "operationId": "GenCodeService_GenReactSourceCode",
         "responses": {
@@ -374,7 +369,7 @@
         ]
       }
     },
-    "/gen-code-service/api/hello-world": {
+    "/api/hello-world": {
       "get": {
         "operationId": "GenCodeService_HelloWorld",
         "responses": {
@@ -396,7 +391,7 @@
         ]
       }
     },
-    "/user-service/api/sign-in": {
+    "/api/sign-in": {
       "post": {
         "operationId": "UserService_SignIn",
         "responses": {
@@ -428,7 +423,7 @@
         ]
       }
     },
-    "/user-service/api/sign-up": {
+    "/api/sign-up": {
       "post": {
         "operationId": "UserService_SignUp",
         "responses": {
@@ -460,7 +455,7 @@
         ]
       }
     },
-    "/user-service/api/test": {
+    "/api/test": {
       "get": {
         "operationId": "UserService_Test",
         "responses": {
@@ -482,7 +477,7 @@
         ]
       }
     },
-    "/user-service/api/user": {
+    "/api/user": {
       "get": {
         "operationId": "UserService_GetUser",
         "responses": {
