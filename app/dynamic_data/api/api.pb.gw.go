@@ -397,7 +397,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -422,7 +422,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -447,7 +447,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document/list"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListDocument", runtime.WithHTTPPathPattern("/api/document/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -472,7 +472,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -497,7 +497,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -522,7 +522,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -547,7 +547,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -572,7 +572,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection/list"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections", runtime.WithHTTPPathPattern("/api/collection/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -597,7 +597,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -622,7 +622,7 @@ func RegisterDynamicDataServiceHandlerServer(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -711,7 +711,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -733,7 +733,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -755,7 +755,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document/list"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListDocument", runtime.WithHTTPPathPattern("/api/document/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -777,7 +777,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -799,7 +799,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteDocument", runtime.WithHTTPPathPattern("/dynamic-data-service/api/document"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteDocument", runtime.WithHTTPPathPattern("/api/document"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -821,7 +821,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/CreateCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -843,7 +843,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -865,7 +865,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection/list"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections", runtime.WithHTTPPathPattern("/api/collection/list"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -887,7 +887,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -909,7 +909,7 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteCollection", runtime.WithHTTPPathPattern("/dynamic-data-service/api/collection"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/buildify.app.dynamic_data.api.DynamicDataService/DeleteCollection", runtime.WithHTTPPathPattern("/api/collection"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -951,25 +951,25 @@ func RegisterDynamicDataServiceHandlerClient(ctx context.Context, mux *runtime.S
 }
 
 var (
-	pattern_DynamicDataService_CreateDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "document"}, ""))
+	pattern_DynamicDataService_CreateDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "document"}, ""))
 
-	pattern_DynamicDataService_GetDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "document"}, ""))
+	pattern_DynamicDataService_GetDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "document"}, ""))
 
-	pattern_DynamicDataService_GetListDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"dynamic-data-service", "api", "document", "list"}, ""))
+	pattern_DynamicDataService_GetListDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "document", "list"}, ""))
 
-	pattern_DynamicDataService_UpdateDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "document"}, ""))
+	pattern_DynamicDataService_UpdateDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "document"}, ""))
 
-	pattern_DynamicDataService_DeleteDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "document"}, ""))
+	pattern_DynamicDataService_DeleteDocument_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "document"}, ""))
 
-	pattern_DynamicDataService_CreateCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "collection"}, ""))
+	pattern_DynamicDataService_CreateCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "collection"}, ""))
 
-	pattern_DynamicDataService_GetCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "collection"}, ""))
+	pattern_DynamicDataService_GetCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "collection"}, ""))
 
-	pattern_DynamicDataService_GetListCollections_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"dynamic-data-service", "api", "collection", "list"}, ""))
+	pattern_DynamicDataService_GetListCollections_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "collection", "list"}, ""))
 
-	pattern_DynamicDataService_UpdateCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "collection"}, ""))
+	pattern_DynamicDataService_UpdateCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "collection"}, ""))
 
-	pattern_DynamicDataService_DeleteCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"dynamic-data-service", "api", "collection"}, ""))
+	pattern_DynamicDataService_DeleteCollection_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "collection"}, ""))
 
 	pattern_DynamicDataService_HealthCheck_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{""}, ""))
 )

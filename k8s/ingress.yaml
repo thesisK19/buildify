@@ -3,37 +3,48 @@ kind: Ingress
 metadata:
   name: basic-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "ingress-static-ip"
+    kubernetes.io/ingress.global-static-ip-name: 'ingress-static-ip'
+    networking.gke.io/managed-certificates: managed-cert
+    kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-  - http:
-      paths:
-      - path: /user-service/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: user-service
-            port:
-              number: 80
-      - path: /dynamic-data-service/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: dynamic-data-service
-            port:
-              number: 80
-      - path: /gen-code-service/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: gen-code-service
-            port:
-              number: 80
-      - path: /file-mgt-service/*
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: file-mgt-service
-            port:
-              number: 80
-
+    - host: user-service.buildify.asia
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: user-service
+                port:
+                  number: 80
+    - host: dynamic-data-service.buildify.asia
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: dynamic-data-service
+                port:
+                  number: 80
+    - host: gen-code-service.buildify.asia
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: gen-code-service
+                port:
+                  number: 80
+    - host: file-mgt-service.buildify.asia
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: file-mgt-service
+                port:
+                  number: 80

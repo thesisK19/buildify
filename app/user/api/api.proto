@@ -8,34 +8,34 @@ import "app/user/api/data.proto";
 service UserService {
     rpc SignUp(SignUpRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            post : "/user-service/api/sign-up"
+            post : "/api/sign-up"
             body : "*"
         };
     }
 
     rpc SignIn(SignInRequest) returns (SignInResponse) {
         option (google.api.http) = {
-            post : "/user-service/api/sign-in"
+            post : "/api/sign-in"
             body : "*"
         };
     }
 
     rpc GetUser(EmptyRequest) returns (GetUserResponse) {
         option (google.api.http) = {
-            get : "/user-service/api/user"
+            get : "/api/user"
         };
     }
 
     rpc UpdateUser(UpdateUserRequest) returns (EmptyResponse) {
         option (google.api.http) = {
-            put : "/user-service/api/user"
+            put : "/api/user"
             body : "*"
         };
     }
 
     rpc Test(EmptyRequest) returns (TestResponse) {
         option (google.api.http) = {
-            get : "/user-service/api/test"
+            get : "/api/test"
         };
     }
 
