@@ -1,3 +1,5 @@
+# https://dynamic-data-service.buildify.asia
+
 ### health check
 GET http://localhost:3005 HTTP/1.1
 
@@ -37,11 +39,11 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 }
 
 ###
-DELETE  http://localhost:3005/api/document?id=4 HTTP/1.1
+DELETE  https://dynamic-data-service.buildify.asia/api/document?id=4 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
 ###
-POST http://localhost:3005/api/collection HTTP/1.1
+POST https://dynamic-data-service.buildify.asia/api/collection HTTP/1.1
 content-type: application/json
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
@@ -53,7 +55,7 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 
 
 ###
-GET http://localhost:3005/api/collection?id=1 HTTP/1.1
+GET https://dynamic-data-service.buildify.asia/api/collection?id=1 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
 ###
@@ -75,3 +77,7 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 ###
 DELETE  http://localhost:3005/api/collection?id=3 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+
+### health check
+GET https://dynamic-data-service.buildify.asia
