@@ -4,6 +4,7 @@ import (
 	"log"
 
 	grpc_logrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
+	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/sirupsen/logrus"
 	"github.com/thesisK19/buildify/app/gen_code/config"
@@ -63,6 +64,7 @@ func runServer() error {
 		server_lib.WithGrpcServerUnaryInterceptors(
 			grpc_ctxtags.UnaryServerInterceptor(),
 			grpc_logrus.UnaryServerInterceptor(logrusEntry),
+			grpc_recovery.UnaryServerInterceptor(server_lib.HandlePanic()), // This is for recover from panic
 			grpc.UnaryServerInterceptor(server_lib.AuthInterceptor),
 		),
 		server_lib.WithServiceServer(service),
