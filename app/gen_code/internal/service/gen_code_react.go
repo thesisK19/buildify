@@ -16,6 +16,7 @@ import (
 	"github.com/thesisK19/buildify/app/gen_code/internal/constant"
 	"github.com/thesisK19/buildify/app/gen_code/internal/dto"
 	"github.com/thesisK19/buildify/app/gen_code/internal/util"
+	"golang.org/x/exp/slices"
 
 	"github.com/iancoleman/strcase"
 	"github.com/scylladb/go-set/strset"
@@ -142,7 +143,7 @@ func formatCode(rootDirPath string) {
 func genPage(ctx context.Context, rootDirPath string, pageInfo *dto.PageInfo) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "genPage")
 
-	components, mapIDToReactElements, propsByIds := getReactElementInfoFromNodes(pageInfo.Nodes)
+	components, mapIDToReactElements, propsByIds := getReactElementInfoFromNodes(pageInfo.Nodes, pageInfo.LinkedNodes)
 
 	reactElementString := mergeReactElements(pageInfo.RootID, mapIDToReactElements)
 
@@ -244,12 +245,15 @@ func genRoutes(ctx context.Context, rootDirPath string, pages []*api.Page) error
 	}
 	return nil
 }
-func getReactElementInfoFromNodes(nodes []*dto.Node) ([]string, map[string]*dto.ReactElement, []string) {
+func getReactElementInfoFromNodes(nodes []*dto.Node, linkedNodes []string) ([]string, map[string]*dto.ReactElement, []string) {
 	components := strset.New()
 	mapIDToReactElements := map[string]*dto.ReactElement{}
 	propsByIds := []string{}
 
 	for _, node := range nodes {
+		if slices.Contains(linkedNodes, node.ID) {
+			continue
+		}
 		reactElement := genReactElementFromNode(node)
 		mapIDToReactElements[node.ID] = reactElement
 		components.Add(reactElement.Component)
@@ -340,10 +344,11 @@ func getMapPagePathToPageInfo(ctx context.Context, request *api.GenReactSourceCo
 			pageName := mapPagePathToPageName[pagePath]
 
 			mapPagePathToPageInfo[pagePath] = &dto.PageInfo{
-				RootID: "",
-				Path:   pagePath,
-				Name:   pageName,
-				Nodes:  []*dto.Node{},
+				RootID:      "",
+				Path:        pagePath,
+				Name:        pageName,
+				Nodes:       []*dto.Node{},
+				LinkedNodes: []string{},
 			}
 
 		}
@@ -357,6 +362,7 @@ func getMapPagePathToPageInfo(ctx context.Context, request *api.GenReactSourceCo
 			Props:         node.GetProps(),
 			Children:      node.GetChildren(),
 		})
+		mapPagePathToPageInfo[pagePath].LinkedNodes = append(mapPagePathToPageInfo[pagePath].LinkedNodes, node.LinkedNodes...)
 	}
 
 	return mapPagePathToPageInfo, nil
