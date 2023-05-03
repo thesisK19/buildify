@@ -10,7 +10,8 @@ message Node {
     string display_name = 4;
     bool hidden = 5;
     repeated string children = 6;
-    string page_path = 7;
+    repeated string linked_nodes = 7;
+    string page_path = 8;
 }
 
 message Page {

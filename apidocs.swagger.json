@@ -778,6 +778,12 @@
             "type": "string"
           }
         },
+        "linkedNodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "pagePath": {
           "type": "string"
         }

@@ -6,10 +6,11 @@ type Page struct {
 }
 
 type PageInfo struct {
-	RootID string
-	Path   string
-	Name   string
-	Nodes  []*Node
+	RootID      string
+	Path        string
+	Name        string
+	Nodes       []*Node
+	LinkedNodes []string
 }
 
 type Node struct {
