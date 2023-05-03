@@ -8,6 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/thesisK19/buildify/app/file_mgt/config"
+	"github.com/thesisK19/buildify/app/file_mgt/internal/handler"
 	"github.com/thesisK19/buildify/app/file_mgt/internal/store"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -50,6 +51,7 @@ func newService(cfg *config.Config) (*Service, error) {
 
 	s := NewService(cfg, repository, mux.NewRouter())
 	// s.UseMiddleware(handler.JSONContentTypeMiddleware)
+	s.UseMiddleware(handler.Recovery)
 
 	// Add routes
 	s.setRouter()
