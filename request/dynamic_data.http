@@ -59,7 +59,7 @@ GET https://dynamic-data-service.buildify.asia/api/collection?id=1 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
 ###
-GET http://localhost:3005/api/collection/list HTTP/1.1
+GET https://dynamic-data-service.buildify.asia/api/collection/list HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
 ###

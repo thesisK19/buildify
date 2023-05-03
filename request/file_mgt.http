@@ -1,2 +1,2 @@
 ### test
-GET https://file-mgt-service.buildify.asia/
+GET https://file-mgt-service.buildify.asia/api/test
