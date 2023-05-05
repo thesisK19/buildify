@@ -1,0 +1,8 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "dto",
+    srcs = ["project.go"],
+    importpath = "github.com/thesisK19/buildify/app/user/internal/dto",
+    visibility = ["//app/user:__subpackages__"],
+)
