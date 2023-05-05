@@ -3,6 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "store",
     srcs = [
+        "project.go",
         "repository.go",
         "user.go",
     ],
@@ -11,6 +12,7 @@ go_library(
     deps = [
         "//app/user/config",
         "//app/user/internal/constant",
+        "//app/user/internal/dto",
         "//app/user/internal/model",
         "@com_github_grpc_ecosystem_go_grpc_middleware//logging/logrus/ctxlogrus",
         "@in_gopkg_mgo_v2//bson",

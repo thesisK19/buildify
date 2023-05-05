@@ -33,6 +33,34 @@ service UserService {
         };
     }
 
+    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {
+        option (google.api.http) = {
+            post : "/api/project"
+            body : "*"
+        };
+    }
+    rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {
+        option (google.api.http) = {
+            get : "/api/project"
+        };
+    }
+    rpc GetListProjects(EmptyRequest) returns (GetListProjectsResponse) {
+        option (google.api.http) = {
+            get : "/api/project/list"
+        };
+    }
+    rpc UpdateProject(UpdateProjectRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            put : "/api/project"
+            body : "*"
+        };
+    }
+    rpc DeleteProject(DeleteProjectRequest) returns (EmptyResponse) {
+        option (google.api.http) = {
+            delete : "/api/project"
+        };
+    }
+
     rpc Test(EmptyRequest) returns (TestResponse) {
         option (google.api.http) = {
             get : "/api/test"
@@ -73,5 +101,28 @@ message UpdateUserRequest {
     string email = 2;
     string password = 3;
 }
+
+message CreateProjectRequest {
+    string name = 1;
+    string compress_string = 2;
+}
+message CreateProjectResponse { string id = 1; }
+
+message GetProjectRequest { string id = 1; }
+message GetProjectResponse {
+    string id = 1;
+    string name = 2;
+    string compress_string = 3;
+}
+
+message GetListProjectsResponse { repeated Project Projects = 1; }
+
+message UpdateProjectRequest {
+    string id = 1;
+    string name = 2;
+    string compress_string = 3;
+}
+
+message DeleteProjectRequest { string id = 1; }
 
 message TestResponse { string message = 1; }

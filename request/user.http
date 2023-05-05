@@ -47,3 +47,42 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 
 ### health check
 GET https://user-service.buildify.asia
+
+
+
+
+# ------- project -------
+###
+POST http://localhost:3002/api/project HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+{
+  "name": "project 2",
+  "compressString": "aloalo"
+}
+
+###
+GET http://localhost:3002/api/project?id=64553ea08d0066eb023c733f HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+###
+GET http://localhost:3002/api/project/list HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+###
+PUT http://localhost:3002/api/project HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+{
+  "id": "64553d24c88f753f3ce8e881",
+  "name": "project new",
+  "compressString": "hmmm"
+}
+
+###
+DELETE  http://localhost:3002/api/project?id=64553d24c88f753f3ce8e881 HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+
+###
