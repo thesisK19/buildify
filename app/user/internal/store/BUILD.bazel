@@ -3,6 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "store",
     srcs = [
+        "default_project.go",
         "project.go",
         "repository.go",
         "user.go",

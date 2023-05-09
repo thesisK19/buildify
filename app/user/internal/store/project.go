@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/thesisK19/buildify/app/user/internal/constant"
@@ -12,10 +13,24 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func (r *repository) CreateProject(ctx context.Context, project model.Project) (*string, error) {
+func (r *repository) CreateProject(ctx context.Context, username string, projectName string, projectType int) (*dto.Project, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "CreateProject")
+	now := time.Now().Unix()
 
-	result, err := r.db.Collection(constant.PROJECT_COLL).InsertOne(ctx, project)
+	defaultProject, err := r.GetDefaultProjectByType(ctx, projectType)
+	if err != nil {
+		logger.WithError(err).Error("failed to GetDefaultProjectByType")
+		return nil, err
+	}
+
+	result, err := r.db.Collection(constant.PROJECT_COLL).InsertOne(ctx, model.Project{
+		Name:           projectName,
+		Username:       username,
+		CompressString: defaultProject.CompressString,
+		CreatedAt:      now,
+		UpdatedAt:      now,
+	})
+
 	if err != nil {
 		logger.WithError(err).Error("failed to InsertOne")
 		return nil, err
@@ -27,9 +42,13 @@ func (r *repository) CreateProject(ctx context.Context, project model.Project) (
 		return nil, err
 	}
 
-	stringId := objID.Hex()
-
-	return &stringId, nil
+	return &dto.Project{
+		Id:             objID.Hex(),
+		Name:           projectName,
+		CompressString: defaultProject.CompressString,
+		CreatedAt:      now,
+		UpdatedAt:      now,
+	}, nil
 }
 
 func (r *repository) GetListProjects(ctx context.Context, username string) ([]*dto.Project, error) {
@@ -60,6 +79,8 @@ func (r *repository) GetListProjects(ctx context.Context, username string) ([]*d
 			Id:             project.Id.Hex(),
 			Name:           project.Name,
 			CompressString: project.CompressString,
+			CreatedAt:      project.CreatedAt,
+			UpdatedAt:      project.UpdatedAt,
 		})
 	}
 
@@ -85,12 +106,16 @@ func (r *repository) GetProject(ctx context.Context, username string, id string)
 		Id:             project.Id.Hex(),
 		Name:           project.Name,
 		CompressString: project.CompressString,
+		CreatedAt:      project.CreatedAt,
+		UpdatedAt:      project.UpdatedAt,
 	}, nil
 }
 
 func (r *repository) UpdateProject(ctx context.Context, project model.Project) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "UpdateProject")
 
+	project.UpdatedAt = time.Now().Unix()
+	
 	filter := bson.M{"_id": project.Id, "username": project.Username}
 	updateDoc := bson.M{"$set": project}
 

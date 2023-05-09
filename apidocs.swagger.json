@@ -756,8 +756,8 @@
         "name": {
           "type": "string"
         },
-        "compressString": {
-          "type": "string"
+        "type": {
+          "$ref": "#/definitions/apiProjectType"
         }
       }
     },
@@ -766,6 +766,20 @@
       "properties": {
         "id": {
           "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "compressString": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -894,7 +908,7 @@
     "apiGetListProjectsResponse": {
       "type": "object",
       "properties": {
-        "Projects": {
+        "projects": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/apiProject"
@@ -913,6 +927,14 @@
         },
         "compressString": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -995,8 +1017,24 @@
         },
         "compressString": {
           "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "int64"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "int64"
         }
       }
+    },
+    "apiProjectType": {
+      "type": "string",
+      "enum": [
+        "LANDING",
+        "CMS"
+      ],
+      "default": "LANDING"
     },
     "apiSignInRequest": {
       "type": "object",

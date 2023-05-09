@@ -2,12 +2,10 @@ package model
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
-// Project Model
-type Project struct {
+// DefaultProject Model
+type DefaultProject struct {
 	Id             primitive.ObjectID `bson:"_id,omitempty"`
+	Type           int                `bson:"type,omitempty"`
 	Name           string             `bson:"name,omitempty"`
-	Username       string             `bson:"username,omitempty"`
 	CompressString string             `bson:"compress_string,omitempty"`
-	CreatedAt      int64              `bson:"created_at,omitempty"`
-	UpdatedAt      int64              `bson:"updated_at,omitempty"`
 }
