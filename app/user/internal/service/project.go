@@ -15,18 +15,18 @@ func (s *Service) CreateProject(ctx context.Context, in *api.CreateProjectReques
 
 	username := server_lib.GetUsernameFromContext(ctx)
 
-	newId, err := s.repository.CreateProject(ctx, model.Project{
-		Name:           in.Name,
-		Username:       username,
-		CompressString: in.CompressString,
-	})
+	newProject, err := s.repository.CreateProject(ctx, username, in.Name, int(in.GetType().Number()))
 	if err != nil {
 		logger.WithError(err).Error("failed to repo.CreateProject")
 		return nil, err
 	}
 
 	return &api.CreateProjectResponse{
-		Id: *newId,
+		Id:             newProject.Id,
+		Name:           newProject.Name,
+		CompressString: newProject.CompressString,
+		CreatedAt:      newProject.CreatedAt,
+		UpdatedAt:      newProject.UpdatedAt,
 	}, nil
 }
 
@@ -47,6 +47,8 @@ func (s *Service) GetListProjects(ctx context.Context, in *api.EmptyRequest) (*a
 			Id:             project.Id,
 			Name:           project.Name,
 			CompressString: project.CompressString,
+			CreatedAt:      project.CreatedAt,
+			UpdatedAt:      project.UpdatedAt,
 		})
 	}
 
@@ -68,6 +70,8 @@ func (s *Service) GetProject(ctx context.Context, in *api.GetProjectRequest) (*a
 		Id:             project.Id,
 		Name:           project.Name,
 		CompressString: project.CompressString,
+		CreatedAt:      project.CreatedAt,
+		UpdatedAt:      project.UpdatedAt,
 	}, nil
 }
 

@@ -104,18 +104,26 @@ message UpdateUserRequest {
 
 message CreateProjectRequest {
     string name = 1;
-    string compress_string = 2;
+    ProjectType type = 2;
 }
-message CreateProjectResponse { string id = 1; }
+message CreateProjectResponse {
+    string id = 1;
+    string name = 2;
+    string compress_string = 3;
+    int64 created_at = 4;
+    int64 updated_at = 5;
+}
 
 message GetProjectRequest { string id = 1; }
 message GetProjectResponse {
     string id = 1;
     string name = 2;
     string compress_string = 3;
+    int64 created_at = 4;
+    int64 updated_at = 5;
 }
 
-message GetListProjectsResponse { repeated Project Projects = 1; }
+message GetListProjectsResponse { repeated Project projects = 1; }
 
 message UpdateProjectRequest {
     string id = 1;

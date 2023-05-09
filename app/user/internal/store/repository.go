@@ -16,11 +16,13 @@ type Repository interface {
 	GetUserByUsername(ctx context.Context, username string) (*model.User, error)
 	UpdateUserByUsername(ctx context.Context, username string, params model.UpdateUserParams) error
 	// project
-	CreateProject(ctx context.Context, project model.Project) (*string, error)
+	CreateProject(ctx context.Context, username string, projectName string, projectType int) (*dto.Project, error)
 	GetListProjects(ctx context.Context, username string) ([]*dto.Project, error)
 	GetProject(ctx context.Context, username string, id string) (*dto.Project, error)
 	UpdateProject(ctx context.Context, project model.Project) error
 	DeleteProject(ctx context.Context, username string, id string) error
+	// default_project
+	GetDefaultProjectByType(ctx context.Context, projectType int) (*model.DefaultProject, error)
 	// repository
 	Ping() error
 	Close() error
