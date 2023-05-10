@@ -3,7 +3,6 @@ package config
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"log"
 	"strings"
 
@@ -42,7 +41,6 @@ func Load() (*Config, error) {
 		log.Fatal("failed to unmarshal config by viper", err)
 		return nil, err
 	}
-	fmt.Printf("gen code service: %s\n", c.GenCodeHost)
 
 	return c, nil
 }

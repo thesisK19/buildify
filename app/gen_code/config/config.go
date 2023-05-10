@@ -9,12 +9,17 @@ type Config struct {
 
 	MongoDB   string `json:"mongo_db" mapstructure:"mongo_db"`
 	ServiceDB string `json:"service_db" mapstructure:"service_db"`
+
+	UserGRPCAddr        string `json:"user_grpc_addr" mapstructure:"user_grpc_addr"`
+	DynamicDataGRPCAddr string `json:"dynamic_data_grpc_addr" mapstructure:"dynamic_data_grpc_addr"`
 }
 
 func loadDefaultConfig() *Config {
 	return &Config{
-		MongoDB:   "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net",
-		ServiceDB: "gen_code_service",
-		Base:      *config_lib.DefaultBaseConfig(),
+		Base:                *config_lib.DefaultBaseConfig(),
+		MongoDB:             "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net",
+		ServiceDB:           "gen_code_service",
+		UserGRPCAddr:        "user-service:443",
+		DynamicDataGRPCAddr: "dynamic-data-service:443",
 	}
 }

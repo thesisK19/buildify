@@ -63,7 +63,7 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 }
 
 ###
-GET http://localhost:3002/api/project?id=645a908c6312bf0750cd6649 HTTP/1.1
+GET https://user-service.buildify.asia/api/project?id=645a91c1b5d8c898fc762833 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
 
 ###

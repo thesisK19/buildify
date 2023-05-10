@@ -816,6 +816,12 @@
           "items": {
             "$ref": "#/definitions/apiPage"
           }
+        },
+        "theme": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
         }
       }
     },
