@@ -181,6 +181,14 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
           "DynamicDataService"
         ]
@@ -702,6 +710,9 @@
         "name": {
           "type": "string"
         },
+        "projectId": {
+          "type": "string"
+        },
         "dataKeys": {
           "type": "array",
           "items": {
@@ -839,6 +850,9 @@
         "id": {
           "type": "integer",
           "format": "int32"
+        },
+        "projectId": {
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -1092,6 +1106,9 @@
         "id": {
           "type": "integer",
           "format": "int32"
+        },
+        "projectId": {
+          "type": "string"
         },
         "name": {
           "type": "string"

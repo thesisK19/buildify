@@ -1,9 +1,10 @@
 
-# http://34.117.219.34
+# https://dynamic-data-service.buildify.asia
 # http://localhost:3003
+@host = http://localhost:3003
 
 ### hello world
-POST https://gen-code-service.buildify.asia/api/gen-react-code HTTP/1.1
+POST {{host}}/api/gen-react-code HTTP/1.1
 content-type: application/json
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE4OTcyODZ9.r4_kQ4VCPss2xgoxuMdt2lXI-03xkmwboOD5tafUM-Q
 
@@ -83,9 +84,9 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 
 
 ### hello world
-GET https://gen-code-service.buildify.asia/api/hello-world HTTP/1.1
+GET {{host}}/api/hello-world HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE4OTcyODZ9.r4_kQ4VCPss2xgoxuMdt2lXI-03xkmwboOD5tafUM-Q
 
 
 ### health check
-GET https://gen-code-service.buildify.asia HTTP/1.1
+GET {{host}} HTTP/1.1

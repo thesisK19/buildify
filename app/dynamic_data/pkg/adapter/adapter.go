@@ -14,7 +14,7 @@ const ADAPTER_CONTEXT_TIMEOUT_DEFAULT = 3000 * time.Millisecond
 type DynamicDataAdapter interface {
 	// collection
 	CreateCollection(ctx context.Context, in *api.CreateCollectionRequest) (*api.CreateCollectionResponse, error)
-	GetListCollections(ctx context.Context, in *api.EmptyRequest) (*api.GetListCollectionsResponse, error)
+	GetListCollections(ctx context.Context, in *api.GetListCollectionsRequest) (*api.GetListCollectionsResponse, error)
 	GetCollection(ctx context.Context, in *api.GetCollectionRequest) (*api.GetCollectionResponse, error)
 	UpdateCollection(ctx context.Context, in *api.UpdateCollectionRequest) (*api.EmptyResponse, error)
 	DeleteCollection(ctx context.Context, in *api.DeleteCollectionRequest) (*api.EmptyResponse, error)
@@ -69,7 +69,7 @@ func (a *dynamicDataAdapter) CreateCollection(ctx context.Context, in *api.Creat
 	return a.client.CreateCollection(ctxWithTimeout, in)
 }
 
-func (a *dynamicDataAdapter) GetListCollections(ctx context.Context, in *api.EmptyRequest) (*api.GetListCollectionsResponse, error) {
+func (a *dynamicDataAdapter) GetListCollections(ctx context.Context, in *api.GetListCollectionsRequest) (*api.GetListCollectionsResponse, error) {
 	if err := a.connect(); err != nil {
 		return nil, err
 	}

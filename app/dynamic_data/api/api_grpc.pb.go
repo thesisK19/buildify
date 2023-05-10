@@ -29,7 +29,7 @@ type DynamicDataServiceClient interface {
 	DeleteDocument(ctx context.Context, in *DeleteDocumentRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	CreateCollection(ctx context.Context, in *CreateCollectionRequest, opts ...grpc.CallOption) (*CreateCollectionResponse, error)
 	GetCollection(ctx context.Context, in *GetCollectionRequest, opts ...grpc.CallOption) (*GetCollectionResponse, error)
-	GetListCollections(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetListCollectionsResponse, error)
+	GetListCollections(ctx context.Context, in *GetListCollectionsRequest, opts ...grpc.CallOption) (*GetListCollectionsResponse, error)
 	UpdateCollection(ctx context.Context, in *UpdateCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	DeleteCollection(ctx context.Context, in *DeleteCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	HealthCheck(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
@@ -106,7 +106,7 @@ func (c *dynamicDataServiceClient) GetCollection(ctx context.Context, in *GetCol
 	return out, nil
 }
 
-func (c *dynamicDataServiceClient) GetListCollections(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetListCollectionsResponse, error) {
+func (c *dynamicDataServiceClient) GetListCollections(ctx context.Context, in *GetListCollectionsRequest, opts ...grpc.CallOption) (*GetListCollectionsResponse, error) {
 	out := new(GetListCollectionsResponse)
 	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections", in, out, opts...)
 	if err != nil {
@@ -153,7 +153,7 @@ type DynamicDataServiceServer interface {
 	DeleteDocument(context.Context, *DeleteDocumentRequest) (*EmptyResponse, error)
 	CreateCollection(context.Context, *CreateCollectionRequest) (*CreateCollectionResponse, error)
 	GetCollection(context.Context, *GetCollectionRequest) (*GetCollectionResponse, error)
-	GetListCollections(context.Context, *EmptyRequest) (*GetListCollectionsResponse, error)
+	GetListCollections(context.Context, *GetListCollectionsRequest) (*GetListCollectionsResponse, error)
 	UpdateCollection(context.Context, *UpdateCollectionRequest) (*EmptyResponse, error)
 	DeleteCollection(context.Context, *DeleteCollectionRequest) (*EmptyResponse, error)
 	HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error)
@@ -184,7 +184,7 @@ func (UnimplementedDynamicDataServiceServer) CreateCollection(context.Context, *
 func (UnimplementedDynamicDataServiceServer) GetCollection(context.Context, *GetCollectionRequest) (*GetCollectionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCollection not implemented")
 }
-func (UnimplementedDynamicDataServiceServer) GetListCollections(context.Context, *EmptyRequest) (*GetListCollectionsResponse, error) {
+func (UnimplementedDynamicDataServiceServer) GetListCollections(context.Context, *GetListCollectionsRequest) (*GetListCollectionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListCollections not implemented")
 }
 func (UnimplementedDynamicDataServiceServer) UpdateCollection(context.Context, *UpdateCollectionRequest) (*EmptyResponse, error) {
@@ -335,7 +335,7 @@ func _DynamicDataService_GetCollection_Handler(srv interface{}, ctx context.Cont
 }
 
 func _DynamicDataService_GetListCollections_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmptyRequest)
+	in := new(GetListCollectionsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -347,7 +347,7 @@ func _DynamicDataService_GetListCollections_Handler(srv interface{}, ctx context
 		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/GetListCollections",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DynamicDataServiceServer).GetListCollections(ctx, req.(*EmptyRequest))
+		return srv.(DynamicDataServiceServer).GetListCollections(ctx, req.(*GetListCollectionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

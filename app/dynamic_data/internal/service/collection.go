@@ -6,7 +6,9 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/thesisK19/buildify/app/dynamic_data/api"
 	"github.com/thesisK19/buildify/app/dynamic_data/internal/model"
+	errors_lib "github.com/thesisK19/buildify/library/errors"
 	server_lib "github.com/thesisK19/buildify/library/server"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func (s *Service) CreateCollection(ctx context.Context, in *api.CreateCollectionRequest) (*api.CreateCollectionResponse, error) {
@@ -14,8 +16,15 @@ func (s *Service) CreateCollection(ctx context.Context, in *api.CreateCollection
 
 	username := server_lib.GetUsernameFromContext(ctx)
 
+	projectObjectId, err := primitive.ObjectIDFromHex(in.ProjectId)
+	if err != nil {
+		logger.WithError(err).Error("failed to convert ObjectIDFromHex")
+		return nil, errors_lib.ToInvalidArgumentError(err)
+	}
+
 	newId, err := s.repository.CreateCollection(ctx, model.Collection{
 		Name:      in.Name,
+		ProjectId: projectObjectId,
 		DataKeys:  in.DataKeys,
 		DataTypes: in.DataTypes,
 		Username:  username,
@@ -30,12 +39,23 @@ func (s *Service) CreateCollection(ctx context.Context, in *api.CreateCollection
 	}, nil
 }
 
-func (s *Service) GetListCollections(ctx context.Context, in *api.EmptyRequest) (*api.GetListCollectionsResponse, error) {
+func (s *Service) GetListCollections(ctx context.Context, in *api.GetListCollectionsRequest) (*api.GetListCollectionsResponse, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "GetListCollections")
 
 	username := server_lib.GetUsernameFromContext(ctx)
 
-	listCollections, err := s.repository.GetListCollections(ctx, username)
+	var (
+		projectObjectId = primitive.NilObjectID
+		err             error
+	)
+
+	projectObjectId, err = primitive.ObjectIDFromHex(in.ProjectId)
+	if err != nil {
+		logger.WithError(err).Error("failed to convert ObjectIDFromHex")
+		return nil, errors_lib.ToInvalidArgumentError(err)
+	}
+
+	listCollections, err := s.repository.GetListCollections(ctx, username, projectObjectId)
 	if err != nil {
 		logger.WithError(err).Error("failed to repo.GetListCollections")
 		return nil, err
@@ -84,6 +104,7 @@ func (s *Service) GetCollection(ctx context.Context, in *api.GetCollectionReques
 	return &api.GetCollectionResponse{
 		Id:        coll.Id,
 		Name:      coll.Name,
+		ProjectId: coll.ProjectId,
 		DataKeys:  coll.DataKeys,
 		DataTypes: coll.DataTypes,
 		Documents: docs,
@@ -92,12 +113,18 @@ func (s *Service) GetCollection(ctx context.Context, in *api.GetCollectionReques
 
 func (s *Service) UpdateCollection(ctx context.Context, in *api.UpdateCollectionRequest) (*api.EmptyResponse, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "UpdateCollection")
-
 	username := server_lib.GetUsernameFromContext(ctx)
 
-	err := s.repository.UpdateCollection(ctx, model.Collection{
+	projectObjectId, err := primitive.ObjectIDFromHex(in.ProjectId)
+	if err != nil {
+		logger.WithError(err).Error("failed to convert ObjectIDFromHex")
+		return nil, errors_lib.ToInvalidArgumentError(err)
+	}
+
+	err = s.repository.UpdateCollection(ctx, model.Collection{
 		Id:        in.Id,
 		Name:      in.Name,
+		ProjectId: projectObjectId,
 		DataKeys:  in.DataKeys,
 		DataTypes: in.DataTypes,
 		Username:  username,

@@ -9,6 +9,7 @@ import (
 	"github.com/thesisK19/buildify/app/dynamic_data/internal/dto"
 	"github.com/thesisK19/buildify/app/dynamic_data/internal/model"
 	"github.com/thesisK19/buildify/app/dynamic_data/internal/util"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/mgo.v2/bson"
@@ -64,7 +65,7 @@ func (r *repository) CreateCollection(ctx context.Context, coll model.Collection
 	return collectionId, nil
 }
 
-func (r *repository) GetListCollections(ctx context.Context, username string) (*dto.ListCollections, error) {
+func (r *repository) GetListCollections(ctx context.Context, username string, projectId primitive.ObjectID) (*dto.ListCollections, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "GetListCollections")
 
 	var (
@@ -72,7 +73,7 @@ func (r *repository) GetListCollections(ctx context.Context, username string) (*
 		collectionIds []int32
 	)
 
-	filter := bson.M{"username": username}
+	filter := bson.M{"username": username, "project_id": projectId}
 
 	// Find all collections
 	cursor, err := r.db.Collection(constant.COLLECTION_COLL).Find(ctx, filter)
@@ -100,7 +101,7 @@ func (r *repository) GetListCollections(ctx context.Context, username string) (*
 	if len(collectionIds) == 0 {
 		return &dto.ListCollections{}, nil
 	}
-	
+
 	cursor, err = r.db.Collection(constant.DOCUMENT_COLL).Find(ctx, bson.M{"collection_id": bson.M{"$in": collectionIds}})
 	if err != nil {
 		return nil, fmt.Errorf("failed to find documents: %v", err)
@@ -135,6 +136,7 @@ func (r *repository) GetCollection(ctx context.Context, username string, id int3
 
 	result.Id = coll.Id
 	result.Name = coll.Name
+	result.ProjectId = coll.ProjectId.Hex()
 	result.DataKeys = coll.DataKeys
 	result.DataTypes = coll.DataTypes
 

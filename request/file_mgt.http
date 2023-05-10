@@ -1,2 +1,7 @@
+# https://file-mgt-service.buildify.asia
+# http://localhost:3005
+
+@host = https://file-mgt-service.buildify.asia
+
 ### test
-GET https://file-mgt-service.buildify.asia/api/test
+GET {{host}}/api/test

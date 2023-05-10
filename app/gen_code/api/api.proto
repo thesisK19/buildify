@@ -32,10 +32,10 @@ message EmptyResponse {}
 message GenReactSourceCodeRequest {
     repeated Node nodes = 1;
     repeated Page pages = 2;
+    string theme = 3;
+    string project_id = 4;
 }
 
 message GenReactSourceCodeResponse { string url = 1; }
 
-message HelloWorldResponse {
-    string message = 1;
-}
+message HelloWorldResponse { string message = 1; }

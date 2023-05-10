@@ -6,6 +6,7 @@ import (
 	"github.com/thesisK19/buildify/app/dynamic_data/config"
 	"github.com/thesisK19/buildify/app/dynamic_data/internal/dto"
 	"github.com/thesisK19/buildify/app/dynamic_data/internal/model"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -19,7 +20,7 @@ type Repository interface {
 	// collection
 	CreateCollection(ctx context.Context, coll model.Collection) (int32, error)
 	GetCollection(ctx context.Context, username string, id int32) (*dto.GetCollection, error)
-	GetListCollections(ctx context.Context, username string) (*dto.ListCollections, error)
+	GetListCollections(ctx context.Context, username string, projectId primitive.ObjectID) (*dto.ListCollections, error)
 	UpdateCollection(ctx context.Context, coll model.Collection) error
 	DeleteCollection(ctx context.Context, username string, id int32) error
 	// repository
