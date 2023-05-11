@@ -3,6 +3,7 @@ syntax = "proto3";
 package buildify.app.dynamic_data.api;
 option go_package = "github.com/thesisK19/buildify/app/dynamic_data/api";
 import "google/api/annotations.proto";
+import "google/protobuf/struct.proto";
 import "app/dynamic_data/api/data.proto";
 
 service DynamicDataService {
@@ -51,6 +52,11 @@ service DynamicDataService {
             get : "/api/collection/list"
         };
     }
+    rpc GetCollectionMapping(GetCollectionMappingRequest) returns (GetCollectionMappingResponse) {
+        option (google.api.http) = {
+            get : "/api/collection/map"
+        };
+    }
     rpc UpdateCollection(UpdateCollectionRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             put : "/api/collection"
@@ -74,7 +80,7 @@ message EmptyRequest {}
 message EmptyResponse {}
 
 message CreateDocumentRequest {
-    map<string, string> data = 1;
+    map<string, google.protobuf.Value> data = 1;
     int32 collection_id = 2;
 }
 message CreateDocumentResponse { int32 id = 1; }
@@ -82,7 +88,7 @@ message CreateDocumentResponse { int32 id = 1; }
 message GetDocumentRequest { int32 id = 1; }
 message GetDocumentResponse {
     int32 id = 1;
-    map<string, string> data = 2;
+    map<string, google.protobuf.Value> data = 2;
     int32 collection_id = 3;
 }
 
@@ -91,7 +97,7 @@ message GetListDocumentResponse { repeated Document documents = 1; }
 
 message UpdateDocumentRequest {
     int32 id = 1;
-    map<string, string> data = 2;
+    map<string, google.protobuf.Value> data = 2;
     int32 collection_id = 3;
 }
 
@@ -124,6 +130,14 @@ message GetListCollectionsRequest {
 message GetListCollectionsResponse {
     repeated Collection collections = 1;
     repeated Document documents = 2;
+}
+
+message GetCollectionMappingRequest {
+    string project_id = 1;
+}
+
+message GetCollectionMappingResponse {
+    map<int32, CollectionInfo> data = 1;
 }
 
 message UpdateCollectionRequest {

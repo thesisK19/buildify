@@ -16,7 +16,7 @@ func (s *Service) CreateDocument(ctx context.Context, in *api.CreateDocumentRequ
 	username := server_lib.GetUsernameFromContext(ctx)
 
 	newId, err := s.repository.CreateDocument(ctx, model.Document{
-		Data:         util.ConvertMapToBsonM(in.Data),
+		Data:         util.ConvertStructpbValueMapToBsonM(in.Data),
 		CollectionId: in.CollectionId,
 		Username:     username,
 	})
@@ -41,9 +41,15 @@ func (s *Service) GetDocument(ctx context.Context, in *api.GetDocumentRequest) (
 		return nil, err
 	}
 
+	structpbMap, err := util.ConvertBsonMToStructpbValueMap(doc.Data)
+	if err != nil {
+		logger.WithError(err).Error("failed to ConvertBsonMToStructpbValueMap")
+		return nil, err
+	}
+
 	return &api.GetDocumentResponse{
 		Id:           doc.Id,
-		Data:         util.ConvertBsonMToMap(doc.Data),
+		Data:         structpbMap,
 		CollectionId: doc.CollectionId,
 	}, nil
 }
@@ -61,9 +67,15 @@ func (s *Service) GetListDocument(ctx context.Context, in *api.GetListDocumentRe
 
 	var resp api.GetListDocumentResponse
 	for _, doc := range docs {
+		structpbMap, err := util.ConvertBsonMToStructpbValueMap(doc.Data)
+		if err != nil {
+			logger.WithError(err).Error("failed to ConvertBsonMToStructpbValueMap")
+			return nil, err
+		}
+
 		resp.Documents = append(resp.Documents, &api.Document{
 			Id:           doc.Id,
-			Data:         util.ConvertBsonMToMap(doc.Data),
+			Data:         structpbMap,
 			CollectionId: doc.CollectionId,
 		})
 	}
@@ -77,7 +89,7 @@ func (s *Service) UpdateDocument(ctx context.Context, in *api.UpdateDocumentRequ
 
 	err := s.repository.UpdateDocument(ctx, model.Document{
 		Id:           in.Id,
-		Data:         util.ConvertMapToBsonM(in.Data),
+		Data:         util.ConvertStructpbValueMapToBsonM(in.Data),
 		CollectionId: in.CollectionId,
 		Username:     username,
 	})

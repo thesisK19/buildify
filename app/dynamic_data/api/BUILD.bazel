@@ -9,7 +9,10 @@ proto_library(
         "data.proto",
     ],
     visibility = ["//visibility:public"],
-    deps = ["@go_googleapis//google/api:annotations_proto"],
+    deps = [
+        "@com_google_protobuf//:struct_proto",
+        "@go_googleapis//google/api:annotations_proto",
+    ],
 )
 
 go_proto_library(

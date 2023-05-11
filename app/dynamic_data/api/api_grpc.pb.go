@@ -30,6 +30,7 @@ type DynamicDataServiceClient interface {
 	CreateCollection(ctx context.Context, in *CreateCollectionRequest, opts ...grpc.CallOption) (*CreateCollectionResponse, error)
 	GetCollection(ctx context.Context, in *GetCollectionRequest, opts ...grpc.CallOption) (*GetCollectionResponse, error)
 	GetListCollections(ctx context.Context, in *GetListCollectionsRequest, opts ...grpc.CallOption) (*GetListCollectionsResponse, error)
+	GetCollectionMapping(ctx context.Context, in *GetCollectionMappingRequest, opts ...grpc.CallOption) (*GetCollectionMappingResponse, error)
 	UpdateCollection(ctx context.Context, in *UpdateCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	DeleteCollection(ctx context.Context, in *DeleteCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	HealthCheck(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
@@ -115,6 +116,15 @@ func (c *dynamicDataServiceClient) GetListCollections(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *dynamicDataServiceClient) GetCollectionMapping(ctx context.Context, in *GetCollectionMappingRequest, opts ...grpc.CallOption) (*GetCollectionMappingResponse, error) {
+	out := new(GetCollectionMappingResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/GetCollectionMapping", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dynamicDataServiceClient) UpdateCollection(ctx context.Context, in *UpdateCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
 	out := new(EmptyResponse)
 	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/UpdateCollection", in, out, opts...)
@@ -154,6 +164,7 @@ type DynamicDataServiceServer interface {
 	CreateCollection(context.Context, *CreateCollectionRequest) (*CreateCollectionResponse, error)
 	GetCollection(context.Context, *GetCollectionRequest) (*GetCollectionResponse, error)
 	GetListCollections(context.Context, *GetListCollectionsRequest) (*GetListCollectionsResponse, error)
+	GetCollectionMapping(context.Context, *GetCollectionMappingRequest) (*GetCollectionMappingResponse, error)
 	UpdateCollection(context.Context, *UpdateCollectionRequest) (*EmptyResponse, error)
 	DeleteCollection(context.Context, *DeleteCollectionRequest) (*EmptyResponse, error)
 	HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error)
@@ -186,6 +197,9 @@ func (UnimplementedDynamicDataServiceServer) GetCollection(context.Context, *Get
 }
 func (UnimplementedDynamicDataServiceServer) GetListCollections(context.Context, *GetListCollectionsRequest) (*GetListCollectionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListCollections not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) GetCollectionMapping(context.Context, *GetCollectionMappingRequest) (*GetCollectionMappingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCollectionMapping not implemented")
 }
 func (UnimplementedDynamicDataServiceServer) UpdateCollection(context.Context, *UpdateCollectionRequest) (*EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCollection not implemented")
@@ -352,6 +366,24 @@ func _DynamicDataService_GetListCollections_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DynamicDataService_GetCollectionMapping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCollectionMappingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).GetCollectionMapping(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/GetCollectionMapping",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).GetCollectionMapping(ctx, req.(*GetCollectionMappingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DynamicDataService_UpdateCollection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateCollectionRequest)
 	if err := dec(in); err != nil {
@@ -444,6 +476,10 @@ var DynamicDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetListCollections",
 			Handler:    _DynamicDataService_GetListCollections_Handler,
+		},
+		{
+			MethodName: "GetCollectionMapping",
+			Handler:    _DynamicDataService_GetCollectionMapping_Handler,
 		},
 		{
 			MethodName: "UpdateCollection",

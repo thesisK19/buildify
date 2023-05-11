@@ -5,5 +5,8 @@ go_library(
     srcs = ["convert_data.go"],
     importpath = "github.com/thesisK19/buildify/app/dynamic_data/internal/util",
     visibility = ["//app/dynamic_data:__subpackages__"],
-    deps = ["@in_gopkg_mgo_v2//bson"],
+    deps = [
+        "@in_gopkg_mgo_v2//bson",
+        "@org_golang_google_protobuf//types/known/structpb",
+    ],
 )

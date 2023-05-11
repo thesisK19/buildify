@@ -121,6 +121,62 @@ func (r *repository) GetListCollections(ctx context.Context, username string, pr
 
 	return &result, nil
 }
+
+func (r *repository) GetCollectionMapping(ctx context.Context, username string, projectId primitive.ObjectID) (*dto.CollectionMap, error) {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "GetListCollections")
+
+	var (
+		result        = dto.CollectionMap{}
+		collectionIds []int32
+	)
+
+	filter := bson.M{"username": username, "project_id": projectId}
+
+	// Find all collections
+	cursor, err := r.db.Collection(constant.COLLECTION_COLL).Find(ctx, filter)
+	if err != nil {
+		logger.WithError(err).Error("failed to Find collections")
+		return nil, fmt.Errorf("failed to find collections: %v", err)
+	}
+	defer cursor.Close(ctx)
+
+	for cursor.Next(ctx) {
+		var coll model.Collection
+		if err := cursor.Decode(&coll); err != nil {
+			logger.WithError(err).Error("failed to decode collection")
+			return nil, fmt.Errorf("failed to decode collection: %v", err)
+		}
+		result[coll.Id] = &dto.CollectionInfo{
+			Name:      coll.Name,
+			DataKeys:  coll.DataKeys,
+			DataTypes: coll.DataTypes,
+			Documents: make(map[int32]interface{}),
+		}
+		collectionIds = append(collectionIds, coll.Id)
+	}
+
+	if len(collectionIds) == 0 {
+		return &dto.CollectionMap{}, nil
+	}
+
+	cursor, err = r.db.Collection(constant.DOCUMENT_COLL).Find(ctx, bson.M{"collection_id": bson.M{"$in": collectionIds}})
+	if err != nil {
+		return nil, fmt.Errorf("failed to find documents: %v", err)
+	}
+
+	for cursor.Next(ctx) {
+		var doc model.Document
+		if err := cursor.Decode(&doc); err != nil {
+			return nil, fmt.Errorf("failed to decode document: %v", err)
+		}
+		if _, ok := result[doc.CollectionId]; ok {
+			result[doc.CollectionId].Documents[doc.Id] = util.ConvertBsonMToMap(doc.Data)
+		}
+	}
+
+	return &result, nil
+}
+
 func (r *repository) GetCollection(ctx context.Context, username string, id int32) (*dto.GetCollection, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "GetCollection")
 

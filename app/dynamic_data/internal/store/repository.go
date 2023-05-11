@@ -21,6 +21,7 @@ type Repository interface {
 	CreateCollection(ctx context.Context, coll model.Collection) (int32, error)
 	GetCollection(ctx context.Context, username string, id int32) (*dto.GetCollection, error)
 	GetListCollections(ctx context.Context, username string, projectId primitive.ObjectID) (*dto.ListCollections, error)
+	GetCollectionMapping(ctx context.Context, username string, projectId primitive.ObjectID) (*dto.CollectionMap, error)
 	UpdateCollection(ctx context.Context, coll model.Collection) error
 	DeleteCollection(ctx context.Context, username string, id int32) error
 	// repository
