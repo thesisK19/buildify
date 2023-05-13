@@ -1,6 +1,6 @@
 # https://user-service.buildify.asia
 # http://localhost:3002
-@host = http://localhost:3002
+@host = https://user-service.buildify.asia
 
 # -------- user ------------
 
