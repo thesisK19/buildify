@@ -7,12 +7,15 @@ const (
 const (
 	INVALID_PAGE_PATH = ""
 	ROOT_ID_PREFIX    = "ROOT"
-	PROPS_BY_ID       = "props"
+	PROPS             = "props"
+	REF_PROPS         = "refProps"
 	KEY_CHILDREN      = "***"
 )
 
 const (
 	EXPORT_DIR        = "export"
+	THEME_DIR         = `src/theme`
+	DATABASE_DIR      = `src/database`
 	ROUTES_DIR        = `src/routes`
 	PAGES_DIR         = `src/pages`
 	INDEX_TSX         = `index.tsx`

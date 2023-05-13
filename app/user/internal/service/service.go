@@ -4,8 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	dynamicDataAdapter "github.com/thesisK19/buildify/app/dynamic_data/pkg/adapter"
+	genCodeAdapter "github.com/thesisK19/buildify/app/gen_code/pkg/adapter"
 	"github.com/thesisK19/buildify/app/user/config"
-	"github.com/thesisK19/buildify/app/user/internal/adapter"
 	"github.com/thesisK19/buildify/app/user/internal/store"
 )
 
@@ -16,21 +17,26 @@ type Service struct {
 }
 
 type serviceAdapters struct {
-	genCode adapter.GenCodeClient
+	genCode     genCodeAdapter.GenCodeAdapter
+	dynamicData dynamicDataAdapter.DynamicDataAdapter
 }
 
 func NewService(cfg *config.Config, repository store.Repository) *Service {
-	genCode, err := adapter.NewGenCodeClient(cfg.GenCodeHost)
+	dynamicDataAdapter, err := dynamicDataAdapter.NewDynamicDataAdapter(cfg.DynamicDataGRPCAddr)
 	if err != nil {
-		// should not return err, we will re-connect later
-		fmt.Println("Init NewGenCodeClient fail...")
+		fmt.Printf("Can't connect to user service, err=%v", err)
+	}
+	genCodeAdapter, err := genCodeAdapter.NewGenCodeAdapter(cfg.GenCodeGRPCAddr)
+	if err != nil {
+		fmt.Printf("Can't connect to user service, err=%v", err)
 	}
 
 	return &Service{
 		config:     cfg,
 		repository: repository,
 		adapters: serviceAdapters{
-			genCode: genCode,
+			genCode:     genCodeAdapter,
+			dynamicData: dynamicDataAdapter,
 		},
 	}
 }

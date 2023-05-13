@@ -13,3 +13,5 @@ MONGO_DB: mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net
 
 SERVICE_DB: gen_code_service
 
+USER_GRPC_ADDR: localhost:9091
+DYNAMIC_DATA_GRPC_ADDR: localhost:9095

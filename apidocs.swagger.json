@@ -181,6 +181,44 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DynamicDataService"
+        ]
+      }
+    },
+    "/api/collection/map": {
+      "get": {
+        "operationId": "DynamicDataService_GetCollectionMapping",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetCollectionMappingResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "tags": [
           "DynamicDataService"
         ]
@@ -696,10 +734,37 @@
         }
       }
     },
+    "apiCollectionInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "dataKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dataTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "documents": {
+          "type": "object",
+          "additionalProperties": {}
+        }
+      }
+    },
     "apiCreateCollectionRequest": {
       "type": "object",
       "properties": {
         "name": {
+          "type": "string"
+        },
+        "projectId": {
           "type": "string"
         },
         "dataKeys": {
@@ -731,9 +796,7 @@
       "properties": {
         "data": {
           "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+          "additionalProperties": {}
         },
         "collectionId": {
           "type": "integer",
@@ -792,9 +855,7 @@
         },
         "data": {
           "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+          "additionalProperties": {}
         },
         "collectionId": {
           "type": "integer",
@@ -816,6 +877,12 @@
           "items": {
             "$ref": "#/definitions/apiPage"
           }
+        },
+        "theme": {
+          "type": "string"
+        },
+        "projectId": {
+          "type": "string"
         }
       }
     },
@@ -827,12 +894,26 @@
         }
       }
     },
+    "apiGetCollectionMappingResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/apiCollectionInfo"
+          }
+        }
+      }
+    },
     "apiGetCollectionResponse": {
       "type": "object",
       "properties": {
         "id": {
           "type": "integer",
           "format": "int32"
+        },
+        "projectId": {
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -867,9 +948,7 @@
         },
         "data": {
           "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+          "additionalProperties": {}
         },
         "collectionId": {
           "type": "integer",
@@ -1087,6 +1166,9 @@
           "type": "integer",
           "format": "int32"
         },
+        "projectId": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -1114,9 +1196,7 @@
         },
         "data": {
           "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
+          "additionalProperties": {}
         },
         "collectionId": {
           "type": "integer",
@@ -1169,6 +1249,14 @@
         }
       },
       "additionalProperties": {}
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\n The JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
     },
     "rpcStatus": {
       "type": "object",

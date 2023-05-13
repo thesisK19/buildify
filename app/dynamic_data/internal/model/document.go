@@ -1,6 +1,8 @@
 package model
 
-import "gopkg.in/mgo.v2/bson"
+import (
+	"gopkg.in/mgo.v2/bson"
+)
 
 type Document struct {
 	Id           int32  `bson:"id,omitempty"`

@@ -12,9 +12,11 @@ go_library(
     importpath = "github.com/thesisK19/buildify/app/user/internal/service",
     visibility = ["//app/user:__subpackages__"],
     deps = [
+        "//app/dynamic_data/pkg/adapter",
+        "//app/gen_code/api",
+        "//app/gen_code/pkg/adapter",
         "//app/user/api",
         "//app/user/config",
-        "//app/user/internal/adapter",
         "//app/user/internal/model",
         "//app/user/internal/store",
         "//library/errors",

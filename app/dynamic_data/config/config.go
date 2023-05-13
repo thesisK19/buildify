@@ -8,15 +8,17 @@ type Config struct {
 	config_lib.Base `mapstructure:",squash"`
 	MongoDB         string `json:"mongo_db" mapstructure:"mongo_db"`
 	ServiceDB       string `json:"service_db" mapstructure:"service_db"`
-	GenCodeHost     string `json:"gen_code_host" mapstructure:"gen_code_host"`
+	UserGRPCAddr    string `json:"user_grpc_addr" mapstructure:"user_grpc_addr"`
+	GenCodeGRPCAddr string `json:"gen_code_grpc_addr" mapstructure:"gen_code_grpc_addr"`
 }
 
 func loadDefaultConfig() *Config {
 
 	return &Config{
-		MongoDB:     "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net",
-		ServiceDB:   "dynamic_data_service",
-		Base:        *config_lib.DefaultBaseConfig(),
-		GenCodeHost: "localhost:9093",
+		Base:            *config_lib.DefaultBaseConfig(),
+		MongoDB:         "mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net",
+		ServiceDB:       "dynamic_data_service",
+		UserGRPCAddr:    "user-service:443",
+		GenCodeGRPCAddr: "gen-code-service:443",
 	}
 }

@@ -12,11 +12,13 @@ import (
 	"time"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
+	dynamicDataApi "github.com/thesisK19/buildify/app/dynamic_data/api"
 	"github.com/thesisK19/buildify/app/gen_code/api"
 	"github.com/thesisK19/buildify/app/gen_code/internal/constant"
 	"github.com/thesisK19/buildify/app/gen_code/internal/dto"
 	"github.com/thesisK19/buildify/app/gen_code/internal/util"
 	"golang.org/x/exp/slices"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/iancoleman/strcase"
 	"github.com/scylladb/go-set/strset"
@@ -52,7 +54,29 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	}
 
 	var wg sync.WaitGroup
-	errChan := make(chan error)
+	errChan := make(chan error, len(mapPagePathToPageInfo)+2)
+
+	// Generate theme
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		err = genTheme(ctx, rootDirPath, request.Theme)
+		if err != nil {
+			logger.WithError(err).Error("failed to genTheme")
+			errChan <- err
+		}
+	}()
+
+	// Generate database
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		err = s.genDatabase(ctx, rootDirPath, request.ProjectId)
+		if err != nil {
+			logger.WithError(err).Error("failed to genDatabase")
+			errChan <- err
+		}
+	}()
 
 	// Generate pages concurrently
 	for _, pageInfo := range mapPagePathToPageInfo {
@@ -134,10 +158,85 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 
 func formatCode(rootDirPath string) {
 	// npx prettier --write .
-	command := exec.Command("prettier", "--write", fmt.Sprintf("%s/%s", rootDirPath, constant.PAGES_DIR), fmt.Sprintf("%s/%s", rootDirPath, constant.ROUTES_DIR))
+	command := exec.Command("prettier", "--write",
+		fmt.Sprintf("%s/%s", rootDirPath, constant.PAGES_DIR),
+		fmt.Sprintf("%s/%s", rootDirPath, constant.ROUTES_DIR),
+		fmt.Sprintf("%s/%s", rootDirPath, constant.THEME_DIR),
+		fmt.Sprintf("%s/%s", rootDirPath, constant.DATABASE_DIR),
+	)
 	command.Stderr = os.Stderr
 	// Run the command
 	command.Run()
+}
+
+func genTheme(ctx context.Context, rootDirPath string, theme string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "genTheme")
+
+	content := fmt.Sprintf(`
+		export type Theme = Record<string, any>;
+		
+		const MyTheme: Theme = %s
+
+		export default MyTheme;
+	`, theme)
+
+	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.THEME_DIR, constant.INDEX_TS)
+	err := util.WriteFile(ctx, filePath, []byte(content))
+	if err != nil {
+		logger.WithError(err).Error("failed to WriteFile")
+		return err
+	}
+	return nil
+}
+
+func (s *Service) genDatabase(ctx context.Context, rootDirPath string, projectId string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "genDatabase")
+
+	// call dynamic data service to get database
+	resp, err := s.adapters.dynamicData.GetCollectionMapping(ctx, &dynamicDataApi.GetCollectionMappingRequest{
+		ProjectId: projectId,
+	})
+	if err != nil {
+		logger.WithError(err).Error("failed to GetCollectionMapping from dynamic data service")
+		return err
+	}
+	jsonString, err := protojson.Marshal(resp)
+	if err != nil {
+		logger.WithError(err).Error("failed to Marshal message proto")
+		return err
+	}
+
+	content := fmt.Sprintf(`
+		import { DYNAMIC_DATA_TYPE } from "../constants";
+
+		type Id = number;
+		
+		type Collection = {
+			id: Id;
+			name: string;
+			dataKeys: string[];
+			dataTypes: number[];
+			documents: Record<Id, Document>;
+		};
+		
+		export type Document = {
+			id: Id;
+			data: Record<string, any>;
+			collectionId: Id;
+		};
+		
+		export type Database = Record<Id, Collection>;
+		
+		export const MyDatabase: Database = %s
+	`, jsonString)
+
+	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.DATABASE_DIR, constant.INDEX_TS)
+	err = util.WriteFile(ctx, filePath, []byte(content))
+	if err != nil {
+		logger.WithError(err).Error("failed to WriteFile")
+		return err
+	}
+	return nil
 }
 
 func genPage(ctx context.Context, rootDirPath string, pageInfo *dto.PageInfo) error {
@@ -148,7 +247,7 @@ func genPage(ctx context.Context, rootDirPath string, pageInfo *dto.PageInfo) er
 	reactElementString := mergeReactElements(pageInfo.RootID, mapIDToReactElements)
 
 	// create props
-	propsString := fmt.Sprintf("export const %s = {%s}", constant.PROPS_BY_ID, strings.Join(propsByIds, ","))
+	propsString := fmt.Sprintf("export const %s = {%s}", constant.REF_PROPS, strings.Join(propsByIds, ","))
 
 	propsFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.PROPS_TSX)
 	err := util.WriteFile(ctx, propsFilePath, []byte(propsString))
@@ -162,13 +261,17 @@ func genPage(ctx context.Context, rootDirPath string, pageInfo *dto.PageInfo) er
 		import React, { FC, ReactElement } from "react"
    		import { %s } from "src/components"
     	import { %s } from "./props"
-	
-    	const %s: FC = (): ReactElement => (
-		%s
-		)
+		import { useGetValuesFromReferencedProps } from "src/hooks/useGetValuesFromReferencedProps";
+
+    	const %s: FC = (): ReactElement => {
+			const props = useGetValuesFromReferencedProps(refProps);
+			return (
+				%s
+			)
+		}
 		
 		export default %s`,
-		strings.Join(components, ","), constant.PROPS_BY_ID, pageInfo.Name, reactElementString, pageInfo.Name)
+		strings.Join(components, ","), constant.REF_PROPS, pageInfo.Name, reactElementString, pageInfo.Name)
 
 	indexFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.INDEX_TSX)
 	err = util.WriteFile(ctx, indexFilePath, []byte(content))
@@ -269,7 +372,7 @@ func getReactElementInfoFromNodes(nodes []*dto.Node, linkedNodes []string) ([]st
 }
 
 func genReactElementFromNode(node *dto.Node) *dto.ReactElement {
-	elementString := fmt.Sprintf(`<%s {...%s["%s"]}>%s</%s>`, node.ComponentType, constant.PROPS_BY_ID, node.ID, constant.KEY_CHILDREN, node.ComponentType)
+	elementString := fmt.Sprintf(`<%s {...%s["%s"]}>%s</%s>`, node.ComponentType, constant.PROPS, node.ID, constant.KEY_CHILDREN, node.ComponentType)
 
 	return &dto.ReactElement{
 		ID:            node.ID,
@@ -286,7 +389,7 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 	}
 
 	if len(reactElement.Children) == 0 {
-		reactElement.ElementString = fmt.Sprintf(`<%s {...%s["%s"]}/>`, reactElement.Component, constant.PROPS_BY_ID, reactElement.ID)
+		reactElement.ElementString = fmt.Sprintf(`<%s {...%s["%s"]}/>`, reactElement.Component, constant.PROPS, reactElement.ID)
 		return reactElement.ElementString
 	}
 

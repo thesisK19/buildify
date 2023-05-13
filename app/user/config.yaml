@@ -14,4 +14,5 @@ MONGO_DB: mongodb+srv://thesis:thesisK19@thesis.kzystcv.mongodb.net
 SERVICE_DB: user_service
 API_SECRET: Y1VFGSea2EPa6v3gFY84swUJbZCHY8WEzKfdq6uPUyRjYR
 
-GEN_CODE_HOST: localhost:9093
+GEN_CODE_GRPC_ADDR: localhost:9093
+DYNAMIC_DATA_GRPC_ADDR: localhost:9095

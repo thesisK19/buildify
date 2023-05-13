@@ -31,5 +31,18 @@
       }
       //   "showLog": true
     }
+    {
+      "name": "dynamic_data_service",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "cwd": "${workspaceRoot}/app/dynamic_data",
+      "program": "${workspaceFolder}/app/dynamic_data/cmd",
+      "args": ["server"],
+      "env": {
+        "jwt_secret": "eyJhbGciOiJIUzI1NiJ9"
+      }
+      //   "showLog": true
+    }
   ]
 }

@@ -3,6 +3,7 @@ syntax = "proto3";
 package buildify.app.dynamic_data.api;
 option go_package = "github.com/thesisK19/buildify/app/dynamic_data/api";
 import "google/api/annotations.proto";
+import "google/protobuf/struct.proto";
 import "app/dynamic_data/api/data.proto";
 
 service DynamicDataService {
@@ -46,9 +47,14 @@ service DynamicDataService {
             get : "/api/collection"
         };
     }
-    rpc GetListCollections(EmptyRequest) returns (GetListCollectionsResponse) {
+    rpc GetListCollections(GetListCollectionsRequest) returns (GetListCollectionsResponse) {
         option (google.api.http) = {
             get : "/api/collection/list"
+        };
+    }
+    rpc GetCollectionMapping(GetCollectionMappingRequest) returns (GetCollectionMappingResponse) {
+        option (google.api.http) = {
+            get : "/api/collection/map"
         };
     }
     rpc UpdateCollection(UpdateCollectionRequest) returns (EmptyResponse) {
@@ -74,7 +80,7 @@ message EmptyRequest {}
 message EmptyResponse {}
 
 message CreateDocumentRequest {
-    map<string, string> data = 1;
+    map<string, google.protobuf.Value> data = 1;
     int32 collection_id = 2;
 }
 message CreateDocumentResponse { int32 id = 1; }
@@ -82,7 +88,7 @@ message CreateDocumentResponse { int32 id = 1; }
 message GetDocumentRequest { int32 id = 1; }
 message GetDocumentResponse {
     int32 id = 1;
-    map<string, string> data = 2;
+    map<string, google.protobuf.Value> data = 2;
     int32 collection_id = 3;
 }
 
@@ -91,7 +97,7 @@ message GetListDocumentResponse { repeated Document documents = 1; }
 
 message UpdateDocumentRequest {
     int32 id = 1;
-    map<string, string> data = 2;
+    map<string, google.protobuf.Value> data = 2;
     int32 collection_id = 3;
 }
 
@@ -99,18 +105,26 @@ message DeleteDocumentRequest { int32 id = 1; }
 
 message CreateCollectionRequest {
     string name = 1;
-    repeated string data_keys = 2;
-    repeated int32 data_types = 3;
+    string project_id = 2;
+    repeated string data_keys = 3;
+    repeated int32 data_types = 4;
 }
 message CreateCollectionResponse { int32 id = 1; }
 
-message GetCollectionRequest { int32 id = 1; }
+message GetCollectionRequest {
+    int32 id = 1;
+}
 message GetCollectionResponse {
     int32 id = 1;
-    string name = 2;
-    repeated string data_keys = 3;
-    repeated int32 data_types = 4;
-    repeated Document documents = 5;
+    string project_id = 2;
+    string name = 3;
+    repeated string data_keys = 4;
+    repeated int32 data_types = 5;
+    repeated Document documents = 6;
+}
+
+message GetListCollectionsRequest {
+    string project_id = 1;
 }
 
 message GetListCollectionsResponse {
@@ -118,11 +132,20 @@ message GetListCollectionsResponse {
     repeated Document documents = 2;
 }
 
+message GetCollectionMappingRequest {
+    string project_id = 1;
+}
+
+message GetCollectionMappingResponse {
+    map<int32, CollectionInfo> data = 1;
+}
+
 message UpdateCollectionRequest {
     int32 id = 1;
-    string name = 2;
-    repeated string data_keys = 3;
-    repeated int32 data_types = 4;
+    string project_id = 2;
+    string name = 3;
+    repeated string data_keys = 4;
+    repeated int32 data_types = 5;
 }
 
 message DeleteCollectionRequest { int32 id = 1; }
