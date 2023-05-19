@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
@@ -206,29 +207,26 @@ func (s *Service) genDatabase(ctx context.Context, rootDirPath string, projectId
 		return err
 	}
 
-	content := fmt.Sprintf(`
-		import { DYNAMIC_DATA_TYPE } from "../constants";
+	jsonDataValue, err := getJsonDataValueOfDatabase(string(jsonString))
+	if err != nil {
+		logger.WithError(err).Error("failed to getJsonDataValueOfDatabase")
+		return err
+	}
 
+	content := fmt.Sprintf(`
 		type Id = number;
 		
 		type Collection = {
-			id: Id;
 			name: string;
 			dataKeys: string[];
-			dataTypes: number[];
-			documents: Record<Id, Document>;
-		};
-		
-		export type Document = {
-			id: Id;
-			data: Record<string, any>;
-			collectionId: Id;
+			dataTypes: string[];
+			documents: Record<Id, any>;
 		};
 		
 		export type Database = Record<Id, Collection>;
 		
 		export const MyDatabase: Database = %s
-	`, jsonString)
+	`, jsonDataValue)
 
 	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.DATABASE_DIR, constant.INDEX_TS)
 	err = util.WriteFile(ctx, filePath, []byte(content))
@@ -237,6 +235,26 @@ func (s *Service) genDatabase(ctx context.Context, rootDirPath string, projectId
 		return err
 	}
 	return nil
+}
+
+func getJsonDataValueOfDatabase(jsonString string) (string, error) {
+	var data map[string]interface{}
+	err := json.Unmarshal([]byte(jsonString), &data)
+	if err != nil {
+		return "", err
+	}
+
+	dataValue, ok := data["data"]
+	if !ok {
+		return "", err
+	}
+
+	dataJSON, err := json.Marshal(dataValue)
+	if err != nil {
+		return "", err
+	}
+
+	return string(dataJSON), nil
 }
 
 func genPage(ctx context.Context, rootDirPath string, pageInfo *dto.PageInfo) error {
