@@ -64,7 +64,6 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 ###
 GET {{host}}/api/collection/list?projectId=645f4128f368d527a885a59e HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InlkYW0iLCJleHAiOjIwNDI1MDg4Mzl9.zBli4pyymdcuYTTK3auHvfTdJrdm40EV2Syj0BfUlNs
-
 ###
 GET {{host}}/api/collection/map?projectId=645a91c1b5d8c898fc762833 HTTP/1.1
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
