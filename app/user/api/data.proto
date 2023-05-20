@@ -18,6 +18,7 @@ message Project {
 }
 
 enum ProjectType {
-    LANDING = 0;
-    CMS = 1;
+    UNKNOWN = 0;
+    LANDING = 1;
+    CMS = 2;
 }
