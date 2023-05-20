@@ -60,7 +60,7 @@ jobs:
           ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$DEPLOYMENT_NAME
-          kubectl get services -o wide
+          kubectl get pods
 
 # ./kustomize edit set image asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user:1
 
