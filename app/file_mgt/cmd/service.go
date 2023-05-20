@@ -36,6 +36,7 @@ func NewService(cfg *config.Config, repository store.Repository, router *mux.Rou
 
 func (s *Service) setRouter() {
 	s.Post("/api/upload/image", handler.UploadImageHandler)
+	s.Post("/api/upload/avatar", handler.UploadAvatarHandler)
 	s.Get("/api/test", handler.Test)
 	s.Get("/", handler.HealthCheck)
 }

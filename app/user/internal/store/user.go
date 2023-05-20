@@ -7,8 +7,9 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	"github.com/thesisK19/buildify/app/user/internal/constant"
 	"github.com/thesisK19/buildify/app/user/internal/model"
-
+	errors_lib "github.com/thesisK19/buildify/library/errors"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -18,6 +19,9 @@ func (r *repository) CreateUser(ctx context.Context, params model.CreateUserPara
 	result, err := r.db.Collection(constant.USER_COLL).InsertOne(ctx, params)
 	if err != nil {
 		logger.WithError(err).Error("failed to InsertOne")
+		if mongo.IsDuplicateKeyError(err) {
+			return nil, errors_lib.ToInvalidArgumentError(fmt.Errorf("username already exists"))
+		}
 		return nil, err
 	}
 

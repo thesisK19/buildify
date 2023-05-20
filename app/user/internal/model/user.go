@@ -6,23 +6,26 @@ import (
 
 // User Model
 type User struct {
-	FullName string `bson:"full_name,omitempty" validate:"required,alpha"`
-	Email    string `bson:"email,omitempty" validate:"required,alpha"`
-	Username string `bson:"username,omitempty" validate:"required,alpha"`
-	Password string `bson:"password,omitempty" validate:"required"`
+	FullName  string `bson:"full_name,omitempty" validate:"required,alpha"`
+	Email     string `bson:"email,omitempty" validate:"required,alpha"`
+	Username  string `bson:"username,omitempty" validate:"required,alpha"`
+	Password  string `bson:"password,omitempty" validate:"required"`
+	AvatarUrl string `bson:"avatar_url,omitempty"`
 }
 
 type CreateUserParams struct {
-	FullName string `bson:"full_name,omitempty" validate:"required,alpha"`
-	Email    string `bson:"email,omitempty" validate:"required,alpha"`
-	Username string `bson:"username,omitempty" validate:"required,alpha"`
-	Password string `bson:"password,omitempty" validate:"required"`
+	FullName  string `bson:"full_name,omitempty" validate:"required,alpha"`
+	Email     string `bson:"email,omitempty" validate:"required,alpha"`
+	Username  string `bson:"username,omitempty" validate:"required,alpha"`
+	Password  string `bson:"password,omitempty" validate:"required"`
+	AvatarUrl string `bson:"avatar_url,omitempty"`
 }
 
 type UpdateUserParams struct {
-	FullName string `bson:"full_name,omitempty" validate:"alpha"`
-	Email    string `bson:"email,omitempty" validate:"alpha"`
-	Password string `bson:"password,omitempty" validate:""`
+	FullName  string `bson:"full_name,omitempty" validate:"alpha"`
+	Email     string `bson:"email,omitempty" validate:"alpha"`
+	Password  string `bson:"password,omitempty" validate:""`
+	AvatarUrl string `bson:"avatar_url,omitempty"`
 }
 
 // Claims struct for JWT claims

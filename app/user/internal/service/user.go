@@ -23,12 +23,19 @@ func (s *Service) SignUp(ctx context.Context, in *api.SignUpRequest) (*api.Empty
 		return nil, err
 	}
 
-	createParams := model.CreateUserParams{
-		FullName: in.FullName,
-		Email:    in.Email,
-		Username: in.Username,
-		Password: string(hashedPassword),
+	// add default avatar
+	if in.AvatarUrl == "" {
+		in.AvatarUrl = "https://storage.googleapis.com/file-mgt/avatars/default-user.png"
 	}
+
+	createParams := model.CreateUserParams{
+		FullName:  in.FullName,
+		Email:     in.Email,
+		Username:  in.Username,
+		Password:  string(hashedPassword),
+		AvatarUrl: in.AvatarUrl,
+	}
+
 	_, err = s.repository.CreateUser(ctx, createParams)
 	if err != nil {
 		logger.WithError(err).Error("failed to repo.CreateUser")
@@ -86,9 +93,10 @@ func (s *Service) GetUser(ctx context.Context, in *api.EmptyRequest) (*api.GetUs
 	}
 
 	return &api.GetUserResponse{
-		Username: user.Username,
-		FullName: user.FullName,
-		Email:    user.Email,
+		Username:  user.Username,
+		FullName:  user.FullName,
+		Email:     user.Email,
+		AvatarUrl: user.AvatarUrl,
 	}, nil
 }
 
@@ -112,9 +120,10 @@ func (s *Service) UpdateUser(ctx context.Context, in *api.UpdateUserRequest) (*a
 	}
 
 	updateParams := model.UpdateUserParams{
-		FullName: in.FullName,
-		Email:    in.Email,
-		Password: string(hashedPassword),
+		FullName:  in.FullName,
+		Email:     in.Email,
+		Password:  string(hashedPassword),
+		AvatarUrl: in.AvatarUrl,
 	}
 
 	err = s.repository.UpdateUserByUsername(ctx, username, updateParams)
