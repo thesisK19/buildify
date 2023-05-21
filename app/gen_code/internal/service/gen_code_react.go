@@ -213,8 +213,8 @@ func (s *Service) genDatabase(ctx context.Context, rootDirPath string, projectId
 		return err
 	}
 
-	content := fmt.Sprintf(`
-		type Id = number;
+	content := fmt.Sprintf(
+		`type Id = number;
 		
 		type Collection = {
 			name: string;
@@ -246,7 +246,7 @@ func getJsonDataValueOfDatabase(jsonString string) (string, error) {
 
 	dataValue, ok := data["data"]
 	if !ok {
-		return "", err
+		return "{}", nil
 	}
 
 	dataJSON, err := json.Marshal(dataValue)
