@@ -7,7 +7,7 @@ export const getValuesFromReferencedPropsObject = (propsObject, database, theme)
         propsObject[key] = database?.[currentValue.collectionId]?.documents?.[currentValue.documentId]?.[currentValue.key];
       } else if (currentValue.type === "theme") {
         // get theme value
-        propsObject[key] = theme[currentValue.name];
+        propsObject[key] = theme[currentValue.key]?.value;
       } else {
         getValuesFromReferencedPropsObject(propsObject[key], database, theme);
       }
