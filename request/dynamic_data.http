@@ -1,9 +1,13 @@
 # https://dynamic-data-service.buildify.asia
 # http://localhost:3005
-@host = https://dynamic-data-service.buildify.asia
+@host = http://localhost:3005
 
 ### health check
 GET {{host}} HTTP/1.1
+
+###
+GET {{host}}/api/database/script?projectId=645f4128f368d527a885a59e&databaseSystem=POSTGRES HTTP/1.1
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InlkYW0iLCJleHAiOjIwNDI1MDg4Mzl9.zBli4pyymdcuYTTK3auHvfTdJrdm40EV2Syj0BfUlNs
 
 ###
 POST {{host}}/api/document HTTP/1.1
@@ -59,7 +63,7 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIi
 
 ###
 GET {{host}}/api/collection?id=8 HTTP/1.1
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkdLRXVzZXIiLCJleHAiOjIwNDE5MDI5NjF9.Zaj0SMl--oKibmQQbe5h27jHVjqhG2AUBEJMiqalbrY
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InlkYW0iLCJleHAiOjIwNDI1MDg4Mzl9.zBli4pyymdcuYTTK3auHvfTdJrdm40EV2Syj0BfUlNs
 
 ###
 GET {{host}}/api/collection/list?projectId=645f4128f368d527a885a59e HTTP/1.1

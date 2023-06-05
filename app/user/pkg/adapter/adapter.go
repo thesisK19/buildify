@@ -19,6 +19,7 @@ type UserAdapter interface {
 	CreateProject(ctx context.Context, in *api.CreateProjectRequest) (*api.CreateProjectResponse, error)
 	GetListProjects(ctx context.Context, in *api.EmptyRequest) (*api.GetListProjectsResponse, error)
 	GetProject(ctx context.Context, in *api.GetProjectRequest) (*api.GetProjectResponse, error)
+	InternalGetProjectBasicInfo(ctx context.Context, in *api.InternalGetProjectBasicInfoRequest) (*api.InternalGetProjectBasicInfoResponse, error)
 	UpdateProject(ctx context.Context, in *api.UpdateProjectRequest) (*api.EmptyResponse, error)
 	DeleteProject(ctx context.Context, in *api.DeleteProjectRequest) (*api.EmptyResponse, error)
 	// test
@@ -105,6 +106,16 @@ func (a *userAdapter) GetProject(ctx context.Context, in *api.GetProjectRequest)
 	defer cancel()
 
 	return a.client.GetProject(ctxWithTimeout, in)
+}
+
+func (a *userAdapter) InternalGetProjectBasicInfo(ctx context.Context, in *api.InternalGetProjectBasicInfoRequest) (*api.InternalGetProjectBasicInfoResponse, error) {
+	if err := a.connect(); err != nil {
+		return nil, err
+	}
+	ctxWithTimeout, cancel := context.WithTimeout(ctx, ADAPTER_CONTEXT_TIMEOUT_DEFAULT)
+	defer cancel()
+
+	return a.client.InternalGetProjectBasicInfo(ctxWithTimeout, in)
 }
 
 func (a *userAdapter) UpdateProject(ctx context.Context, in *api.UpdateProjectRequest) (*api.EmptyResponse, error) {

@@ -31,17 +31,29 @@ func CreateFile(ctx context.Context, filename string) error {
 	return nil
 }
 
-func RemoveFile(ctx context.Context, filename string) error {
-	logger := ctxlogrus.Extract(ctx).WithField("func", "RemoveFile")
-	err := os.Remove(filename)
+// func RemoveFile(ctx context.Context, filename string) error {
+// 	logger := ctxlogrus.Extract(ctx).WithField("func", "RemoveFile")
+// 	err := os.Remove(filename)
 
-	if err != nil {
-		logger.WithError(err).Error("failed to os.Remove file")
-		return err
-	}
+// 	if err != nil {
+// 		logger.WithError(err).Error("failed to os.Remove file")
+// 		return err
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
+
+// func RemoveAllFiles(ctx context.Context, folderPath string) error {
+// 	logger := ctxlogrus.Extract(ctx).WithField("func", "RemoveAllFiles")
+// 	err := os.RemoveAll(folderPath)
+
+// 	if err != nil {
+// 		logger.WithError(err).Error("failed to os.RemoveAll files")
+// 		return err
+// 	}
+
+// 	return nil
+// }
 
 func ReadFile(ctx context.Context, filename string) ([]byte, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "ReadFile")

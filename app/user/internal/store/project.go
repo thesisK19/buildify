@@ -111,11 +111,33 @@ func (r *repository) GetProject(ctx context.Context, username string, id string)
 	}, nil
 }
 
+func (r *repository) GetProjectBasicInfo(ctx context.Context, username string, id string) (*dto.Project, error) {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "GetProject")
+
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+
+	filter := bson.M{"_id": objID, "username": username}
+	var project model.ProjectBasicInfo
+
+	if err := r.db.Collection(constant.PROJECT_COLL).FindOne(ctx, filter).Decode(&project); err != nil {
+		logger.WithError(err).Error("failed to FindOne")
+		return nil, err
+	}
+
+	return &dto.Project{
+		Id:   project.Id.Hex(),
+		Name: project.Name,
+	}, nil
+}
+
 func (r *repository) UpdateProject(ctx context.Context, project model.Project) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "UpdateProject")
 
 	project.UpdatedAt = time.Now().Unix()
-	
+
 	filter := bson.M{"_id": project.Id, "username": project.Username}
 	updateDoc := bson.M{"$set": project}
 

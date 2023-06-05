@@ -33,6 +33,7 @@ type DynamicDataServiceClient interface {
 	GetCollectionMapping(ctx context.Context, in *GetCollectionMappingRequest, opts ...grpc.CallOption) (*GetCollectionMappingResponse, error)
 	UpdateCollection(ctx context.Context, in *UpdateCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	DeleteCollection(ctx context.Context, in *DeleteCollectionRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
+	GetDatabaseScript(ctx context.Context, in *GetDatabaseScriptRequest, opts ...grpc.CallOption) (*GetDatabaseScriptResponse, error)
 	HealthCheck(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 }
 
@@ -143,6 +144,15 @@ func (c *dynamicDataServiceClient) DeleteCollection(ctx context.Context, in *Del
 	return out, nil
 }
 
+func (c *dynamicDataServiceClient) GetDatabaseScript(ctx context.Context, in *GetDatabaseScriptRequest, opts ...grpc.CallOption) (*GetDatabaseScriptResponse, error) {
+	out := new(GetDatabaseScriptResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/GetDatabaseScript", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *dynamicDataServiceClient) HealthCheck(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*EmptyResponse, error) {
 	out := new(EmptyResponse)
 	err := c.cc.Invoke(ctx, "/buildify.app.dynamic_data.api.DynamicDataService/HealthCheck", in, out, opts...)
@@ -167,6 +177,7 @@ type DynamicDataServiceServer interface {
 	GetCollectionMapping(context.Context, *GetCollectionMappingRequest) (*GetCollectionMappingResponse, error)
 	UpdateCollection(context.Context, *UpdateCollectionRequest) (*EmptyResponse, error)
 	DeleteCollection(context.Context, *DeleteCollectionRequest) (*EmptyResponse, error)
+	GetDatabaseScript(context.Context, *GetDatabaseScriptRequest) (*GetDatabaseScriptResponse, error)
 	HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error)
 }
 
@@ -206,6 +217,9 @@ func (UnimplementedDynamicDataServiceServer) UpdateCollection(context.Context, *
 }
 func (UnimplementedDynamicDataServiceServer) DeleteCollection(context.Context, *DeleteCollectionRequest) (*EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCollection not implemented")
+}
+func (UnimplementedDynamicDataServiceServer) GetDatabaseScript(context.Context, *GetDatabaseScriptRequest) (*GetDatabaseScriptResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDatabaseScript not implemented")
 }
 func (UnimplementedDynamicDataServiceServer) HealthCheck(context.Context, *EmptyRequest) (*EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HealthCheck not implemented")
@@ -420,6 +434,24 @@ func _DynamicDataService_DeleteCollection_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DynamicDataService_GetDatabaseScript_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDatabaseScriptRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DynamicDataServiceServer).GetDatabaseScript(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.dynamic_data.api.DynamicDataService/GetDatabaseScript",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DynamicDataServiceServer).GetDatabaseScript(ctx, req.(*GetDatabaseScriptRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DynamicDataService_HealthCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(EmptyRequest)
 	if err := dec(in); err != nil {
@@ -488,6 +520,10 @@ var DynamicDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteCollection",
 			Handler:    _DynamicDataService_DeleteCollection_Handler,
+		},
+		{
+			MethodName: "GetDatabaseScript",
+			Handler:    _DynamicDataService_GetDatabaseScript_Handler,
 		},
 		{
 			MethodName: "HealthCheck",

@@ -224,6 +224,50 @@
         ]
       }
     },
+    "/api/database/script": {
+      "get": {
+        "operationId": "DynamicDataService_GetDatabaseScript",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetDatabaseScriptResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "databaseSystem",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "MYSQL",
+              "POSTGRES",
+              "SQLSERVER",
+              "SQLITE"
+            ],
+            "default": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "DynamicDataService"
+        ]
+      }
+    },
     "/api/document": {
       "get": {
         "operationId": "DynamicDataService_GetDocument",
@@ -426,6 +470,36 @@
         },
         "tags": [
           "GenCodeService"
+        ]
+      }
+    },
+    "/api/internal/project": {
+      "get": {
+        "operationId": "UserService_InternalGetProjectBasicInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiInternalGetProjectBasicInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
         ]
       }
     },
@@ -846,6 +920,17 @@
         }
       }
     },
+    "apiDatabaseSystem": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "MYSQL",
+        "POSTGRES",
+        "SQLSERVER",
+        "SQLITE"
+      ],
+      "default": "UNKNOWN"
+    },
     "apiDocument": {
       "type": "object",
       "properties": {
@@ -936,6 +1021,14 @@
           "items": {
             "$ref": "#/definitions/apiDocument"
           }
+        }
+      }
+    },
+    "apiGetDatabaseScriptResponse": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
         }
       }
     },
@@ -1038,6 +1131,17 @@
       "type": "object",
       "properties": {
         "message": {
+          "type": "string"
+        }
+      }
+    },
+    "apiInternalGetProjectBasicInfoResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }

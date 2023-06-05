@@ -11,3 +11,8 @@ type Project struct {
 	CreatedAt      int64              `bson:"created_at,omitempty"`
 	UpdatedAt      int64              `bson:"updated_at,omitempty"`
 }
+
+type ProjectBasicInfo struct {
+	Id   primitive.ObjectID `bson:"_id,omitempty"`
+	Name string             `bson:"name,omitempty"`
+}
