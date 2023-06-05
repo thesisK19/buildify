@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: dynamic-data-deployment
-          image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/dynamic-data:9
+          image: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/dynamic-data:9
           imagePullPolicy: IfNotPresent
           env:
             - name: GEN_CODE_HOST

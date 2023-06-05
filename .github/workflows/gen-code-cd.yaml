@@ -65,4 +65,4 @@ jobs:
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get pods
 
-# ./kustomize edit set image asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/user:1
+# ./kustomize edit set image asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/user:1
