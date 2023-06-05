@@ -103,7 +103,7 @@ func generateSQLScript(database *dto.ListCollections, databaseSystem api.Databas
 func generateCreateTableStatement(tableName string, dataKeys []string, dataTypes []int32, databaseSystem api.DatabaseSystem) string {
 	var createTableStatement strings.Builder
 
-	createTableStatement.WriteString(fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (", tableName))
+	createTableStatement.WriteString(getCreateTablePrefix(databaseSystem, tableName))
 	createTableStatement.WriteString(generatePrimaryKeySyntax(databaseSystem))
 	createTableStatement.WriteString(", ")
 
@@ -119,6 +119,16 @@ func generateCreateTableStatement(tableName string, dataKeys []string, dataTypes
 	createTableStatement.WriteString(");\n\n")
 
 	return createTableStatement.String()
+}
+
+// Helper function to get the CREATE TABLE prefix based on the database system
+func getCreateTablePrefix(databaseSystem api.DatabaseSystem, tableName string) string {
+	switch databaseSystem {
+	case api.DatabaseSystem_SQLSERVER:
+		return fmt.Sprintf("IF OBJECT_ID('%s', 'U') IS NULL CREATE TABLE %s (", tableName, tableName)
+	default:
+		return fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (", tableName)
+	}
 }
 
 // Helper function to generate the auto-incrementing primary key syntax
