@@ -9,6 +9,7 @@ go_library(
     importpath = "github.com/thesisK19/buildify/app/file_mgt/internal/util",
     visibility = ["//app/file_mgt:__subpackages__"],
     deps = [
+        "//app/file_mgt/internal/constant",
         "@com_github_satori_go_uuid//:go_uuid",
         "@com_google_cloud_go_storage//:storage",
         "@org_golang_google_api//option",

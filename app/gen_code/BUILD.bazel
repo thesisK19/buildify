@@ -46,7 +46,7 @@ container_push(
     name = "push",
     format = "Docker",
     image = ":npx_go_image",
-    registry = "asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry",
+    registry = "asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry",
     repository = "gen-code",
     skip_unchanged_digest = False,
     tag = "{IMAGE_TAG}",

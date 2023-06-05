@@ -31,6 +31,6 @@ const (
 )
 
 const (
-	BUCKET                      = "gen-code"
+	BUCKET                      = "gen-code-bucket"
 	DETELE_REMOTE_FILE_DURATION = 5 * time.Minute
 )
