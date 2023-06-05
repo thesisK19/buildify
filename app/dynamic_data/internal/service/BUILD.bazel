@@ -4,6 +4,7 @@ go_library(
     name = "service",
     srcs = [
         "collection.go",
+        "database_script.go",
         "document.go",
         "register_gen.go",
         "service.go",
@@ -14,10 +15,13 @@ go_library(
     deps = [
         "//app/dynamic_data/api",
         "//app/dynamic_data/config",
+        "//app/dynamic_data/internal/constant",
+        "//app/dynamic_data/internal/dto",
         "//app/dynamic_data/internal/model",
         "//app/dynamic_data/internal/store",
         "//app/dynamic_data/internal/util",
         "//app/gen_code/pkg/adapter",
+        "//app/user/api",
         "//app/user/pkg/adapter",
         "//library/errors",
         "//library/server",
