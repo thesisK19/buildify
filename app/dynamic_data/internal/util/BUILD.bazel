@@ -2,11 +2,19 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 
 go_library(
     name = "util",
-    srcs = ["convert_data.go"],
+    srcs = [
+        "convert_data.go",
+        "file.go",
+        "upload_file.go",
+    ],
     importpath = "github.com/thesisK19/buildify/app/dynamic_data/internal/util",
     visibility = ["//app/dynamic_data:__subpackages__"],
     deps = [
+        "//app/dynamic_data/internal/constant",
+        "@com_github_grpc_ecosystem_go_grpc_middleware//logging/logrus/ctxlogrus",
+        "@com_google_cloud_go_storage//:storage",
         "@in_gopkg_mgo_v2//bson",
+        "@org_golang_google_api//option",
         "@org_golang_google_protobuf//types/known/structpb",
     ],
 )
