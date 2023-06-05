@@ -84,3 +84,10 @@ build:
 # kubectl describe managedcertificate managed-cert
 
 # kubectl logs dynamic-data-deployment-8f694948f-d5dwh --follow | grep GetDatabaseScript
+
+# gcloud compute addresses list
+
+# ipconfig /flushdns
+
+# gcloud compute addresses create ingress-static-ip --global
+# https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip

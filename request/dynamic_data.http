@@ -1,6 +1,6 @@
 # https://dynamic-data-service.buildify.asia
 # http://localhost:3005
-@host = http://localhost:3005
+@host = https://dynamic-data-service.buildify.asia
 
 ### health check
 GET {{host}} HTTP/1.1
