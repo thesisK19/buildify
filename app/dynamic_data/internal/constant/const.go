@@ -26,6 +26,6 @@ const (
 )
 
 const (
-	BUCKET                      = "dynamic--data"
+	BUCKET                      = "dynamic-data-bucket"
 	DETELE_REMOTE_FILE_DURATION = 5 * time.Minute
 )

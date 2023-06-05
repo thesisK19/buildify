@@ -82,3 +82,5 @@ build:
 # kubectl exec -it gen-code-deployment-56bc5cb64d-wqs26 sh
 # kubectl get managedcertificate
 # kubectl describe managedcertificate managed-cert
+
+# kubectl logs dynamic-data-deployment-8f694948f-d5dwh --follow | grep GetDatabaseScript

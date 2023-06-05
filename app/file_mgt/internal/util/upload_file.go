@@ -8,13 +8,14 @@ import (
 	"os"
 
 	"cloud.google.com/go/storage"
+	"github.com/thesisK19/buildify/app/file_mgt/internal/constant"
 	"google.golang.org/api/option"
 )
 
 func UploadFileWithFilePath(inputFilePath string, remoteFilePath string) (*string, error) {
 	ctx := context.Background()
 
-	bucket := "file-mgt" //your bucket name
+	bucket := constant.BUCKET //your bucket name
 	storageClient, err := storage.NewClient(ctx, option.WithCredentialsFile("storage-key.json"))
 	if err != nil {
 		return nil, err
