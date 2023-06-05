@@ -44,6 +44,11 @@ service UserService {
             get : "/api/project"
         };
     }
+    rpc InternalGetProjectBasicInfo(InternalGetProjectBasicInfoRequest) returns (InternalGetProjectBasicInfoResponse) {
+        option (google.api.http) = {
+            get : "/api/internal/project"
+        };
+    }
     rpc GetListProjects(EmptyRequest) returns (GetListProjectsResponse) {
         option (google.api.http) = {
             get : "/api/project/list"
@@ -124,6 +129,12 @@ message GetProjectResponse {
     string compress_string = 3;
     int64 created_at = 4;
     int64 updated_at = 5;
+}
+
+message InternalGetProjectBasicInfoRequest { string id = 1; }
+message InternalGetProjectBasicInfoResponse {
+    string id = 1;
+    string name = 2;
 }
 
 message GetListProjectsResponse { repeated Project projects = 1; }

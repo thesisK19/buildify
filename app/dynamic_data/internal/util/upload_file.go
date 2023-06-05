@@ -11,7 +11,7 @@ import (
 
 	"cloud.google.com/go/storage"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
-	"github.com/thesisK19/buildify/app/gen_code/internal/constant"
+	"github.com/thesisK19/buildify/app/dynamic_data/internal/constant"
 	"google.golang.org/api/option"
 )
 
@@ -32,7 +32,7 @@ func GenerateFileName(username string, projectName string, additionalInfo string
 func UploadFile(ctx context.Context, inputFilePath string, remoteFilePath string, deleteAfterDuration bool, noCache bool) (*string, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "UploadFile")
 
-	bucket := constant.BUCKET
+	bucket := constant.BUCKET //your bucket name TODO:
 	storageClient, err := storage.NewClient(ctx, option.WithCredentialsFile("storage-key.json"))
 	if err != nil {
 		logger.WithError(err).Error("failed to create storage.NewClient")

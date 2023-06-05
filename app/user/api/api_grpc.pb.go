@@ -28,6 +28,7 @@ type UserServiceClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*CreateProjectResponse, error)
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
+	InternalGetProjectBasicInfo(ctx context.Context, in *InternalGetProjectBasicInfoRequest, opts ...grpc.CallOption) (*InternalGetProjectBasicInfoResponse, error)
 	GetListProjects(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetListProjectsResponse, error)
 	UpdateProject(ctx context.Context, in *UpdateProjectRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
 	DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*EmptyResponse, error)
@@ -97,6 +98,15 @@ func (c *userServiceClient) GetProject(ctx context.Context, in *GetProjectReques
 	return out, nil
 }
 
+func (c *userServiceClient) InternalGetProjectBasicInfo(ctx context.Context, in *InternalGetProjectBasicInfoRequest, opts ...grpc.CallOption) (*InternalGetProjectBasicInfoResponse, error) {
+	out := new(InternalGetProjectBasicInfoResponse)
+	err := c.cc.Invoke(ctx, "/buildify.app.user.api.UserService/InternalGetProjectBasicInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userServiceClient) GetListProjects(ctx context.Context, in *EmptyRequest, opts ...grpc.CallOption) (*GetListProjectsResponse, error) {
 	out := new(GetListProjectsResponse)
 	err := c.cc.Invoke(ctx, "/buildify.app.user.api.UserService/GetListProjects", in, out, opts...)
@@ -152,6 +162,7 @@ type UserServiceServer interface {
 	UpdateUser(context.Context, *UpdateUserRequest) (*EmptyResponse, error)
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectResponse, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
+	InternalGetProjectBasicInfo(context.Context, *InternalGetProjectBasicInfoRequest) (*InternalGetProjectBasicInfoResponse, error)
 	GetListProjects(context.Context, *EmptyRequest) (*GetListProjectsResponse, error)
 	UpdateProject(context.Context, *UpdateProjectRequest) (*EmptyResponse, error)
 	DeleteProject(context.Context, *DeleteProjectRequest) (*EmptyResponse, error)
@@ -180,6 +191,9 @@ func (UnimplementedUserServiceServer) CreateProject(context.Context, *CreateProj
 }
 func (UnimplementedUserServiceServer) GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProject not implemented")
+}
+func (UnimplementedUserServiceServer) InternalGetProjectBasicInfo(context.Context, *InternalGetProjectBasicInfoRequest) (*InternalGetProjectBasicInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InternalGetProjectBasicInfo not implemented")
 }
 func (UnimplementedUserServiceServer) GetListProjects(context.Context, *EmptyRequest) (*GetListProjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListProjects not implemented")
@@ -316,6 +330,24 @@ func _UserService_GetProject_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_InternalGetProjectBasicInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InternalGetProjectBasicInfoRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).InternalGetProjectBasicInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/buildify.app.user.api.UserService/InternalGetProjectBasicInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).InternalGetProjectBasicInfo(ctx, req.(*InternalGetProjectBasicInfoRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _UserService_GetListProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(EmptyRequest)
 	if err := dec(in); err != nil {
@@ -436,6 +468,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProject",
 			Handler:    _UserService_GetProject_Handler,
+		},
+		{
+			MethodName: "InternalGetProjectBasicInfo",
+			Handler:    _UserService_InternalGetProjectBasicInfo_Handler,
 		},
 		{
 			MethodName: "GetListProjects",

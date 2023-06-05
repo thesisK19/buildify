@@ -75,6 +75,23 @@ func (s *Service) GetProject(ctx context.Context, in *api.GetProjectRequest) (*a
 	}, nil
 }
 
+func (s *Service) InternalGetProjectBasicInfo(ctx context.Context, in *api.InternalGetProjectBasicInfoRequest) (*api.InternalGetProjectBasicInfoResponse, error) {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "InternalGetProjectBasicInfo")
+
+	username := server_lib.GetUsernameFromContext(ctx)
+
+	project, err := s.repository.GetProjectBasicInfo(ctx, username, in.Id)
+	if err != nil {
+		logger.WithError(err).Error("failed to repo.GetProjectBasicInfo")
+		return nil, err
+	}
+
+	return &api.InternalGetProjectBasicInfoResponse{
+		Id:   project.Id,
+		Name: project.Name,
+	}, nil
+}
+
 func (s *Service) UpdateProject(ctx context.Context, in *api.UpdateProjectRequest) (*api.EmptyResponse, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "UpdateProject")
 

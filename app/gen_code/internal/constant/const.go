@@ -1,5 +1,7 @@
 package constant
 
+import "time"
+
 const (
 	BASE_DECIMAL = 10
 )
@@ -24,4 +26,11 @@ const (
 	CONFIG_TSX        = `config.tsx`
 	COMPONENT_DIR     = `src/components`
 	REACT_JS_BASE_DIR = "base/reactJS"
+	SOURCE_CODE       = "source_code"
+	ZIP_EXTENSION     = ".zip"
+)
+
+const (
+	BUCKET                      = "gen-code"
+	DETELE_REMOTE_FILE_DURATION = 5 * time.Minute
 )

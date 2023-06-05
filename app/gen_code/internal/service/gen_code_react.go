@@ -12,6 +12,9 @@ import (
 	"sync"
 	"time"
 
+	userApi "github.com/thesisK19/buildify/app/user/api"
+	server_lib "github.com/thesisK19/buildify/library/server"
+
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
 	dynamicDataApi "github.com/thesisK19/buildify/app/dynamic_data/api"
 	"github.com/thesisK19/buildify/app/gen_code/api"
@@ -137,7 +140,18 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	}
 
 	// upload File
-	url, err := util.UploadFile(ctx, outputZipPath, outputZipPath)
+	username := server_lib.GetUsernameFromContext(ctx)
+	projectName, err := s.adapters.user.InternalGetProjectBasicInfo(ctx, &userApi.InternalGetProjectBasicInfoRequest{
+		Id: request.ProjectId,
+	})
+	if err != nil {
+		logger.WithError(err).Error("failed to call user.InternalGetProjectBasicInfo")
+		return nil, err
+	}
+
+	remoteFilePath := util.GenerateFileName(username, projectName.Name, constant.SOURCE_CODE+constant.ZIP_EXTENSION)
+
+	url, err := util.UploadFile(ctx, outputZipPath, remoteFilePath, true, true)
 	if err != nil {
 		logger.WithError(err).Error("failed to UploadFile")
 		return nil, err
@@ -145,12 +159,15 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 
 	// Remove the input directory after zipping.
 	go func() {
-		os.RemoveAll(outputZipPath)
-		os.RemoveAll(rootDirPath)
+		err := os.Remove(outputZipPath)
+		if err != nil {
+			logger.WithError(err).Error("failed to os.Remove file")
+		}
+		err = os.RemoveAll(rootDirPath)
+		if err != nil {
+			logger.WithError(err).Error("failed to os.RemoveAll file")
+		}
 	}()
-
-	// TODO: delete remote file after 10 mins
-	logger.Info("url%s", *url)
 
 	return &api.GenReactSourceCodeResponse{
 		Url: *url,

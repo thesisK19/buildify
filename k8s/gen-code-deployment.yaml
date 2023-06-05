@@ -15,7 +15,7 @@ spec:
       containers:
         - name: gen-code-deployment
           image: asia-southeast1-docker.pkg.dev/thesis-378216/buildify-registry/gen-code:26
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           env:
             - name: jwt_secret
               valueFrom:
