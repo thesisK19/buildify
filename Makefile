@@ -53,7 +53,7 @@ build:
 
 # docker tag bazel/app/user:base_binary_image buildify.azurecr.io/user:base_binary_image
 
-# docker tag bazel/app/user:container_image gcr.io/thesis-378216/buildify-registry/user:base_binary_image
+# docker tag bazel/app/user:container_image gcr.io/buildify-388906/buildify-registry/user:base_binary_image
 
 # docker tag bazel/app/gen_code:base_binary_image buildify.azurecr.io/gen-code:base_binary_image
 # docker tag bazel/app/file_mgt:container_image buildify.azurecr.io/file_mgt:base_binary_image
