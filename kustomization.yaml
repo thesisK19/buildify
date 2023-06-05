@@ -9,4 +9,6 @@ resources:
 - k8s/dynamic-data-service.yaml
 - k8s/file-mgt-deployment.yaml
 - k8s/file-mgt-service.yaml
+- k8s/my-secret.yaml
+- k8s/managed-cert.yaml
 - k8s/ingress.yaml
