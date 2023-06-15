@@ -407,7 +407,7 @@ func getReactElementInfoFromNodes(nodes []*dto.Node, linkedNodes []string) ([]st
 }
 
 func genReactElementFromNode(node *dto.Node) *dto.ReactElement {
-	elementString := fmt.Sprintf(`<%s id="%s" {...%s.%s}>%s</%s>`, node.ComponentType, node.ID, constant.PROPS, node.ID, constant.KEY_CHILDREN, node.ComponentType)
+	elementString := fmt.Sprintf(`<%s {...%s.%s}>%s</%s>`, node.ComponentType, constant.PROPS, node.ID, constant.KEY_CHILDREN, node.ComponentType)
 
 	return &dto.ReactElement{
 		ID:            node.ID,
