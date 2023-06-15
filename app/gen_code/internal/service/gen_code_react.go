@@ -424,7 +424,7 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 	}
 
 	if len(reactElement.Children) == 0 {
-		reactElement.ElementString = fmt.Sprintf(`<%s id="%s" {...%s.%s}/>`, reactElement.Component, reactElement.ID, constant.PROPS, reactElement.ID)
+		reactElement.ElementString = fmt.Sprintf(`<%s {...%s.%s}/>`, reactElement.Component, constant.PROPS, reactElement.ID)
 		return reactElement.ElementString
 	}
 
