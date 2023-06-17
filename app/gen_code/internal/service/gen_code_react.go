@@ -151,23 +151,25 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 
 	remoteFilePath := util.GenerateFileName(username, projectName.Name, constant.SOURCE_CODE+constant.ZIP_EXTENSION)
 
+	// Remove the input directory after zipping.
+	defer func() {
+		go func() {
+			err := os.Remove(outputZipPath)
+			if err != nil {
+				logger.WithError(err).Error("failed to os.Remove file")
+			}
+			err = os.RemoveAll(rootDirPath)
+			if err != nil {
+				logger.WithError(err).Error("failed to os.RemoveAll file")
+			}
+		}()
+	}()
+
 	url, err := util.UploadFile(ctx, outputZipPath, remoteFilePath, true, true)
 	if err != nil {
 		logger.WithError(err).Error("failed to UploadFile")
 		return nil, err
 	}
-
-	// Remove the input directory after zipping.
-	go func() {
-		err := os.Remove(outputZipPath)
-		if err != nil {
-			logger.WithError(err).Error("failed to os.Remove file")
-		}
-		err = os.RemoveAll(rootDirPath)
-		if err != nil {
-			logger.WithError(err).Error("failed to os.RemoveAll file")
-		}
-	}()
 
 	return &api.GenReactSourceCodeResponse{
 		Url: *url,

@@ -61,6 +61,11 @@ jobs:
       - name: Deploy to GKE cluster
         run: |-
           ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add kustomization.yaml
+          git commit -m "update kustomization.yaml"
+          git push
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get pods

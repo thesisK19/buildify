@@ -65,18 +65,20 @@ func (s *Service) GetDatabaseScript(ctx context.Context, in *api.GetDatabaseScri
 
 	remoteFilePath := util.GenerateFileName(username, projectName.Name, in.DatabaseSystem.String()+constant.SQL_EXTENSION)
 
+	defer func() {
+		go func() {
+			err := os.Remove(filePath)
+			if err != nil {
+				logger.WithError(err).Error("failed to os.Remove file")
+			}
+		}()
+	}()
+
 	url, err := util.UploadFile(ctx, filePath, remoteFilePath, true, true)
 	if err != nil {
 		logger.WithError(err).Error("failed to UploadFile")
 		return nil, err
 	}
-
-	go func() {
-		err := os.Remove(filePath)
-		if err != nil {
-			logger.WithError(err).Error("failed to os.Remove file")
-		}
-	}()
 
 	return &api.GetDatabaseScriptResponse{
 		Url: *url,
