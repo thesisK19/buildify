@@ -11,6 +11,8 @@ resources:
 - k8s/dynamic-data-deployment.yaml
 - k8s/file-mgt-deployment.yaml
 images:
+- name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/dynamic-data
+  newTag: "20"
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/file-mgt
   newTag: "24"
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/user
