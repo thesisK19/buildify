@@ -55,11 +55,13 @@ jobs:
           chmod u+x ./kustomize
 
       # Deploy to the GKE cluster
-      - name: Deploy to GKE cluster
+      - name: Save new image tag & Deploy to GKE cluster
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: |-
           ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.email "botgithubk19@github.com"
+          git config --local user.name "GitHub Bot"
           git add kustomization.yaml
           git commit -m "update kustomization.yaml"
           git push

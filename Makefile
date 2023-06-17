@@ -91,3 +91,5 @@ build:
 
 # gcloud compute addresses create ingress-static-ip --global
 # https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip
+
+# kubectl rollout history deployment/gen-code-deployment --revision=6
