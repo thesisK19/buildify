@@ -59,17 +59,21 @@ jobs:
           curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
           chmod u+x ./kustomize
 
-      # Deploy to the GKE cluster
-      - name: Save new image tag & Deploy to GKE cluster
+      - name: Switch to release branch & set new image tag
         run: |-
-          ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
+          git checkout release
+           ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
           git config --local user.email "botgithubk19@gmail.com"
           git config --local user.name "bot-k19"
           git add kustomization.yaml
           git commit -m "update kustomization.yaml"
           git push
+
+      # Deploy to the GKE cluster
+      - name: Deploy to GKE cluster
+        run: |-
           ./kustomize build . | kubectl apply -f -
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get pods
-
+          
 # ./kustomize edit set image asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/user:1

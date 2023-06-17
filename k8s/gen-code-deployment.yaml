@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: gen-code-deployment
-          image: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code:43
+          image: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code:44
           imagePullPolicy: IfNotPresent
           env:
             - name: jwt_secret
