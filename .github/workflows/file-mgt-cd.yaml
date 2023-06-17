@@ -64,8 +64,8 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: |-
           ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
-          git config --local user.email "botgithubk19@github.com"
-          git config --local user.name "GitHub Bot"
+          git config --local user.email "botgithubk19@gmail.com"
+          git config --local user.name "bot-k19"
           git add kustomization.yaml
           git commit -m "update kustomization.yaml"
           git push
