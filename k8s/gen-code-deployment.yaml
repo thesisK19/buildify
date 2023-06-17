@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: gen-code-deployment
-          image: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code:37
+          image: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code:43
           imagePullPolicy: IfNotPresent
           env:
             - name: jwt_secret
@@ -27,5 +27,5 @@ spec:
             - containerPort: 443
           resources:
             limits:
-              cpu: 100m
+              cpu: 200m
               memory: 500Mi
