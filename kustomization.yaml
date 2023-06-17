@@ -5,7 +5,10 @@ kind: Kustomization
 # - k8s/dynamic-data-service.yaml
 # - k8s/ingress.yaml
 resources:
-  - k8s/gen-code-deployment.yaml
-  - k8s/user-deployment.yaml
-  - k8s/dynamic-data-deployment.yaml
-  - k8s/file-mgt-deployment.yaml
+- k8s/gen-code-deployment.yaml
+- k8s/user-deployment.yaml
+- k8s/dynamic-data-deployment.yaml
+- k8s/file-mgt-deployment.yaml
+images:
+- name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code
+  newTag: "44"
