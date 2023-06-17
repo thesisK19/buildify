@@ -61,6 +61,7 @@ jobs:
 
       - name: Switch to release branch & set new image tag
         run: |-
+          git fetch --all
           git checkout release
            ./kustomize edit set image ${{ secrets.ARTIFACT_REGISTRY }}/$IMAGE:${{ github.run_number }}
           git config --local user.email "botgithubk19@gmail.com"
