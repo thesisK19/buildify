@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: file-mgt-deployment
-          image: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/file-mgt:20
+          image: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/file-mgt:22
           imagePullPolicy: IfNotPresent
           env:
             - name: jwt_secret
