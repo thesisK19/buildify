@@ -25,7 +25,7 @@ func (s *Service) SignUp(ctx context.Context, in *api.SignUpRequest) (*api.Empty
 
 	// add default avatar
 	if in.AvatarUrl == "" {
-		in.AvatarUrl = "https://storage.googleapis.com/file-mgt/avatars/default-user.png"
+		in.AvatarUrl = "https://storage.googleapis.com/file-mgt-bucket/avatars/default-user.png"
 	}
 
 	createParams := model.CreateUserParams{
