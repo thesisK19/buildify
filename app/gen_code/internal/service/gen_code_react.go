@@ -409,7 +409,8 @@ func getReactElementInfoFromNodes(nodes []*dto.Node, linkedNodes []string) ([]st
 }
 
 func genReactElementFromNode(node *dto.Node) *dto.ReactElement {
-	elementString := fmt.Sprintf(`<%s {...%s.%s}>%s</%s>`, node.ComponentType, constant.PROPS, node.ID, constant.KEY_CHILDREN, node.ComponentType)
+	hasChildren := len(node.Children) > 0
+	elementString := getElementString(*node, hasChildren)
 
 	return &dto.ReactElement{
 		ID:            node.ID,
@@ -426,7 +427,6 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 	}
 
 	if len(reactElement.Children) == 0 {
-		reactElement.ElementString = fmt.Sprintf(`<%s {...%s.%s}/>`, reactElement.Component, constant.PROPS, reactElement.ID)
 		return reactElement.ElementString
 	}
 
@@ -498,6 +498,7 @@ func getMapPagePathToPageInfo(ctx context.Context, request *api.GenReactSourceCo
 		}
 		mapPagePathToPageInfo[pagePath].Nodes = append(mapPagePathToPageInfo[pagePath].Nodes, &dto.Node{
 			ID:            node.GetId(),
+			Name:          node.GetDisplayName(),
 			ComponentType: node.GetType(),
 			Props:         node.GetProps(),
 			Children:      node.GetChildren(),
@@ -506,4 +507,36 @@ func getMapPagePathToPageInfo(ctx context.Context, request *api.GenReactSourceCo
 	}
 
 	return mapPagePathToPageInfo, nil
+}
+
+func parseProps(jsonStr string) (dto.ImportantProps, error) {
+	var props dto.ImportantProps
+	err := json.Unmarshal([]byte(jsonStr), &props)
+	return props, err
+}
+
+func getElementString(node dto.Node, hasChildren bool) string {
+	id := node.ID
+	componentType := node.ComponentType
+	name := node.Name
+
+	var builder strings.Builder
+	builder.WriteString(fmt.Sprintf(`<%s`, componentType))
+
+	if name != componentType {
+		builder.WriteString(fmt.Sprintf(` name="%s"`, name))
+	}
+
+	importantProps, err := parseProps(node.Props)
+	if err == nil && importantProps.Text != "" {
+		builder.WriteString(fmt.Sprintf(` text="%s"`, importantProps.Text))
+	}
+
+	if hasChildren {
+		builder.WriteString(fmt.Sprintf(` {...%s.%s}>%s</%s>`, constant.PROPS, id, constant.KEY_CHILDREN, node.ComponentType))
+	} else {
+		builder.WriteString(fmt.Sprintf(` {...%s.%s}/>`, constant.PROPS, id))
+	}
+
+	return strings.TrimSpace(builder.String())
 }

@@ -15,6 +15,7 @@ type PageInfo struct {
 
 type Node struct {
 	ID            string
+	Name          string
 	ComponentType string
 	Props         string
 	Children      []string
@@ -27,4 +28,8 @@ type ReactElement struct {
 	Component     string
 	ElementString string
 	Children      []string
+}
+
+type ImportantProps struct {
+	Text string `json:"text"`
 }
