@@ -8,7 +8,7 @@ message Node {
     string type = 2;
     string props = 3;
     string display_name = 4;
-    bool hidden = 5;
+    // bool hidden = 5;
     repeated string children = 6;
     repeated string linked_nodes = 7;
     string page_path = 8;

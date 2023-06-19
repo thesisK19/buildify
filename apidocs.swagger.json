@@ -1161,14 +1161,12 @@
         "displayName": {
           "type": "string"
         },
-        "hidden": {
-          "type": "boolean"
-        },
         "children": {
           "type": "array",
           "items": {
             "type": "string"
-          }
+          },
+          "title": "bool hidden = 5;"
         },
         "linkedNodes": {
           "type": "array",
