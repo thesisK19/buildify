@@ -1,6 +1,8 @@
 #app-container {
-
-  // app container in client
+  [id^=ROOT]{
+    min-width: 200px !important;
+    overflow: hidden;
+  }
   .custom {
 
     // margin
