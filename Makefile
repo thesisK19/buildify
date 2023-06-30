@@ -18,78 +18,11 @@ update:
 build:
 	bazel build //...
 
-# run-user:
-# 	bazel run //app/user/cmd:cmd
-
-# run-gen-code:
-# 	bazel run //app/gen_code/cmd:cmd
-
-# bazel run //app/orders/fulfillment_router_service --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64
-
-#  bazel build //app/user:base_binary_image
-#  bazel run //app/user:base_binary_image
-
-# bazel build //app/gen_code:base_binary_image
-# bazel run //app/gen_code:base_binary_image
-# docker run --rm -it -p3003:3003 bazel/app/gen_code:base_binary_image
+set-up:
+	sudo apt install bazel
+	go install github.com/bufbuild/buf/cmd/buf@v1.17.0
+	sudo apt install -y protobuf-compiler
+	go mod tidy
 
 
-# bazel build //app/gen_code/cmd:base_binary_image
-# bazel run //app/gen_code/cmd:base_binary_image -- --norun
-# docker run --rm -it -p3003:3003 bazel/app/gen_code:base_binary_image
-
-
-# bazel build //app/gen_code:container_image
-# bazel run //app/gen_code:container_image
-# docker run --rm -it -p3003:3003 bazel/app/gen_code:container_image
-
-# docker run --rm -it -p10080:10080 bazel/app/user:base_binary_image
-
-# docker push buildify.azurecr.io/user:base_binary_image
-# docker push buildify.azurecr.io/gen-code:base_binary_image
-
-# docker rmi -f $(docker images -aq)
-
-
-# docker tag bazel/app/user:base_binary_image buildify.azurecr.io/user:base_binary_image
-
-# docker tag bazel/app/user:container_image gcr.io/buildify-388906/buildify-registry/user:base_binary_image
-
-# docker tag bazel/app/gen_code:base_binary_image buildify.azurecr.io/gen-code:base_binary_image
-# docker tag bazel/app/file_mgt:container_image buildify.azurecr.io/file_mgt:base_binary_image
-# docker push buildify.azurecr.io/file_mgt:base_binary_image
-
-
-
-# docker run -it bazel/app/gen_code:container_image
-
-
-
-
-# 9,398,200.00
-# 7,048,650.00 credit
-
-#  bazel query @go_base_image//...   
-
-#  docker exec -it ad019aef5836 /bin/sh
-
-# bazel run //app/gen_code:push
-
-# kubectl logs --tail=20
-
-#  docker run --rm -it -p3003:80 bazel/app/gen_code:npx_go_image 
-
-# kubectl exec -it gen-code-deployment-56bc5cb64d-wqs26 sh
-# kubectl get managedcertificate
-# kubectl describe managedcertificate managed-cert
-
-# kubectl logs dynamic-data-deployment-8f694948f-d5dwh --follow | grep GetDatabaseScript
-
-# gcloud compute addresses list
-
-# ipconfig /flushdns
-
-# gcloud compute addresses create ingress-static-ip --global
-# https://cloud.google.com/kubernetes-engine/docs/tutorials/configuring-domain-name-static-ip
-
-# kubectl rollout history deployment/gen-code-deployment --revision=6
+	
