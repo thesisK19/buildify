@@ -11,6 +11,6 @@
 2. chạy command `make set-up` để install bazel, buf, protobuf
 
 ## Hướng dẫn chạy từng service ở localhost
-Một ví dụ để chạy service user: `cd app/user && make run`
-Riêng đối với service gen-code: cần install prettier với command `npm install -g prettier` 
+- Một ví dụ để chạy service user: `cd app/user && make run`
+- Riêng đối với service gen-code: cần install prettier với command `npm install -g prettier` 
 
