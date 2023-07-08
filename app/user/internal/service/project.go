@@ -4,10 +4,12 @@ import (
 	"context"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
+	dynamicDataApi "github.com/thesisK19/buildify/app/dynamic_data/api"
 	"github.com/thesisK19/buildify/app/user/api"
 	"github.com/thesisK19/buildify/app/user/internal/model"
 	server_lib "github.com/thesisK19/buildify/library/server"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 func (s *Service) CreateProject(ctx context.Context, in *api.CreateProjectRequest) (*api.CreateProjectResponse, error) {
@@ -21,6 +23,11 @@ func (s *Service) CreateProject(ctx context.Context, in *api.CreateProjectReques
 		return nil, err
 	}
 
+	err = s.createExampleDatabase(ctx, newProject.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	return &api.CreateProjectResponse{
 		Id:             newProject.Id,
 		Name:           newProject.Name,
@@ -28,6 +35,73 @@ func (s *Service) CreateProject(ctx context.Context, in *api.CreateProjectReques
 		CreatedAt:      newProject.CreatedAt,
 		UpdatedAt:      newProject.UpdatedAt,
 	}, nil
+}
+
+func (s *Service) createExampleDatabase(ctx context.Context, projectId string) error {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "createExampleDatabase")
+	collResp, err := s.adapters.dynamicData.CreateCollection(ctx, &dynamicDataApi.CreateCollectionRequest{
+		ProjectId: projectId,
+		Name:      "Product",
+		DataKeys:  []string{"name", "description", "price", "image"},
+		DataTypes: []int32{1, 1, 1, 1},
+	})
+	if err != nil {
+		logger.WithError(err).Error("failed to createExampleDatabase")
+		return err
+	}
+	collId := collResp.GetId()
+	_, err = s.adapters.dynamicData.CreateDocument(ctx, &dynamicDataApi.CreateDocumentRequest{
+		CollectionId: collId,
+		Data: map[string]*structpb.Value{
+			"name":        createStructValue("iPhone 12 64GB"),
+			"description": createStructValue("Chip Apple A14 Bionic RAM: 4 GB Dung lượng: 64 GB Camera sau: 2 camera 12 MP Camera trước: 12 MP Pin 2815 mAh, Sạc 20 W"),
+			"price":       createStructValue("15.490.000 đ"),
+			"image":       createStructValue("https://storage.googleapis.com/dynamic-data-bucket/example/iphone-12-tim.jpg"),
+		},
+	})
+	if err != nil {
+		logger.WithError(err).Error("failed to createExampleDatabase")
+		return err
+	}
+
+	_, err = s.adapters.dynamicData.CreateDocument(ctx, &dynamicDataApi.CreateDocumentRequest{
+		CollectionId: collId,
+		Data: map[string]*structpb.Value{
+			"name":        createStructValue("iPhone 14"),
+			"description": createStructValue("Chip Apple A15 Bionic RAM: 6 GB Dung lượng: 128 GB Camera sau: 2 camera 12 MP Camera trước: 12 MP Pin 3279 mAh, Sạc 20 W"),
+			"price":       createStructValue("19.390.000 đ"),
+			"image":       createStructValue("https://storage.googleapis.com/dynamic-data-bucket/example/iPhone-14-do.jpg"),
+		},
+	})
+	if err != nil {
+		logger.WithError(err).Error("failed to createExampleDatabase")
+		return err
+	}
+	_, err = s.adapters.dynamicData.CreateDocument(ctx, &dynamicDataApi.CreateDocumentRequest{
+		CollectionId: collId,
+		Data: map[string]*structpb.Value{
+			"name":        createStructValue("iPhone 14 Pro"),
+			"description": createStructValue("Chip Apple A16 Bionic RAM: 6 GB Dung lượng: 128 GB Camera sau: Chính 48 MP & Phụ 12 MP, 12 MP Camera trước: 12 MP Pin 3200 mAh, Sạc 20 W"),
+			"price":       createStructValue("24.990.000 đ"),
+			"image":       createStructValue("https://storage.googleapis.com/dynamic-data-bucket/example/iphone-14-pro-vang.jpg"),
+		},
+	})
+	if err != nil {
+		logger.WithError(err).Error("failed to createExampleDatabase")
+		return err
+	}
+	return nil
+}
+
+func createStructValue(input string) *structpb.Value {
+	// Create a *structpb.Value object for the string value
+	value := &structpb.Value{
+		Kind: &structpb.Value_StringValue{
+			StringValue: input,
+		},
+	}
+
+	return value
 }
 
 func (s *Service) GetListProjects(ctx context.Context, in *api.EmptyRequest) (*api.GetListProjectsResponse, error) {
