@@ -102,7 +102,7 @@ func (r *repository) GetListCollections(ctx context.Context, username string, pr
 		return &dto.ListCollections{}, nil
 	}
 
-	cursor, err = r.db.Collection(constant.DOCUMENT_COLL).Find(ctx, bson.M{"collection_id": bson.M{"$in": collectionIds}})
+	cursor, err = r.db.Collection(constant.DOCUMENT_COLL).Find(ctx, bson.M{"username": username, "collection_id": bson.M{"$in": collectionIds}})
 	if err != nil {
 		return nil, fmt.Errorf("failed to find documents: %v", err)
 	}
