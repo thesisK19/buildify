@@ -16,6 +16,6 @@ images:
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/file-mgt
   newTag: "24"
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code
-  newTag: "53"
+  newTag: "54"
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/user
   newTag: "31"
