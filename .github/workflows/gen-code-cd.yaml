@@ -77,4 +77,5 @@ jobs:
           kubectl rollout status deployment/$DEPLOYMENT_NAME
           kubectl get pods
           
+      # kubectl delete pod -l app=gen-code-deployment --field-selector=status.phase!=Pending
 # ./kustomize edit set image asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/user:1
