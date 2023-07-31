@@ -13,21 +13,37 @@ type PageInfo struct {
 	LinkedNodes []string
 }
 
+type ComponentInfo struct {
+	RootID         string
+	Name           string
+	ComponentProps []string
+	CompNodes      map[string]*CompNode
+}
+
 type Node struct {
+	ID                        string
+	Name                      string
+	ComponentType             string // pre comp
+	BelongToUserComponentType string // or user-comp
+	CorrespondingProp         string // use for child of user component
+	Props                     string
+	Children                  []string
+}
+
+type CompNode struct {
 	ID            string
 	Name          string
-	ComponentType string
-	Props         string
+	ComponentType string // pre comp
 	Children      []string
-	Page          string
 }
 
 type ReactElement struct {
-	ID            string
-	Props         string
-	Component     string
-	ElementString string
-	Children      []string
+	ID                        string
+	Props                     string
+	Component                 string
+	ElementString             string
+	Children                  []string
+	BelongToUserComponentType string // or user-comp
 }
 
 type ImportantProps struct {

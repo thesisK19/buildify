@@ -2,11 +2,9 @@ package service
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
-	"sort"
 	"strconv"
 	"strings"
 	"sync"
@@ -16,16 +14,12 @@ import (
 	server_lib "github.com/thesisK19/buildify/library/server"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus/ctxlogrus"
-	dynamicDataApi "github.com/thesisK19/buildify/app/dynamic_data/api"
 	"github.com/thesisK19/buildify/app/gen_code/api"
 	"github.com/thesisK19/buildify/app/gen_code/internal/constant"
 	"github.com/thesisK19/buildify/app/gen_code/internal/dto"
 	"github.com/thesisK19/buildify/app/gen_code/internal/util"
-	"golang.org/x/exp/slices"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/iancoleman/strcase"
-	"github.com/scylladb/go-set/strset"
 )
 
 func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
@@ -41,17 +35,19 @@ func (s *Service) GenReactSourceCode(ctx context.Context, request *api.GenReactS
 func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReactSourceCodeRequest) (*api.GenReactSourceCodeResponse, error) {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "doGenReactSourceCode")
 
-	mapPagePathToPageInfo, err := getMapPagePathToPageInfo(ctx, request)
+	mapPagePathToPageInfo, mapCompNameToCompInfo, listPageName, listCompName, err := getInfoFromRequest(ctx, request)
 	if err != nil {
-		logger.WithError(err).Error("failed to getMapPagePathToPageInfo")
+		logger.WithError(err).Error("failed to getInfoFromRequest")
 		return nil, err
 	}
+
+	findComponentProps(mapCompNameToCompInfo)
 
 	rootDirName := strconv.FormatInt(time.Now().Unix(), constant.BASE_DECIMAL)
 	rootDirPath := fmt.Sprintf("%s/%s", constant.EXPORT_DIR, rootDirName)
 	outputZipPath := fmt.Sprintf("%s/%s.zip", constant.EXPORT_DIR, rootDirName)
 
-	err = setUpDir(ctx, rootDirPath, request.Pages)
+	err = setUpDir(ctx, rootDirPath, listPageName, listCompName)
 	if err != nil {
 		logger.WithError(err).Error("failed to setUpDir")
 		return nil, err
@@ -82,12 +78,38 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 		}
 	}()
 
+	//
+	// Generate component concurrently
+	for compName, compInfo := range mapCompNameToCompInfo {
+		wg.Add(1)
+		go func(compName string, compInfo *dto.ComponentInfo) {
+			defer wg.Done()
+			err := genComp(ctx, rootDirPath, compName, compInfo)
+			if err != nil {
+				logger.WithError(err).Error("failed to genComp")
+				errChan <- err
+			}
+		}(compName, compInfo)
+	}
+
+	// Generate index component concurrently
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		err = genIndexComponent(ctx, rootDirPath, listCompName)
+		if err != nil {
+			logger.WithError(err).Error("failed to genIndexComponent")
+			errChan <- err
+		}
+	}()
+
+	//
 	// Generate pages concurrently
 	for _, pageInfo := range mapPagePathToPageInfo {
 		wg.Add(1)
 		go func(pageInfo *dto.PageInfo) {
 			defer wg.Done()
-			err := genPage(ctx, rootDirPath, pageInfo)
+			err := genPage(ctx, rootDirPath, pageInfo, mapCompNameToCompInfo)
 			if err != nil {
 				logger.WithError(err).Error("failed to genPage")
 				errChan <- err
@@ -99,7 +121,7 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		err = genIndexPages(ctx, rootDirPath, request.Pages)
+		err = genIndexPages(ctx, rootDirPath, listCompName)
 		if err != nil {
 			logger.WithError(err).Error("failed to genIndexPages")
 			errChan <- err
@@ -209,142 +231,6 @@ func genTheme(ctx context.Context, rootDirPath string, theme string) error {
 	return nil
 }
 
-func (s *Service) genDatabase(ctx context.Context, rootDirPath string, projectId string) error {
-	logger := ctxlogrus.Extract(ctx).WithField("func", "genDatabase")
-
-	// call dynamic data service to get database
-	resp, err := s.adapters.dynamicData.GetCollectionMapping(ctx, &dynamicDataApi.GetCollectionMappingRequest{
-		ProjectId: projectId,
-	})
-	if err != nil {
-		logger.WithError(err).Error("failed to GetCollectionMapping from dynamic data service")
-		return err
-	}
-	jsonString, err := protojson.Marshal(resp)
-	if err != nil {
-		logger.WithError(err).Error("failed to Marshal message proto")
-		return err
-	}
-
-	jsonDataValue, err := getJsonDataValueOfDatabase(string(jsonString))
-	if err != nil {
-		logger.WithError(err).Error("failed to getJsonDataValueOfDatabase")
-		return err
-	}
-
-	content := fmt.Sprintf(
-		`type Id = number;
-		
-		type Collection = {
-			name: string;
-			dataKeys: string[];
-			dataTypes: string[];
-			documents: Record<Id, any>;
-		};
-		
-		export type Database = Record<Id, Collection>;
-		
-		export const MyDatabase: Database = %s
-	`, jsonDataValue)
-
-	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.DATABASE_DIR, constant.INDEX_TS)
-	err = util.WriteFile(ctx, filePath, []byte(content))
-	if err != nil {
-		logger.WithError(err).Error("failed to WriteFile")
-		return err
-	}
-	return nil
-}
-
-func getJsonDataValueOfDatabase(jsonString string) (string, error) {
-	var data map[string]interface{}
-	err := json.Unmarshal([]byte(jsonString), &data)
-	if err != nil {
-		return "", err
-	}
-
-	dataValue, ok := data["data"]
-	if !ok {
-		return "{}", nil
-	}
-
-	dataJSON, err := json.Marshal(dataValue)
-	if err != nil {
-		return "", err
-	}
-
-	return string(dataJSON), nil
-}
-
-func genPage(ctx context.Context, rootDirPath string, pageInfo *dto.PageInfo) error {
-	logger := ctxlogrus.Extract(ctx).WithField("func", "genPage")
-
-	components, mapIDToReactElements, propsByIds := getReactElementInfoFromNodes(pageInfo.Nodes, pageInfo.LinkedNodes)
-
-	reactElementString := mergeReactElements(pageInfo.RootID, mapIDToReactElements)
-
-	// create props
-	propsString := fmt.Sprintf("export const %s = {%s}", constant.REF_PROPS, strings.Join(propsByIds, ","))
-
-	propsFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.PROPS_TSX)
-	err := util.WriteFile(ctx, propsFilePath, []byte(propsString))
-	if err != nil {
-		logger.WithError(err).Error("failed to WriteFile")
-		return err
-	}
-
-	// create page
-	content := fmt.Sprintf(`
-		import React, { FC, ReactElement } from "react"
-   		import { %s } from "src/components"
-    	import { %s } from "./props"
-		import { useGetValuesFromReferencedProps } from "src/hooks/useGetValuesFromReferencedProps";
-
-    	const %s: FC = (): ReactElement => {
-			const props = useGetValuesFromReferencedProps(refProps);
-			return (
-				%s
-			)
-		}
-		
-		export default %s`,
-		strings.Join(components, ","), constant.REF_PROPS, pageInfo.Name, reactElementString, pageInfo.Name)
-
-	indexFilePath := fmt.Sprintf("%s/%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageInfo.Name, constant.INDEX_TSX)
-	err = util.WriteFile(ctx, indexFilePath, []byte(content))
-	if err != nil {
-		logger.WithError(err).Error("failed to WriteFile")
-		return err
-	}
-
-	return nil
-}
-
-func genIndexPages(ctx context.Context, rootDirPath string, pages []*api.Page) error {
-	logger := ctxlogrus.Extract(ctx).WithField("func", "genIndexPages")
-
-	var (
-		exportPages []string
-		importPages []string
-	)
-
-	for _, page := range pages {
-		importPages = append(importPages, fmt.Sprintf(`import %s from "./%s"`, page.Name, page.Name))
-		exportPages = append(exportPages, page.Name)
-	}
-
-	content := fmt.Sprintf("%s \n\n export {%s}", strings.Join(importPages, "\n"), strings.Join(exportPages, ","))
-
-	filePath := fmt.Sprintf(`%s/%s/%s`, rootDirPath, constant.PAGES_DIR, constant.INDEX_TS)
-
-	err := util.WriteFile(ctx, filePath, []byte(content))
-	if err != nil {
-		logger.WithError(err).Error("failed to WriteFile")
-		return err
-	}
-	return nil
-}
-
 func genRoutes(ctx context.Context, rootDirPath string, pages []*api.Page) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "genRoutes")
 
@@ -385,62 +271,8 @@ func genRoutes(ctx context.Context, rootDirPath string, pages []*api.Page) error
 	}
 	return nil
 }
-func getReactElementInfoFromNodes(nodes []*dto.Node, linkedNodes []string) ([]string, map[string]*dto.ReactElement, []string) {
-	components := strset.New()
-	mapIDToReactElements := map[string]*dto.ReactElement{}
-	propsByIds := []string{}
 
-	for _, node := range nodes {
-		if slices.Contains(linkedNodes, node.ID) {
-			continue
-		}
-		reactElement := genReactElementFromNode(node)
-		mapIDToReactElements[node.ID] = reactElement
-		components.Add(reactElement.Component)
-		propsByIds = append(propsByIds, fmt.Sprintf(`"%s": %s`, reactElement.ID, reactElement.Props))
-	}
-
-	// sort prop by id
-	sort.Slice(propsByIds, func(i, j int) bool {
-		return propsByIds[i] < propsByIds[j]
-	})
-
-	return components.List(), mapIDToReactElements, propsByIds
-}
-
-func genReactElementFromNode(node *dto.Node) *dto.ReactElement {
-	hasChildren := len(node.Children) > 0
-	elementString := getElementString(*node, hasChildren)
-
-	return &dto.ReactElement{
-		ID:            node.ID,
-		Props:         node.Props,
-		Component:     node.ComponentType,
-		ElementString: elementString,
-		Children:      node.Children,
-	}
-}
-func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactElement) string {
-	reactElement, ok := mapIDToReactElements[ID]
-	if !ok {
-		return ""
-	}
-
-	if len(reactElement.Children) == 0 {
-		return reactElement.ElementString
-	}
-
-	childrenString := ""
-	for _, childID := range reactElement.Children {
-		childrenString += mergeReactElements(childID, mapIDToReactElements)
-	}
-
-	reactElement.ElementString = strings.Replace(reactElement.ElementString, constant.KEY_CHILDREN, childrenString, 1)
-
-	return reactElement.ElementString
-}
-
-func setUpDir(ctx context.Context, rootDirPath string, pages []*api.Page) error {
+func setUpDir(ctx context.Context, rootDirPath string, pages []string, comps []string) error {
 	logger := ctxlogrus.Extract(ctx).WithField("func", "setUpDir")
 
 	err := util.CopyDirRecursively(ctx, constant.REACT_JS_BASE_DIR, rootDirPath)
@@ -449,8 +281,16 @@ func setUpDir(ctx context.Context, rootDirPath string, pages []*api.Page) error 
 		return err
 	}
 
-	for _, page := range pages {
-		err = util.CreateDir(ctx, fmt.Sprintf("%s/%s/%s", rootDirPath, constant.PAGES_DIR, page.Name))
+	for _, pageName := range pages {
+		err = util.CreateDir(ctx, fmt.Sprintf("%s/%s/%s", rootDirPath, constant.PAGES_DIR, pageName))
+		if err != nil {
+			logger.WithError(err).Error("failed to CreateDir")
+			return err
+		}
+	}
+
+	for _, compName := range comps {
+		err = util.CreateDir(ctx, fmt.Sprintf("%s/%s/%s", rootDirPath, constant.USER_COMPONENT_DIR, compName))
 		if err != nil {
 			logger.WithError(err).Error("failed to CreateDir")
 			return err
@@ -460,27 +300,67 @@ func setUpDir(ctx context.Context, rootDirPath string, pages []*api.Page) error 
 	return nil
 }
 
-func getMapPagePathToPageInfo(ctx context.Context, request *api.GenReactSourceCodeRequest) (map[string]*dto.PageInfo, error) {
-	logger := ctxlogrus.Extract(ctx).WithField("func", "getMapPagePathToPageInfo")
+func getInfoFromRequest(ctx context.Context, request *api.GenReactSourceCodeRequest) (map[string]*dto.PageInfo, map[string]*dto.ComponentInfo, []string, []string, error) {
+	logger := ctxlogrus.Extract(ctx).WithField("func", "getInfoFromRequest")
 
 	mapPagePathToPageInfo := make(map[string]*dto.PageInfo)
 	mapPagePathToPageName := make(map[string]string)
+	listPageName := make([]string, 0)
+	listCompName := make([]string, 0)
+
+	mapCompNameToCompInfo := make(map[string]*dto.ComponentInfo)
+	mapCompNametoCompRootID := make(map[string]string)
 
 	for _, page := range request.Pages {
 		page.Name = strcase.ToCamel(page.Name)
 		mapPagePathToPageName[page.Path] = page.Name
+		listPageName = append(listPageName, page.Name)
+	}
+
+	for _, component := range request.Components {
+		name := strcase.ToCamel(component.Name)
+		component.Name = name
+		mapCompNametoCompRootID[name] = fmt.Sprintf(`%s_%s`, constant.ROOT_COMP_ID_PREFIX, name)
+		listCompName = append(listCompName, name)
 	}
 
 	for _, node := range request.Nodes {
 		pagePath := node.PagePath
-		if pagePath == constant.INVALID_PAGE_PATH {
-			err := fmt.Errorf("invalid page path, node=%v", node)
-			logger.WithError(err).Error("failed to CreateDir")
-			return nil, err
+		compName := node.BelongToComponent
+
+		if pagePath == constant.INVALID_PAGE_PATH && compName == constant.INVALID_COMP_PATH {
+			err := fmt.Errorf("invalid page or comp, node=%v", node)
+			logger.WithError(err).Error("invalid")
+			return nil, nil, nil, nil, err
 		}
 
-		_, ok := mapPagePathToPageInfo[pagePath]
-		if !ok {
+		// it is/belongto component
+		if pagePath == constant.INVALID_PAGE_PATH {
+			if _, ok := mapCompNameToCompInfo[compName]; !ok {
+				mapCompNameToCompInfo[compName] = &dto.ComponentInfo{
+					RootID:         mapCompNametoCompRootID[compName],
+					Name:           compName,
+					ComponentProps: make([]string, 0),
+					CompNodes:      make(map[string]*dto.CompNode, 0),
+				}
+			}
+
+			if strings.HasPrefix(node.Id, constant.ROOT_ID_PREFIX) {
+				node.Id = mapCompNametoCompRootID[compName] // re-assign
+			}
+
+			mapCompNameToCompInfo[compName].CompNodes[node.Id] = &dto.CompNode{
+				ID:            node.GetId(), // will not use, just use for root
+				Name:          node.GetDisplayName(),
+				ComponentType: node.GetType(),
+				Children:      node.GetChildren(),
+			}
+
+			continue
+		}
+
+		// else if belong to page
+		if _, ok := mapPagePathToPageInfo[pagePath]; !ok {
 			pageName := mapPagePathToPageName[pagePath]
 
 			mapPagePathToPageInfo[pagePath] = &dto.PageInfo{
@@ -497,46 +377,16 @@ func getMapPagePathToPageInfo(ctx context.Context, request *api.GenReactSourceCo
 			mapPagePathToPageInfo[pagePath].RootID = node.Id
 		}
 		mapPagePathToPageInfo[pagePath].Nodes = append(mapPagePathToPageInfo[pagePath].Nodes, &dto.Node{
-			ID:            node.GetId(),
-			Name:          node.GetDisplayName(),
-			ComponentType: node.GetType(),
-			Props:         node.GetProps(),
-			Children:      node.GetChildren(),
+			ID:                        node.GetId(),
+			Name:                      node.GetDisplayName(),
+			ComponentType:             node.GetType(),
+			BelongToUserComponentType: compName,
+			// CorrespondingProp calc later
+			Props:    node.GetProps(),
+			Children: node.GetChildren(),
 		})
 		mapPagePathToPageInfo[pagePath].LinkedNodes = append(mapPagePathToPageInfo[pagePath].LinkedNodes, node.LinkedNodes...)
 	}
 
-	return mapPagePathToPageInfo, nil
-}
-
-func parseProps(jsonStr string) (dto.ImportantProps, error) {
-	var props dto.ImportantProps
-	err := json.Unmarshal([]byte(jsonStr), &props)
-	return props, err
-}
-
-func getElementString(node dto.Node, hasChildren bool) string {
-	id := node.ID
-	componentType := node.ComponentType
-	name := node.Name
-
-	var builder strings.Builder
-	builder.WriteString(fmt.Sprintf(`<%s`, componentType))
-
-	if name != componentType {
-		builder.WriteString(fmt.Sprintf(` name="%s"`, name))
-	}
-
-	importantProps, err := parseProps(node.Props)
-	if err == nil && importantProps.Text != "" {
-		builder.WriteString(fmt.Sprintf(` text="%s"`, importantProps.Text))
-	}
-
-	if hasChildren {
-		builder.WriteString(fmt.Sprintf(` {...%s.%s}>%s</%s>`, constant.PROPS, id, constant.KEY_CHILDREN, node.ComponentType))
-	} else {
-		builder.WriteString(fmt.Sprintf(` {...%s.%s}/>`, constant.PROPS, id))
-	}
-
-	return strings.TrimSpace(builder.String())
+	return mapPagePathToPageInfo, mapCompNameToCompInfo, listPageName, listCompName, nil
 }

@@ -4,6 +4,9 @@ go_library(
     name = "service",
     srcs = [
         "gen_code_react.go",
+        "gen_comp.go",
+        "gen_database.go",
+        "gen_page.go",
         "hello.go",
         "register_gen.go",
         "service.go",
