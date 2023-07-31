@@ -18,4 +18,4 @@ images:
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code
   newTag: "68"
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/user
-  newTag: "31"
+  newTag: "32"
