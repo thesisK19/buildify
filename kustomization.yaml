@@ -12,7 +12,7 @@ resources:
 - k8s/file-mgt-deployment.yaml
 images:
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/dynamic-data
-  newTag: "21"
+  newTag: "22"
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/file-mgt
   newTag: "24"
 - name: asia-southeast1-docker.pkg.dev/buildify-388906/buildify-registry/gen-code
