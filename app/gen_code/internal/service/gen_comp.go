@@ -17,7 +17,8 @@ func genComp(ctx context.Context, rootDirPath string, compName string, compInfo 
 
 	importComponents := strset.New()
 
-	jsx := mergeCompNode(compInfo.RootID, 0, compInfo, importComponents)
+	curIndex := constant.START_CUR_INDEX
+	jsx := mergeCompNode(compInfo.RootID, &curIndex, compInfo, importComponents)
 
 	// create comp
 	content := fmt.Sprintf(`
@@ -67,25 +68,25 @@ func genIndexComponent(ctx context.Context, rootDirPath string, compNames []stri
 
 func findComponentProps(mapCompNameToCompInfo map[string]*dto.ComponentInfo) {
 	for _, info := range mapCompNameToCompInfo {
-		curIndex := 0
+		curIndex := constant.START_CUR_INDEX
 		props := []string{}
-		recursiveCompProps(info.RootID, curIndex, &props, info)
+		recursiveCompProps(info.RootID, &curIndex, &props, info)
 		info.ComponentProps = props
 	}
 }
 
-func recursiveCompProps(id string, curIndex int, props *[]string, info *dto.ComponentInfo) {
+func recursiveCompProps(id string, curIndex *int, props *[]string, info *dto.ComponentInfo) {
 	comp := info.CompNodes[id]
-	correspondingProp := fmt.Sprintf(`%s_%d`, comp.ComponentType, curIndex)
+	correspondingProp := fmt.Sprintf(`%s_%d`, comp.ComponentType, *curIndex)
 	*props = append(*props, correspondingProp)
 
 	for _, childID := range comp.Children {
-		curIndex += 1
+		*curIndex += 1
 		recursiveCompProps(childID, curIndex, props, info)
 	}
 }
 
-func mergeCompNode(id string, curIndex int, compInfo *dto.ComponentInfo, importComponents *strset.Set) string {
+func mergeCompNode(id string, curIndex *int, compInfo *dto.ComponentInfo, importComponents *strset.Set) string {
 	node := compInfo.CompNodes[id]
 	componentType := node.ComponentType
 	importComponents.Add(componentType)
@@ -99,16 +100,16 @@ func mergeCompNode(id string, curIndex int, compInfo *dto.ComponentInfo, importC
 
 	//  case child empty
 	if len(node.Children) == 0 {
-		builder.WriteString(fmt.Sprintf(` {...%s} />`, compInfo.ComponentProps[curIndex]))
+		builder.WriteString(fmt.Sprintf(` {...%s} />`, compInfo.ComponentProps[*curIndex]))
 		return strings.TrimSpace(builder.String())
 	}
 
 	//  case child > 0
-	builder.WriteString(fmt.Sprintf(` {...%s}>`, compInfo.ComponentProps[curIndex]))
+	builder.WriteString(fmt.Sprintf(` {...%s}>`, compInfo.ComponentProps[*curIndex]))
 
 	// iteration child
 	for _, childID := range node.Children {
-		curIndex += 1
+		*curIndex += 1
 		builder.WriteString(mergeCompNode(childID, curIndex, compInfo, importComponents))
 	}
 

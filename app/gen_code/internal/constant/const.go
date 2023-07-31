@@ -15,6 +15,7 @@ const (
 	REF_PROPS           = "refProps"
 	KEY_CHILDREN        = "***"
 	KEY_CHILDREN_PROPS  = "***"
+	START_CUR_INDEX     = 0
 )
 
 const (

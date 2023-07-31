@@ -96,10 +96,12 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		err = genIndexComponent(ctx, rootDirPath, listCompName)
-		if err != nil {
-			logger.WithError(err).Error("failed to genIndexComponent")
-			errChan <- err
+		if len(listCompName) > 0 {
+			err = genIndexComponent(ctx, rootDirPath, listCompName)
+			if err != nil {
+				logger.WithError(err).Error("failed to genIndexComponent")
+				errChan <- err
+			}
 		}
 	}()
 
@@ -121,7 +123,7 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		err = genIndexPages(ctx, rootDirPath, listCompName)
+		err = genIndexPages(ctx, rootDirPath, listPageName)
 		if err != nil {
 			logger.WithError(err).Error("failed to genIndexPages")
 			errChan <- err
@@ -202,6 +204,7 @@ func formatCode(rootDirPath string) {
 	// npx prettier --write .
 	command := exec.Command("prettier", "--write",
 		fmt.Sprintf("%s/%s", rootDirPath, constant.PAGES_DIR),
+		fmt.Sprintf("%s/%s", rootDirPath, constant.USER_COMPONENT_DIR),
 		fmt.Sprintf("%s/%s", rootDirPath, constant.ROUTES_DIR),
 		fmt.Sprintf("%s/%s", rootDirPath, constant.THEME_DIR),
 		fmt.Sprintf("%s/%s", rootDirPath, constant.DATABASE_DIR),
@@ -311,13 +314,13 @@ func getInfoFromRequest(ctx context.Context, request *api.GenReactSourceCodeRequ
 	mapCompNameToCompInfo := make(map[string]*dto.ComponentInfo)
 	mapCompNametoCompRootID := make(map[string]string)
 
-	for _, page := range request.Pages {
+	for _, page := range request.GetPages() {
 		page.Name = strcase.ToCamel(page.Name)
 		mapPagePathToPageName[page.Path] = page.Name
 		listPageName = append(listPageName, page.Name)
 	}
 
-	for _, component := range request.Components {
+	for _, component := range request.GetComponents() {
 		name := strcase.ToCamel(component.Name)
 		component.Name = name
 		mapCompNametoCompRootID[name] = fmt.Sprintf(`%s_%s`, constant.ROOT_COMP_ID_PREFIX, name)
@@ -326,6 +329,7 @@ func getInfoFromRequest(ctx context.Context, request *api.GenReactSourceCodeRequ
 
 	for _, node := range request.Nodes {
 		pagePath := node.PagePath
+		node.BelongToComponent = strcase.ToCamel(node.BelongToComponent)
 		compName := node.BelongToComponent
 
 		if pagePath == constant.INVALID_PAGE_PATH && compName == constant.INVALID_COMP_PATH {

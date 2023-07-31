@@ -101,8 +101,11 @@ func getReactElementInfoFromNodes(nodes []*dto.Node, linkedNodes []string) ([]st
 			continue
 		}
 
-		components.Add(node.ComponentType)
-		userComponents.Add(node.BelongToUserComponentType)
+		if node.BelongToUserComponentType != "" {
+			userComponents.Add(node.BelongToUserComponentType)
+		} else {
+			components.Add(node.ComponentType)
+		}
 
 		reactElement := genReactElementFromNode(node)
 		mapIDToReactElements[node.ID] = reactElement
@@ -159,7 +162,8 @@ func mergeReactElements(ID string, mapIDToReactElements map[string]*dto.ReactEle
 			return ""
 		}
 
-		recursiveCorrespondingProps(ID, 0, &props, componentInfo.ComponentProps, mapIDToReactElements)
+		curIndex := constant.START_CUR_INDEX
+		recursiveCorrespondingProps(ID, &curIndex, &props, componentInfo.ComponentProps, mapIDToReactElements)
 		reactElement.ElementString = strings.Replace(elementString, constant.KEY_CHILDREN_PROPS, strings.Join(props, "\n"), 1)
 		return reactElement.ElementString
 	}
@@ -211,13 +215,13 @@ func getElementString(node dto.Node, hasChildren bool) string {
 }
 
 // Container_1={props.Container_kikYs}
-func recursiveCorrespondingProps(id string, curIndex int, resultProps *[]string, componentProps []string, mapIDToReactElements map[string]*dto.ReactElement) {
+func recursiveCorrespondingProps(id string, curIndex *int, resultProps *[]string, componentProps []string, mapIDToReactElements map[string]*dto.ReactElement) {
 	reactElement := mapIDToReactElements[id] // sure not get err
 
-	*resultProps = append(*resultProps, fmt.Sprintf(`%s={props.%s}`, componentProps[curIndex], id))
+	*resultProps = append(*resultProps, fmt.Sprintf(`%s={props.%s}`, componentProps[*curIndex], id))
 
 	for _, childID := range reactElement.Children {
-		curIndex += 1
+		*curIndex += 1
 		recursiveCorrespondingProps(childID, curIndex, resultProps, componentProps, mapIDToReactElements)
 	}
 }
