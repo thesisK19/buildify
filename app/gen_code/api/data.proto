@@ -12,9 +12,13 @@ message Node {
     repeated string children = 6;
     repeated string linked_nodes = 7;
     string page_path = 8;
+    // string component = 9;
+    string belongToComponent = 10;
 }
 
 message Page {
     string path = 1;
     string name = 2;
 }
+
+message Component { string name = 1; }
