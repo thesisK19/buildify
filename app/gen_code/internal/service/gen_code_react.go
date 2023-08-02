@@ -93,17 +93,17 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	}
 
 	// Generate index component concurrently
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		if len(listCompName) > 0 {
+	if len(listCompName) > 0 {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
 			err = genIndexComponent(ctx, rootDirPath, listCompName)
 			if err != nil {
 				logger.WithError(err).Error("failed to genIndexComponent")
 				errChan <- err
 			}
-		}
-	}()
+		}()
+	}
 
 	//
 	// Generate pages concurrently
@@ -154,7 +154,7 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	}
 
 	// format code
-	formatCode(rootDirPath)
+	formatCode(rootDirPath, len(listCompName) > 0)
 
 	// create zip file
 	err = util.ZipDir(ctx, rootDirPath, outputZipPath)
@@ -200,15 +200,25 @@ func (s *Service) doGenReactSourceCode(ctx context.Context, request *api.GenReac
 	}, nil
 }
 
-func formatCode(rootDirPath string) {
+func formatCode(rootDirPath string, formatComp bool) {
+	var command *exec.Cmd
 	// npx prettier --write .
-	command := exec.Command("prettier", "--write",
-		fmt.Sprintf("%s/%s", rootDirPath, constant.PAGES_DIR),
-		fmt.Sprintf("%s/%s", rootDirPath, constant.USER_COMPONENT_DIR),
-		fmt.Sprintf("%s/%s", rootDirPath, constant.ROUTES_DIR),
-		fmt.Sprintf("%s/%s", rootDirPath, constant.THEME_DIR),
-		fmt.Sprintf("%s/%s", rootDirPath, constant.DATABASE_DIR),
-	)
+	if formatComp {
+		command = exec.Command("prettier", "--write",
+			fmt.Sprintf("%s/%s", rootDirPath, constant.PAGES_DIR),
+			fmt.Sprintf("%s/%s", rootDirPath, constant.USER_COMPONENT_DIR),
+			fmt.Sprintf("%s/%s", rootDirPath, constant.ROUTES_DIR),
+			fmt.Sprintf("%s/%s", rootDirPath, constant.THEME_DIR),
+			fmt.Sprintf("%s/%s", rootDirPath, constant.DATABASE_DIR),
+		)
+	} else {
+		command = exec.Command("prettier", "--write",
+			fmt.Sprintf("%s/%s", rootDirPath, constant.PAGES_DIR),
+			fmt.Sprintf("%s/%s", rootDirPath, constant.ROUTES_DIR),
+			fmt.Sprintf("%s/%s", rootDirPath, constant.THEME_DIR),
+			fmt.Sprintf("%s/%s", rootDirPath, constant.DATABASE_DIR),
+		)
+	}
 	command.Stderr = os.Stderr
 	// Run the command
 	command.Run()
@@ -292,6 +302,13 @@ func setUpDir(ctx context.Context, rootDirPath string, pages []string, comps []s
 		}
 	}
 
+	if len(comps) > 0 {
+		err = util.CreateDir(ctx, fmt.Sprintf("%s/%s", rootDirPath, constant.USER_COMPONENT_DIR))
+		if err != nil {
+			logger.WithError(err).Error("failed to CreateDir")
+			return err
+		}
+	}
 	for _, compName := range comps {
 		err = util.CreateDir(ctx, fmt.Sprintf("%s/%s/%s", rootDirPath, constant.USER_COMPONENT_DIR, compName))
 		if err != nil {
