@@ -3,6 +3,1395 @@
 # http://localhost:3003
 @host = http://localhost:3003
 
+
+# 
+POST {{host}}/api/gen-react-code HTTP/1.1
+content-type: application/json
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFiYzEyMzQiLCJleHAiOjIwNDgyNzk1NTl9.E5OYv5wUlqrHuf1IPKDwD6t14XWWqVqujfd2F8LM0O4
+
+{
+  "nodes": [
+    {
+      "id": "ROOT",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[24,\"40\",0,\"40\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"ROOT\"}",
+      "displayName": "App",
+      "linkedNodes": [],
+      "children": [
+        "Container_FMvVO",
+        "Container_wfSGL",
+        "Container_IYQDo",
+        "Container_ySGXE",
+        "Container_nZwsX",
+        "Container_VTNky",
+        "Popup_VPOag"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_wfSGL",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[24,\"0\",\"0\",\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"610px\",\"styledClassNames\":{\"background\":\"\"},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_wfSGL\"}",
+      "displayName": "Introduction",
+      "linkedNodes": [],
+      "children": [
+        "Text_wzrqo",
+        "Text_KCykI",
+        "Button_ZYaya",
+        "Image_DtpiC"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_wzrqo",
+      "type": "Text",
+      "props": "{\"fontSize\":42,\"textAlign\":\"center\",\"fontWeight\":\"700\",\"color\":{\"type\":\"theme\",\"id\":1},\"margin\":[0,\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Welcome to Buildify\",\"styledClassNames\":{\"color\":\"\"},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_wzrqo\"}",
+      "displayName": "Welcome",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_KCykI",
+      "type": "Text",
+      "props": "{\"fontSize\":18,\"textAlign\":\"center\",\"fontWeight\":\"400\",\"color\":{\"type\":\"theme\",\"id\":3},\"margin\":[0,\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Effortlessly create your ideal website with Buildify's user-friendly platform\",\"styledClassNames\":{\"color\":\"\"},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_KCykI\"}",
+      "displayName": "Description",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_ZYaya",
+      "type": "Button",
+      "props": "{\"text\":\"Join now\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"40\",\"g\":\"167\",\"b\":\"69\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[16,\"0\",15,\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Join\",\"styledClassNames\":{\"color\":\"\"},\"tagName\":\"h3\"},\"width\":\"100px\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"navigate\",\"navigate\":\"/join\"},\"borderWidth\":\"0\",\"borderStyle\":\"dash\",\"borderRadius\":\"0\",\"borderColor\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"id\":\"Button_ZYaya\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_DtpiC",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://img.freepik.com/free-vector/flat-construction-landing-page_23-2148194325.jpg?w=1800&t=st=1687052476~exp=1687053076~hmac=8d139db8b0a76291e4f730d33a194582c4123cd4702042700dc3de82198e79b5\",\"width\":\"84%\",\"height\":\"327px\",\"radius\":5,\"objectFit\":\"cover\",\"id\":\"Image_DtpiC\"}",
+      "displayName": "Banner",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_FMvVO",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[4,\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":253,\"g\":253,\"b\":253,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"88px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_FMvVO\"}",
+      "displayName": "Header",
+      "linkedNodes": [],
+      "children": [
+        "Image_sLIrc",
+        "Container_nJSWU",
+        "Button_VDpnc",
+        "Button_juijI"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_nJSWU",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"center\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[0,\"16\",\"16\",38],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"88px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_nJSWU\"}",
+      "displayName": "Nav",
+      "linkedNodes": [],
+      "children": [
+        "Anchor_jmfNK",
+        "Anchor_gLywl",
+        "Anchor_pmgpo",
+        "Anchor_IHwSE"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Anchor_IHwSE",
+      "type": "Anchor",
+      "props": "{\"text\":\"Home\",\"fontSize\":{\"type\":\"theme\",\"id\":9},\"textAlign\":\"center\",\"fontWeight\":\"700\",\"background\":{\"r\":0,\"g\":0,\"b\":0,\"a\":0},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"anchorStyle\":\"outline\",\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[\"5\",\"0\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{\"fontSize\":\"\"},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"href\":\"\",\"clickType\":\"href\"},\"children\":[],\"id\":\"Anchor_IHwSE\"}",
+      "displayName": "Anchor",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Anchor_jmfNK",
+      "type": "Anchor",
+      "props": "{\"text\":\"About\",\"fontSize\":{\"type\":\"theme\",\"id\":9},\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":0,\"g\":0,\"b\":0,\"a\":0},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"anchorStyle\":\"outline\",\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[\"5\",\"0\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{\"fontSize\":\"\"},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"href\":\"\",\"clickType\":\"href\"},\"children\":[],\"id\":\"Anchor_jmfNK\"}",
+      "displayName": "Anchor",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Anchor_gLywl",
+      "type": "Anchor",
+      "props": "{\"text\":\"Products\",\"fontSize\":{\"type\":\"theme\",\"id\":9},\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":0,\"g\":0,\"b\":0,\"a\":0},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"anchorStyle\":\"outline\",\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[\"5\",\"0\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{\"fontSize\":\"\"},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"href\":\"Container_CsLmH\",\"clickType\":\"href\"},\"children\":[],\"id\":\"Anchor_gLywl\"}",
+      "displayName": "Anchor",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Anchor_pmgpo",
+      "type": "Anchor",
+      "props": "{\"text\":\"Personal\",\"fontSize\":{\"type\":\"theme\",\"id\":9},\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":0,\"g\":0,\"b\":0,\"a\":0},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"anchorStyle\":\"outline\",\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[\"5\",\"0\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{\"fontSize\":\"\"},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"href\":\"\",\"clickType\":\"href\"},\"children\":[],\"id\":\"Anchor_pmgpo\"}",
+      "displayName": "Anchor",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_sLIrc",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://drive.google.com/uc?export=view&id=1NuZppLCNTJOrYDvMHc3ky9i0qTVVlKQv\",\"width\":\"70px\",\"height\":\"73px\",\"radius\":100,\"objectFit\":\"contain\",\"id\":\"Image_sLIrc\"}",
+      "displayName": "Logo",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_VDpnc",
+      "type": "Button",
+      "props": "{\"text\":\"Sign up\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":3,\"g\":3,\"b\":255,\"a\":1},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[6,0,7,0],\"margin\":[16,9,0,\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"80px\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"Popup_VPOag\",\"clickType\":\"popup\"},\"borderWidth\":\"0\",\"borderStyle\":\"dash\",\"borderRadius\":\"0\",\"borderColor\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"id\":\"Button_VDpnc\"}",
+      "displayName": "SignUp",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_juijI",
+      "type": "Button",
+      "props": "{\"text\":\"Sign in\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":17,\"g\":234,\"b\":176,\"a\":1},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[6,0,7,0],\"margin\":[16,\"0\",0,\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"80px\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"dash\",\"borderRadius\":\"0\",\"borderColor\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"id\":\"Button_juijI\"}",
+      "displayName": "SignIn",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_VTNky",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[16,\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"102%\",\"height\":\"250px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_VTNky\"}",
+      "displayName": "Footer",
+      "linkedNodes": [],
+      "children": [
+        "Container_lKSMs",
+        "Container_Isura",
+        "Container_HhhZX"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_lKSMs",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_lKSMs\"}",
+      "displayName": "Contact",
+      "linkedNodes": [],
+      "children": [
+        "Text_wJEZx",
+        "Container_UiqFO"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_wJEZx",
+      "type": "Text",
+      "props": "{\"fontSize\":\"22\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Contact us\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_wJEZx\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_UiqFO",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"0\",\"16\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_UiqFO\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_qJUpL",
+        "Text_ZIoYm",
+        "Text_fJvZP"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_qJUpL",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"Phone: 0836256444\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_qJUpL\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_ZIoYm",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"Address: 227 Nguyễn Văn Cừ, Quận 5, TP Hồ Chí Minh, Việt Nam\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_ZIoYm\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_fJvZP",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"Email: vohoangvu.dev99@gmail.com\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_fJvZP\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_Isura",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_Isura\"}",
+      "displayName": "Branches",
+      "linkedNodes": [],
+      "children": [
+        "Text_xqqPL",
+        "Container_lyqcx"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_xqqPL",
+      "type": "Text",
+      "props": "{\"fontSize\":\"22\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Our branches\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_xqqPL\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_lyqcx",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"0\",\"16\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_lyqcx\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_xdsRM",
+        "Text_eXZnu"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_xdsRM",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"1st: Trung Tâm Tin Học\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_xdsRM\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_eXZnu",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"2st: Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_eXZnu\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_HhhZX",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_HhhZX\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_vonLz"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_vonLz",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://danviet.mediacdn.vn/296231569849192448/2022/9/15/dh-khtn-16632283614791701782653.jpg\",\"width\":\"100%\",\"height\":\"auto\",\"radius\":10,\"objectFit\":\"cover\",\"id\":\"Image_vonLz\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_IYQDo",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[8,\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_IYQDo\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_EncCY",
+        "Container_rTUbI"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_EncCY",
+      "type": "Text",
+      "props": "{\"fontSize\":\"22\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":0,\"g\":55,\"b\":196,\"a\":1},\"margin\":[24,\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Our products\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_EncCY\"}",
+      "displayName": "Products",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_rTUbI",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_rTUbI\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Container_kikYs",
+        "Container_JllTz",
+        "Container_GKEAq"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_kikYs",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"8\",\"16\",\"8\"],\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_kikYs\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_ECSlM",
+        "Text_qJwWg",
+        "Text_SjIgw",
+        "Text_tAudj",
+        "Button_tSQYp"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_ECSlM",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"100%\",\"height\":\"auto\",\"radius\":10,\"objectFit\":\"cover\",\"id\":\"Image_ECSlM\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_qJwWg",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\" Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_qJwWg\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_SjIgw",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_SjIgw\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_tAudj",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_tAudj\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_tSQYp",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"5\",\"4\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"dash\",\"borderRadius\":\"0\",\"borderColor\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"id\":\"Button_tSQYp\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_JllTz",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"8\",\"16\",\"8\"],\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_JllTz\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_KMEDB",
+        "Text_AyEwK",
+        "Text_onGwt",
+        "Text_iYJNy",
+        "Button_xltjw"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_KMEDB",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"100%\",\"height\":\"auto\",\"radius\":10,\"objectFit\":\"cover\",\"id\":\"Image_KMEDB\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_AyEwK",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\" Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_AyEwK\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_onGwt",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_onGwt\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_iYJNy",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_iYJNy\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_xltjw",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"5\",\"4\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"dash\",\"borderRadius\":\"0\",\"borderColor\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"id\":\"Button_xltjw\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_GKEAq",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"8\",\"16\",\"8\"],\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_GKEAq\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_GwKxH",
+        "Text_Vcwlk",
+        "Text_dDCRK",
+        "Text_zheVw",
+        "Button_XPKnP"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_GwKxH",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"100%\",\"height\":\"auto\",\"radius\":10,\"objectFit\":\"cover\",\"id\":\"Image_GwKxH\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_Vcwlk",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\" Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_Vcwlk\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_dDCRK",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_dDCRK\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_zheVw",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_zheVw\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_XPKnP",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"5\",\"4\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"dash\",\"borderRadius\":\"0\",\"borderColor\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"id\":\"Button_XPKnP\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "ROOT_join",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[\"40\",\"40\",\"40\",\"40\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"ROOT_join\"}",
+      "displayName": "App",
+      "linkedNodes": [],
+      "children": [
+        "Text_khtqo",
+        "Video_ynVpf"
+      ],
+      "pagePath": "/join"
+    },
+    {
+      "id": "Text_khtqo",
+      "type": "Text",
+      "props": "{\"fontSize\":\"24\",\"textAlign\":\"center\",\"fontWeight\":\"700\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[0,\"0\",32,\"0\"],\"shadow\":0,\"text\":\"Join with us\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_khtqo\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/join"
+    },
+    {
+      "id": "Video_ynVpf",
+      "type": "Video",
+      "props": "{\"videoId\":\"3AtDnEC4zak\",\"width\":\"100%\",\"height\":\"500px\",\"enabled\":false,\"id\":\"Video_ynVpf\"}",
+      "displayName": "Video",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/join"
+    },
+    {
+      "id": "Container_ySGXE",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"0\"],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_ySGXE\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_KhRqN",
+        "Container_NtPYT",
+        "Container_oPdmH"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_KhRqN",
+      "type": "Text",
+      "props": "{\"fontSize\":\"24\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":0,\"g\":55,\"b\":196,\"a\":1},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Build websites with a drag-and-drop interface. Content automatically optimises for device.\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_KhRqN\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_NtPYT",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_NtPYT\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Container_DYRJk",
+        "Container_suCjp",
+        "Container_DNBjH"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_DYRJk",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_DYRJk\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_uWmAl",
+        "Text_MoBbZ"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_uWmAl",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Create a site, no programming or design skills needed\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_uWmAl\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_MoBbZ",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_MoBbZ\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_suCjp",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_suCjp\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_XVHux",
+        "Text_Rqugp"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_XVHux",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Create a site, no programming or design skills needed\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_XVHux\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_Rqugp",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_Rqugp\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_DNBjH",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"16\",\"16\",\"16\",\"16\"],\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"33%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_DNBjH\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_xMxKy",
+        "Text_mLwNO"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_xMxKy",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Create a site, no programming or design skills needed\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_xMxKy\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_mLwNO",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"Sites makes it simple to exhibit your team's work, with easy access to all your content from Google Workspace - whether it's a Drive folder, Doc\",\"styledClassNames\":{},\"tagName\":\"h4\",\"fontStyle\":\"normal\",\"id\":\"Text_mLwNO\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_oPdmH",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"Container_oPdmH\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Button_GYEbk"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_GYEbk",
+      "type": "Button",
+      "props": "{\"text\":\"Get more information\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"5\",\"4\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"dash\",\"borderRadius\":\"0\",\"borderColor\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"id\":\"Button_GYEbk\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Popup_VPOag",
+      "type": "Popup",
+      "props": "{\"className\":\"popup\",\"titleComponent\":{\"fontSize\":\"22\",\"textAlign\":\"center\",\"fontWeight\":\"700\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"32\",\"0\"],\"shadow\":0,\"text\":\"Popup title\",\"styledClassNames\":{},\"tagName\":\"h1\"},\"contentComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"16\",\"0\"],\"shadow\":0,\"text\":\"This is a popup's content. You can edit this pop-up including title, content, call-to-action via Customize panel.\",\"styledClassNames\":{},\"tagName\":\"h4\"},\"firstButtonComponent\":{\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"background\":{\"r\":\"9\",\"g\":\"35\",\"b\":\"163\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"text\":\"Okay\",\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[\"0\",\"20\",\"0\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"20%\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"}},\"secondButtonComponent\":{\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"background\":{\"r\":\"197\",\"g\":\"8\",\"b\":\"41\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"text\":\"Close\",\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\"},\"width\":\"20%\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"}},\"containerActionsComponent\":{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-end\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"radius\":0,\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{}},\"events\":{\"showPopup\":false},\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"id\":\"Popup_VPOag\"}",
+      "displayName": "Popup",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "ROOT_a",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[\"40\",\"40\",\"40\",\"40\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":105,\"g\":105,\"b\":105,\"a\":1},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"radius\":0,\"id\":\"ROOT_a\"}",
+      "displayName": "App",
+      "linkedNodes": [],
+      "children": [
+        "Container_EMOoU",
+        "Container_bxCGL",
+        "Container_zYnja",
+        "Container_gxqXp"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_EMOoU",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",51,\"0\"],\"background\":{\"r\":238,\"g\":238,\"b\":238,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"329px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_EMOoU\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_fSjdD",
+        "Container_SvUpT"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Image_EMHVc",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"360px\",\"height\":\"100%\",\"radius\":0,\"objectFit\":\"contain\",\"id\":\"Image_EMHVc\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_SvUpT",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":246,\"g\":243,\"b\":249,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"435px\",\"height\":\"100%\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_SvUpT\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_LMOQA",
+        "Text_tSswz",
+        "Button_KSHxb"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_LMOQA",
+      "type": "Text",
+      "props": "{\"fontSize\":28,\"textAlign\":\"center\",\"fontWeight\":\"700\",\"color\":{\"r\":\"3\",\"g\":\"123\",\"b\":\"255\",\"a\":\"1\"},\"margin\":[0,\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Website Builder\",\"styledClassNames\":{},\"tagName\":\"\",\"fontStyle\":\"normal\",\"fontFamily\":\"Comic Sans MS\",\"id\":\"Text_LMOQA\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_tSswz",
+      "type": "Text",
+      "props": "{\"fontSize\":17,\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":160,\"g\":71,\"b\":71,\"a\":1},\"margin\":[4,\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Buildify makes it easy to create a website\",\"styledClassNames\":{},\"tagName\":\"body1\",\"fontStyle\":\"normal\",\"id\":\"Text_tSswz\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_KSHxb",
+      "type": "Button",
+      "props": "{\"text\":\"Join Now\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"40\",\"g\":\"167\",\"b\":\"69\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"10\",\"10\",\"10\",\"10\"],\"margin\":[22,\"0\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"100px\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":0,\"borderStyle\":\"solid\",\"borderRadius\":17,\"borderColor\":{\"r\":109,\"g\":109,\"b\":109,\"a\":1},\"id\":\"Button_KSHxb\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_bxCGL",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"center\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":251,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"99%\",\"height\":\"58px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_bxCGL\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Button_pIazx",
+        "Button_knZon",
+        "Button_uYtHm",
+        "Button_layhJ"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_layhJ",
+      "type": "Button",
+      "props": "{\"text\":\"Personal\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"background\":{\"r\":249,\"g\":237,\"b\":82,\"a\":1},\"color\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1},\"buttonStyle\":\"full\",\"padding\":[10,16,10,16],\"margin\":[\"5\",5,\"5\",5],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":25,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"fontFamily\":\"Comic Sans MS\",\"id\":\"Button_layhJ\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_pIazx",
+      "type": "Button",
+      "props": "{\"text\":\"Home\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"background\":{\"r\":249,\"g\":237,\"b\":82,\"a\":1},\"color\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1},\"buttonStyle\":\"full\",\"padding\":[10,16,10,16],\"margin\":[\"5\",5,\"5\",5],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":25,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"fontFamily\":\"Comic Sans MS\",\"id\":\"Button_pIazx\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_knZon",
+      "type": "Button",
+      "props": "{\"text\":\"About\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"background\":{\"r\":249,\"g\":237,\"b\":82,\"a\":1},\"color\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1},\"buttonStyle\":\"full\",\"padding\":[10,16,10,16],\"margin\":[\"5\",5,\"5\",5],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":25,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"fontFamily\":\"Comic Sans MS\",\"id\":\"Button_knZon\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_uYtHm",
+      "type": "Button",
+      "props": "{\"text\":\"Products\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"background\":{\"r\":249,\"g\":237,\"b\":82,\"a\":1},\"color\":{\"r\":0,\"g\":0,\"b\":0,\"a\":1},\"buttonStyle\":\"full\",\"padding\":[10,16,10,16],\"margin\":[\"5\",5,\"5\",5],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":25,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"fontFamily\":\"Comic Sans MS\",\"id\":\"Button_uYtHm\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_zYnja",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[0,0,0,0],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":246,\"g\":246,\"b\":246,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"400px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_zYnja\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Container_jQelu"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_PTayS",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[24,\"0\",30,\"0\"],\"background\":{\"r\":105,\"g\":105,\"b\":105,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"50px\",\"height\":\"4px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_PTayS\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_UQVGP",
+      "type": "Text",
+      "props": "{\"fontSize\":24,\"textAlign\":\"center\",\"fontWeight\":\"700\",\"color\":{\"r\":31,\"g\":87,\"b\":255,\"a\":1},\"margin\":[26,\"0\",34,\"0\"],\"shadow\":0,\"text\":\"Our products\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"fontFamily\":\"Arial\",\"id\":\"Text_UQVGP\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_jQelu",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":246,\"g\":246,\"b\":246,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"460px\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_jQelu\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_AWEnP",
+        "Container_PTayS",
+        "Text_yKxBw"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_yKxBw",
+      "type": "Text",
+      "props": "{\"fontSize\":\"14\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"This is a paragraph area where you can add your own text. Just click “Edit Text” or double click here to add your own content and make changes to the font. It's a great place to tell a story about your business and let users know more about you.\",\"styledClassNames\":{},\"tagName\":\"body1\",\"fontStyle\":\"normal\",\"fontFamily\":\"Georgia\",\"id\":\"Text_yKxBw\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_gxqXp",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_gxqXp\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_UQVGP",
+        "Container_FnCNh",
+        "Container_tbpME",
+        "Container_LYwGc"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_AWEnP",
+      "type": "Text",
+      "props": "{\"fontSize\":29,\"textAlign\":\"left\",\"fontWeight\":\"700\",\"color\":{\"r\":77,\"g\":77,\"b\":77,\"a\":1},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Write a title here. Click to edit and add your own.\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"fontFamily\":\"Comic Sans MS\",\"id\":\"Text_AWEnP\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_LYwGc",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"center\",\"justifyContent\":\"space-between\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",20,\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":1,\"borderStyle\":\"solid\",\"borderRadius\":0,\"borderColor\":{\"r\":209,\"g\":210,\"b\":212,\"a\":1},\"width\":\"100%\",\"height\":\"200px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_LYwGc\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_EMHVc",
+        "Container_KlUPS"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Image_fSjdD",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://images.unsplash.com/photo-1502014822147-1aedfb0676e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80\",\"width\":\"360px\",\"height\":\"100%\",\"radius\":0,\"objectFit\":\"cover\",\"id\":\"Image_fSjdD\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_tKbUV",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\" Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_tKbUV\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_ArpFz",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_ArpFz\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_bbCzR",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_bbCzR\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_oWCNU",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"5\",\"4\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"id\":\"Button_oWCNU\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_KlUPS",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[8,8,8,8],\"margin\":[12,16,16,16],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_KlUPS\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_tKbUV",
+        "Text_ArpFz",
+        "Text_bbCzR",
+        "Button_oWCNU"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_FnCNh",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"center\",\"justifyContent\":\"space-between\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",20,\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":1,\"borderStyle\":\"solid\",\"borderRadius\":0,\"borderColor\":{\"r\":209,\"g\":210,\"b\":212,\"a\":1},\"width\":\"100%\",\"height\":\"200px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_FnCNh\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_iGPMC",
+        "Container_kkGiw"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Image_iGPMC",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"360px\",\"height\":\"100%\",\"radius\":0,\"objectFit\":\"contain\",\"id\":\"Image_iGPMC\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_kkGiw",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[8,8,8,8],\"margin\":[12,16,16,16],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_kkGiw\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_hZZSO",
+        "Text_kpYFE",
+        "Text_pDeKK",
+        "Button_DRLdT"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_hZZSO",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\" Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_hZZSO\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_kpYFE",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_kpYFE\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_pDeKK",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_pDeKK\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_DRLdT",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"5\",\"4\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"id\":\"Button_DRLdT\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_tbpME",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"center\",\"justifyContent\":\"space-between\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",20,\"0\"],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":1,\"borderStyle\":\"solid\",\"borderRadius\":0,\"borderColor\":{\"r\":209,\"g\":210,\"b\":212,\"a\":1},\"width\":\"100%\",\"height\":\"200px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_tbpME\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_cudNa",
+        "Container_eiVWy"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Image_cudNa",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"360px\",\"height\":\"100%\",\"radius\":0,\"objectFit\":\"contain\",\"id\":\"Image_cudNa\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_eiVWy",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"flex-start\",\"fillSpace\":\"no\",\"padding\":[8,8,8,8],\"margin\":[12,16,16,16],\"background\":{\"r\":255,\"g\":255,\"b\":255,\"a\":1},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_eiVWy\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_fRXwR",
+        "Text_RgXRZ",
+        "Text_PkKwO",
+        "Button_MImaZ"
+      ],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_fRXwR",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\" Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_fRXwR\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_RgXRZ",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_RgXRZ\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Text_PkKwO",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_PkKwO\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Button_MImaZ",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"5\",\"4\",\"5\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"id\":\"Button_MImaZ\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/a"
+    },
+    {
+      "id": "Container_nZwsX",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_nZwsX\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_RIMZp",
+        "Container_RRvDO"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_RIMZp",
+      "type": "Text",
+      "props": "{\"fontSize\":\"24\",\"textAlign\":\"center\",\"fontWeight\":\"500\",\"color\":{\"r\":0,\"g\":55,\"b\":196,\"a\":1},\"margin\":[\"26\",\"0\",\"34\",\"0\"],\"shadow\":0,\"text\":\"Our products\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_RIMZp\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_RRvDO",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"center\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"100%\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_RRvDO\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Container_zppYt",
+        "Container_KjOnC",
+        "Container_CpZdj"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_zppYt",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"20\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"1\",\"borderStyle\":\"solid\",\"borderRadius\":0,\"borderColor\":{\"r\":\"209\",\"g\":\"210\",\"b\":\"212\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"200px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_zppYt\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_xuZYF",
+        "Container_VvQDG"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_xuZYF",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"360px\",\"height\":\"100%\",\"radius\":10,\"objectFit\":\"contain\",\"id\":\"Image_xuZYF\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_VvQDG",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"12\",\"16\",\"16\",\"16\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_VvQDG\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_rlsfN",
+        "Text_GzxiX",
+        "Text_aStTk",
+        "Button_Cqjux"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_rlsfN",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"bold\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_rlsfN\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_GzxiX",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_GzxiX\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_aStTk",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_aStTk\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_Cqjux",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"id\":\"Button_Cqjux\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_KjOnC",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"20\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"1\",\"borderStyle\":\"solid\",\"borderRadius\":0,\"borderColor\":{\"r\":\"209\",\"g\":\"210\",\"b\":\"212\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"200px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_KjOnC\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_sZHqR",
+        "Container_FEXsJ"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_sZHqR",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"360px\",\"height\":\"100%\",\"radius\":10,\"objectFit\":\"contain\",\"id\":\"Image_sZHqR\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_FEXsJ",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"12\",\"16\",\"16\",\"16\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_FEXsJ\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_fUVZx",
+        "Text_fGIlc",
+        "Text_MPKQz",
+        "Button_rjtUJ"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_fUVZx",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"bold\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_fUVZx\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_fGIlc",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_fGIlc\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_MPKQz",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_MPKQz\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_rjtUJ",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"id\":\"Button_rjtUJ\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_CpZdj",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"row\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"0\",\"0\",\"0\",\"0\"],\"margin\":[\"0\",\"0\",\"20\",\"0\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"1\",\"borderStyle\":\"solid\",\"borderRadius\":0,\"borderColor\":{\"r\":\"209\",\"g\":\"210\",\"b\":\"212\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"200px\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_CpZdj\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Image_PdDCn",
+        "Container_JWitq"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Image_PdDCn",
+      "type": "Image",
+      "props": "{\"alt\":\"alternative description\",\"src\":\"https://onewaymobile.vn/images/products/2023/01/27/large/14-pro_1662613601_1674806395.png\",\"width\":\"360px\",\"height\":\"100%\",\"radius\":10,\"objectFit\":\"contain\",\"id\":\"Image_PdDCn\"}",
+      "displayName": "Image",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Container_JWitq",
+      "type": "Container",
+      "props": "{\"flexDirection\":\"column\",\"alignItems\":\"flex-start\",\"justifyContent\":\"center\",\"fillSpace\":\"no\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"12\",\"16\",\"16\",\"16\"],\"background\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"shadow\":0,\"borderWidth\":\"0\",\"borderStyle\":\"none\",\"borderRadius\":0,\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"width\":\"auto\",\"height\":\"auto\",\"styledClassNames\":{},\"maxWidth\":\"1280px\",\"minHeight\":\"0\",\"id\":\"Container_JWitq\"}",
+      "displayName": "Container",
+      "linkedNodes": [],
+      "children": [
+        "Text_dthue",
+        "Text_GRJtU",
+        "Text_flowa",
+        "Button_rsdyz"
+      ],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_dthue",
+      "type": "Text",
+      "props": "{\"fontSize\":\"18\",\"textAlign\":\"left\",\"fontWeight\":\"bold\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Apple iPhone 14 Pro 128GB\",\"styledClassNames\":{},\"tagName\":\"h1\",\"fontStyle\":\"normal\",\"id\":\"Text_dthue\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_GRJtU",
+      "type": "Text",
+      "props": "{\"fontSize\":\"10\",\"textAlign\":\"left\",\"fontWeight\":\"400\",\"color\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"6.1-inch size, the iPhone 12 offers 5G, an OLED display, improved cameras, and Apple's A14 chip\",\"styledClassNames\":{},\"tagName\":\"paragraph\",\"fontStyle\":\"normal\",\"id\":\"Text_GRJtU\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Text_flowa",
+      "type": "Text",
+      "props": "{\"fontSize\":\"16\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":7,\"g\":24,\"b\":237,\"a\":1},\"margin\":[\"8\",\"0\",\"8\",\"0\"],\"shadow\":0,\"text\":\"10.000.000 USD\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\",\"id\":\"Text_flowa\"}",
+      "displayName": "Text",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    },
+    {
+      "id": "Button_rsdyz",
+      "type": "Button",
+      "props": "{\"text\":\"Add to cart\",\"fontSize\":\"14\",\"textAlign\":\"center\",\"fontWeight\":\"400\",\"background\":{\"r\":\"232\",\"g\":\"15\",\"b\":\"15\",\"a\":\"1\"},\"color\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"buttonStyle\":\"full\",\"padding\":[\"8\",\"8\",\"8\",\"8\"],\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"textComponent\":{\"fontSize\":\"15\",\"textAlign\":\"left\",\"fontWeight\":\"500\",\"color\":{\"r\":\"92\",\"g\":\"90\",\"b\":\"90\",\"a\":\"1\"},\"margin\":[\"0\",\"0\",\"0\",\"0\"],\"shadow\":0,\"text\":\"Text\",\"styledClassNames\":{},\"tagName\":\"h3\",\"fontStyle\":\"normal\"},\"width\":\"fit-content\",\"height\":\"auto\",\"styledClassNames\":{},\"events\":{\"pageNavigate\":\"\",\"absoluteUrlNavigate\":\"\",\"popup\":\"\",\"clickType\":\"\"},\"borderWidth\":\"0\",\"borderStyle\":\"solid\",\"borderRadius\":\"4\",\"borderColor\":{\"r\":\"217\",\"g\":\"227\",\"b\":\"234\",\"a\":\"1\"},\"id\":\"Button_rsdyz\"}",
+      "displayName": "Button",
+      "linkedNodes": [],
+      "children": [],
+      "pagePath": "/"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "name": "Home"
+    },
+    {
+      "path": "/join",
+      "name": "Join"
+    },
+    {
+      "path": "/a",
+      "name": "d"
+    }
+  ],
+  "projectId": "64a8e3b480d418b65da5788c",
+  "theme": "{\"1\":{\"value\":{\"r\":\"22\",\"g\":\"82\",\"b\":\"245\",\"a\":\"1\"},\"type\":\"color\",\"key\":\"primaryColor\",\"refNodes\":{\"Text_wzrqo\":[\"color\"]}},\"2\":{\"value\":{\"r\":\"22\",\"g\":\"82\",\"b\":\"245\",\"a\":\"1\"},\"type\":\"color\",\"key\":\"primaryTextColor\"},\"3\":{\"value\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"type\":\"color\",\"key\":\"secondaryColor\",\"refNodes\":{\"Text_KCykI\":[\"color\"]}},\"4\":{\"value\":{\"r\":\"0\",\"g\":\"0\",\"b\":\"0\",\"a\":\"1\"},\"type\":\"color\",\"key\":\"secondaryTextColor\"},\"5\":{\"value\":{\"r\":\"234\",\"g\":\"51\",\"b\":\"71\",\"a\":\"1\"},\"type\":\"color\",\"key\":\"colorRed\"},\"6\":{\"value\":{\"r\":\"255\",\"g\":\"255\",\"b\":\"255\",\"a\":\"1\"},\"type\":\"color\",\"key\":\"colorWhite\"},\"7\":{\"value\":400,\"type\":\"number\",\"key\":\"fontWeightNormal\"},\"8\":{\"value\":600,\"type\":\"number\",\"key\":\"fontWeightBold\"},\"9\":{\"value\":14,\"type\":\"number\",\"key\":\"fontSizeNormal\",\"refNodes\":{\"Anchor_IHwSE\":[\"fontSize\"],\"Anchor_jmfNK\":[\"fontSize\"],\"Anchor_gLywl\":[\"fontSize\"],\"Anchor_pmgpo\":[\"fontSize\"]}},\"10\":{\"value\":14,\"type\":\"number\",\"key\":\"fontSizeHeading1\"}}"
+}
+
+
+
 ### hello world
 POST {{host}}/api/gen-react-code HTTP/1.1
 content-type: application/json
